@@ -1,0 +1,38 @@
+<header>
+  <div class="container">
+    <a routerLink="/" class="logo">Pen Tablet App</a>
+    <nav>
+      <ul>
+        <li>
+          <a routerLink="">Tabletas Gráficas</a>
+        </li>
+
+        <li>
+          <a routerLink="">Monitores Gráficos</a>
+        </li>
+
+        <li>
+          <a routerLink="">Contacto</a>
+        </li>
+
+        <li *ngIf="!usuario">
+          <a routerLink="/login">Login</a>
+        </li>
+        
+        <li class="menu-container" *ngIf="usuario">
+          <a routerLink="">{{usuario}}</a>
+          <div class="menu">
+            <a routerLink="/perfil">Perfil</a>
+            <a>Cerrar Sesión</a>
+          </div>
+        </li>
+        
+        <li>
+          <a routerLink="/carrito">
+            Carrito <span>2</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
