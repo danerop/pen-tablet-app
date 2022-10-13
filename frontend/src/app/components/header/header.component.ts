@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
@@ -12,12 +12,14 @@ export class HeaderComponent implements OnInit {
 
   usuario: String;
 
+  @Input() username!: String;
+
   constructor() {
-    this.usuario = "Hector";
+    this.usuario = "";
   }
 
   ngOnInit(): void {
     
   }
-
+  
 }

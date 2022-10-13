@@ -1,1 +1,17 @@
-<app-header></app-header><!-- importa el componente header -->
+<app-header [username]="username"></app-header> <!-- importa el componente header -->
+
+<div *ngIf="username; then thenBlock; else elseBlock"></div>
+<ng-template #thenBlock>
+  <p>Bienvenido {{ username }}</p>
+</ng-template>
+<ng-template #elseBlock>
+  <p>Nos gustaria saludarlo, cual es su nombre?</p>
+</ng-template>
+
+<div [formGroup]="formGroup">
+  <input id="username" formControlName="username" />
+</div>
+<button (click)="onSubmit()">Submit</button>
+
+
+<app-footer></app-footer>
