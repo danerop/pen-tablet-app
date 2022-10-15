@@ -1,0 +1,17 @@
+<div class="container" style="margin: 1em auto;">
+  <div class="row">
+    <div *ngFor="let product of productos" class="col-3" style="margin-bottom: 1em;">
+      <div class="card">
+        <a routerLink="producto">
+          <img src="{{product.imgUrl}}" class="card-img-top" alt="Imagen de {{product.nombre}}"/>
+        </a>
+        <div class="card-body">
+          <a routerLink="producto">
+            <h5 class="card-title">{{product.nombre}}</h5>
+          </a>
+          <p class="card-text">$ {{product.precio}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
