@@ -1,0 +1,36 @@
+<!--Después ver donde va esto, si va con lista de pedidos o en un modal aparte-->
+<h3>Carrito de compras</h3>
+<table class="table-primary table-striped">
+    <thead>
+        <tr>
+            <th>
+                Tabletas
+            </th>
+            <th>
+                Cantidad
+            </th>
+            <th>
+                Precio unitario
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <ng-container *ngfor="let Tabletas of tablets">
+            <tr>
+                <td>
+                    {{tablets.name}}
+                </td>
+                <td>
+                    {{tablets.quantity}}
+                </td>
+                <td>
+                    {{tablets.price | currency:'ARS'}} 
+                </td>
+            </tr>
+        </ng-container>
+    </tbody>
+</table>
+<p class="text-end">Total {{total | currency:'ARS'}}</p>
+<div class="text-end"> 
+    <button>Comprar</button>
+</div>
