@@ -1,5 +1,10 @@
-<app-header [username]="username"></app-header> <!-- importa el componente header -->
+<app-header [username]="username"></app-header>
 
+<router-outlet></router-outlet> <!-- agrega los componentes correspondientes a la url, según app-routing.module.ts -->
+
+<app-footer></app-footer>
+
+<!--
 <div *ngIf="username; then thenBlock; else elseBlock"></div>
 <ng-template #thenBlock>
   <p>Bienvenido {{ username }}</p>
@@ -12,6 +17,4 @@
   <input id="username" formControlName="username" />
 </div>
 <button (click)="onSubmit()">Submit</button>
-
-
-<app-footer></app-footer>
+-->
