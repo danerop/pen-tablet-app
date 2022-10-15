@@ -1,36 +1,43 @@
 <!--Después ver donde va esto, si va con lista de pedidos o en un modal aparte-->
-<h3>Carrito de compras</h3>
-<table class="table-primary table-striped">
-    <thead>
-        <tr>
-            <th>
-                Tabletas
-            </th>
-            <th>
-                Cantidad
-            </th>
-            <th>
-                Precio unitario
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        <ng-container *ngfor="let Tabletas of tablets">
+<div class="container">
+    <h3 class="text-center">Carrito de compras</h3>
+    <table class="table">
+        <thead>
             <tr>
-                <td>
-                    {{tablets.name}}
-                </td>
-                <td>
-                    {{tablets.quantity}}
-                </td>
-                <td>
-                    {{tablets.price | currency:'ARS'}} 
-                </td>
+                <th>
+                    Tabletas
+                </th>
+                <th>
+                    Cantidad
+                </th>
+                <th>
+                    Precio unitario
+                </th>
+                <th>
+                </th>
             </tr>
-        </ng-container>
-    </tbody>
-</table>
-<p class="text-end">Total {{total | currency:'ARS'}}</p>
-<div class="text-end"> 
-    <button>Comprar</button>
+        </thead>
+        <tbody>
+                <tr *ngFor="let tablet of compras">
+                    <td>
+                        {{tablet.nombre}}
+                    </td>
+                    <td>
+                        {{tablet.cantidad}} 
+                    </td>
+                    <td>
+                        {{tablet.precio | currency}} 
+                    </td>
+                    <td>
+                        <button class="btn btn-primary me-2" (click)='agregar(tablet.id);'>+</button> 
+                        <button class="btn btn-primary me-2" (click)='eliminar(tablet.id);'>-</button> 
+                        <button class="btn btn-primary">x</button>
+                    </td>
+                </tr>
+        </tbody>
+    </table>
+    <p class="text-end">Total {{total | currency}}</p>
+    <div class="text-end"> 
+        <button>Comprar</button>
+    </div>
 </div>
