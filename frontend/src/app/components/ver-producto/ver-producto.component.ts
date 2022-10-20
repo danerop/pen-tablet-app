@@ -1,10 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-
-let producto = {
-  nombre: 'HUION HS64',
-  precio: 12000,
-  
-};
+import { Producto } from 'src/app/models/producto';
+import { ProductoService } from 'src/app/services/producto.service';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
   selector: 'app-ver-producto',
@@ -12,10 +10,24 @@ let producto = {
   styleUrls: ['./ver-producto.component.css']
 })
 export class VerProductoComponent implements OnInit {
-  producto = producto;
-  constructor() { }
+  producto:Producto = new Producto;
+  prodIdParam:number=0;
+  productoService:ProductoService;
+  constructor(
+      private _productoService:ProductoService,
+      private route: ActivatedRoute
+  ) {
+    this.productoService = _productoService;
+  }
 
   ngOnInit(): void {
+    this.route.queryParams.subscribe(params => {
+      this.prodIdParam = params['prodId'];
+      this.producto = this.productoService.getById(this.prodIdParam);
+    });
+    
+    console.log(this.producto);
+    console.log(Object.getPrototypeOf(this.producto));
   }
 
 }

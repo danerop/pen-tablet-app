@@ -2,11 +2,12 @@
   <div class="row">
     <div *ngFor="let product of productos" class="col-3" style="margin-bottom: 1em;">
       <div class="card">
-        <a routerLink="producto">
+        <a routerLink="producto" 
+        [queryParams]="{prodId: product.id }">
           <img src="{{product.imgUrl}}" class="card-img-top" alt="Imagen de {{product.nombre}}"/>
         </a>
         <div class="card-body">
-          <a routerLink="producto">
+          <a routerLink="producto" [queryParams]="{prodId: product.id}">
             <h5 class="card-title">{{product.nombre}}</h5>
           </a>
           <p class="card-text">$ {{product.precio}}</p>
