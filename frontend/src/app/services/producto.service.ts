@@ -3,9 +3,6 @@ import { Injectable } from '@angular/core';
 import { productosDeEjemplo } from '../data';
 import { Producto } from '../models/producto';
 
-import { Observable, throwError } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
-
 
 @Injectable({
   providedIn: 'root'
