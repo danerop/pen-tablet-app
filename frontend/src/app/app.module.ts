@@ -8,13 +8,19 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { LoginComponent } from './components/login/login.component';
+import { VerProductoComponent } from './components/ver-producto/ver-producto.component';
+import { ListaProductosComponent } from './components/lista-productos/lista-productos.component';
+import { CarritoComponent } from './components/carrito/carrito.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    LoginComponent
+    LoginComponent,
+    VerProductoComponent,
+    ListaProductosComponent,
+    CarritoComponent
   ],
   imports: [
     BrowserModule,
