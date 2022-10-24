@@ -3,7 +3,23 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  firebaseConfig: {
+
+    apiKey: "AIzaSyCjGMpRnooplnf424FzEQCO893EjYhlxME",
+  
+    authDomain: "pentablet-auth.firebaseapp.com",
+  
+    projectId: "pentablet-auth",
+  
+    storageBucket: "pentablet-auth.appspot.com",
+  
+    messagingSenderId: "155094952371",
+  
+    appId: "1:155094952371:web:861d5c8975da84f86a83c6"
+  
+  }
+
 };
 
 /*

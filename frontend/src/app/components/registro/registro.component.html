@@ -1,0 +1,45 @@
+<div class="login" >
+    <form (ngSubmit)="registrar()" [formGroup]="regitrarUsuario" class="custom-form" method="post">
+      <h1>Sing up</h1>
+      <input
+      type="text"
+      id="nombre"
+      placeholder="Ingrese Nombre"
+      required="required"
+      formControlName="nombre"
+    />
+    <input
+    type="text"
+    id="Apellido"
+    placeholder="Ingrese Apellido"
+    required="required"
+    formControlName="apellido"
+  />
+    
+      <input
+        type="email"
+        id="email"
+        placeholder="Ingrese email"
+        required="required"
+        formControlName="email"
+      />
+      <input
+        type="password"
+        id="password"
+        placeholder="Ingrese contraseña"
+        required="required"
+        formControlName="password"
+      />
+      <input
+      type="password"
+      id="password"
+      placeholder="Repita la contraseña"
+      required="required"
+      formControlName="repetirPassword"
+    />
+      <button type="submit">Registrar</button>
+      <div>
+        <p class="mt-3">Tienes cuenta? <a routerLink="/login">Inicie sesion</a></p>
+      </div>
+    </form>
+  </div>
