@@ -45,11 +45,14 @@ app.use((req, res, next) => {
 let producto = 
 app.use(express.json());
 
+app.get('/api/prod-list', (req, res) => {
+    res.status(200).json(ProductosDeEjemploJson);
+});
+
 app.get('/api/prodId/:id', (req, res) => {
     console.log('Invocacion nueva');
     idParam = req.params.id;
     let productoEncontrado = ProductosDeEjemploJson.find(producto => producto.id == idParam);
-    console.log(productoEncontrado);
     res.json(productoEncontrado);
 });
 

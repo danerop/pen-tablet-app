@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { productosDeEjemplo } from '../data';
 import { Producto } from '../models/producto';
 
@@ -12,7 +13,15 @@ export class ProductoService {
   constructor(private _http:HttpClient) {}
 
   getAll():Producto[]{
-    return productosDeEjemplo;
+    let lista_productos:Producto[] = [];
+    
+    this._http.get<Producto[]>('/api/prod-list').subscribe( (data:Producto[]) => {
+      for(let i of data){
+        lista_productos.push(i);
+      }
+    });
+
+    return lista_productos;
   }
 
   getById(idParam:number):Producto{
