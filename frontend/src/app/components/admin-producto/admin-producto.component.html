@@ -1,0 +1,136 @@
+
+<h2 class="text-center my-3">Admin Producto</h2>
+<div class="container d-flex justify-content-center">
+    <div class="accordion col-lg-7" id="accordionBasic">
+        <!--Crear Producto-->
+        <div class="accordion-item">
+        <h2 class="accordion-header" id="headingOne">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                <h4>Crear Producto</h4>
+            </button>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionBasic">
+            <div class="accordion-body">
+                <form (ngSubmit)="crearProducto()" [formGroup]="crearProductoForm" class="custom-form" method="post">
+                    <input
+                    class="form-control mb-1"
+                    type="text"
+                    id="nombreProd"
+                    placeholder="Ingrese Nombre del Producto"
+                    required="required"
+                    formControlName="nombreProd"
+                    />
+                    <input
+                    class="form-control mb-1"
+                    type="text"
+                    id="descripcionProd"
+                    placeholder="Ingrese descripción del Producto"
+                    required="required"
+                    formControlName="descripcionProd"
+                    />
+                    <input
+                    class="form-control mb-1"
+                    type="text"
+                    id="clasificacionProd"
+                    placeholder="Ingrese clasificación del Producto"
+                    required="required"
+                    formControlName="clasificacionProd"
+                    />
+                    <input
+                    class="form-control mb-1"
+                    type="number"
+                    id="precioProd"
+                    placeholder="Ingrese precio del Producto"
+                    required="required"
+                    formControlName="precioProd"
+                    />
+                    <button type="submit" class="btn btn-primary w-100 fs-4">Crear</button>
+                  </form>
+            </div>
+        </div>
+        </div>
+
+        <!--Editar Producto-->
+        <div class="accordion-item">
+        <h2 class="accordion-header" id="headingTwo">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                <h4>Editar Producto</h4>
+            </button>
+        </h2>
+        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionBasic">
+            <div class="accordion-body">
+                <form (ngSubmit)="editarProducto()" [formGroup]="crearProductoForm" class="custom-form" method="post">
+                    <select 
+                    class="form-select mb-2"
+                    name="nombreProd" 
+                    id="nombreProd">
+                        <option value="" disabled selected> Seleccione Un Producto a Editar</option>
+                        <option value="">prodEjemplo1</option>
+                        <option value="">prodEjemplo2</option>
+                        <option value="">prodEjemplo3</option>
+                    </select>
+
+                    <input
+                    class="form-control mb-1"
+                    type="text"
+                    id="nombreProd"
+                    placeholder="Ingrese Nombre del Producto"
+                    required="required"
+                    formControlName="nuevonombreProd"
+                    />
+                    <input
+                    class="form-control mb-1"
+                    type="text"
+                    id="descripcionProd"
+                    placeholder="Ingrese descripción del Producto"
+                    required="required"
+                    formControlName="nuevaDescripcionProd"
+                    />
+                    <input
+                    class="form-control mb-1"
+                    type="text"
+                    id="clasificacionProd"
+                    placeholder="Ingrese clasificación del Producto"
+                    required="required"
+                    formControlName="nuevaClasificacionProd"
+                    />
+                    <input
+                    class="form-control mb-1"
+                    type="number"
+                    id="precioProd"
+                    placeholder="Ingrese precio del Producto"
+                    required="required"
+                    formControlName="nuevoPrecioProd"
+                    />
+                    <button type="submit" class="btn btn-warning w-100 fs-4">Guardar Cambios</button>
+                  </form>
+            </div>
+        </div>
+        </div>
+
+        <!--Eliminar Producto-->
+        <div class="accordion-item">
+        <h2 class="accordion-header te" id="headingThree">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                <h4>Eliminar Producto</h4>
+            </button>
+        </h2>
+        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionBasic">
+            <div class="accordion-body">
+                <form (ngSubmit)="eliminarProducto()" [formGroup]="crearProductoForm" class="custom-form" method="post">
+
+                    <select 
+                    class="form-select mb-2"
+                    name="nombreProd" 
+                    id="nombreProd">
+                        <option value="" disabled selected> Seleccione Un Producto a Eliminar</option>
+                        <option value="">prodEjemplo1</option>
+                        <option value="">prodEjemplo2</option>
+                        <option value="">prodEjemplo3</option>
+                    </select>
+                    <button type="submit" class="btn btn-danger w-100 fs-4">Eliminar</button>
+                  </form>
+        </div>
+        </div>
+    </div>
+</div>

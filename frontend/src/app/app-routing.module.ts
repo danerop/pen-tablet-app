@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AdminProductoComponent } from './components/admin-producto/admin-producto.component';
 import { CarritoComponent } from './components/carrito/carrito.component';
 import { ListaProductosComponent } from './components/lista-productos/lista-productos.component';
 import { LoginComponent } from './components/login/login.component';
@@ -17,7 +18,9 @@ const routes: Routes = [
   {path: "singUp", component: RegistroComponent},//pagina de registro
   {path: "recuperarContrasenia", component:RecuperarContaseniaComponent},//pagina de recupero de contraseña
   {path: "verificado", component: VerificarEmailComponent},//pagina de verificaciond e email
+  {path: "adminProducto", component:AdminProductoComponent},
   {path: "**", redirectTo:"listaDeProductos", pathMatch:"full"}   //si modifica la url y no ingresa nada va a productos
+
 ];
 
 @NgModule({
