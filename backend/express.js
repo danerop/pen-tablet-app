@@ -63,6 +63,22 @@ app.post('/api/createProduct', (req, res) => {
     })
 });
 
+app.post('/api/editProduct', (req, res) => {
+    console.log("Petición para editar producto RECIBIDA");
+    
+    res.json({
+        accion: "Editar Producto"
+    })
+});
+
+app.post('/api/deleteProduct', (req, res) => {
+    console.log("Petición para editar producto RECIBIDA");
+    
+    res.json({
+        accion: "Editar Producto"
+    })
+});
+
 app.put('/', (req, res) => {
     res.send(`Hello World! ${req.method}`)
 });
