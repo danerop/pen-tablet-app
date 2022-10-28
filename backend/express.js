@@ -53,12 +53,13 @@ app.get('/api/prodId/:id', (req, res) => {
     res.json(productoEncontrado);
 });
 
-app.post('/', (req, res) => {
-    console.log("JSON:" + JSON.stringify(req.body));
-    //let body = JSON.parse(req.body);
-    //res.send(`Hello World! ${req.method} : ${req.body.usuario}`)
+app.post('/api/createProduct', (req, res) => {
+    let productoACrear = req.body; //Esto es un Objeto
+    console.log("Petición para crear producto RECIBIDA");
+    console.log("Producto Recibido --> " + productoACrear );
+    
     res.json({
-        bienvenido: `${req.body.usuario}`
+        "Producto a Crear": productoACrear
     })
 });
 
