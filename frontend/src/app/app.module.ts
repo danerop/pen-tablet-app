@@ -17,6 +17,7 @@ import { VerificarEmailComponent } from './components/verificar-email/verificar-
 import { RecuperarContaseniaComponent } from './components/recuperar-contasenia/recuperar-contasenia.component';
 import { SpinnerComponent } from './shared/spinner/spinner.component';
 import { environment } from 'src/environments/environment';
+import { AdminProductoComponent } from './components/admin-producto/admin-producto.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { environment } from 'src/environments/environment';
     RegistroComponent,
     VerificarEmailComponent,
     RecuperarContaseniaComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    AdminProductoComponent
   ],
   imports: [
     BrowserModule,
