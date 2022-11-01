@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import{AngularFireAuth} from '@angular/fire/compat/auth'; //es el que nso permite enviar los datos del form
+import { ToastrService } from 'ngx-toastr';
+import { NgxSpinnerService } from "ngx-spinner";
+import{Router} from '@angular/router';
+import { FirebaseCodeErrorService } from 'src/app/services/firebase-code-error.service';
+
+
 
 @Component({
   selector: 'app-registro',
@@ -11,13 +17,20 @@ export class RegistroComponent implements OnInit {
 
   regitrarUsuario: FormGroup;
 
-  constructor(private fb: FormBuilder, private afAuth: AngularFireAuth) {
+  constructor(
+    private fb: FormBuilder, 
+    private afAuth: AngularFireAuth, 
+    private toastr: ToastrService,
+    private spinner: NgxSpinnerService, 
+    private router: Router,
+    private firebaseError:FirebaseCodeErrorService ) {
     this.regitrarUsuario=this.fb.group({
       email:['',Validators.required],
       nombre:['',Validators.required],
       apellido:['',Validators.required],
       password:['',Validators.required],
       repetirPassword:['',Validators.required],
+     
     })
    }
 
@@ -30,12 +43,28 @@ export class RegistroComponent implements OnInit {
     const nombre = this.regitrarUsuario.value.nombre;
     const password = this.regitrarUsuario.value.password;
     const repetPassword = this.regitrarUsuario.value.repetirPassword;
+    const dir = this.regitrarUsuario.value.direccion;
 
-    this.afAuth.createUserWithEmailAndPassword(email,password).then((user)=>{ //es un mentodo que pasa el email y la contraseña
+    if (password !== repetPassword) {
+      this.toastr.error('Las contaseñas ingresadas deben ser las mismas', "Error");
+      return;
+    }
+    this.spinner.show();
+   
+    this.afAuth.
+    createUserWithEmailAndPassword(email,password)
+    .then((user)=>{ //es un mentodo que pasa el email y la contraseña
       console.log(user);
+      this.spinner.hide();
+      this.toastr.success('El usuario se creo exitosamente','Exito');
+      this.router.navigate(["/login"]);
     
   }).catch((error)=>{
     console.log(error);
+    this.spinner.hide();
+    this.toastr.error(this.firebaseError.firebaseError(error.code),'Error');
   })
   }
+
+
 }
