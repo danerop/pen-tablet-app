@@ -13,18 +13,24 @@ var connection = mysql.createConnection({
     }else{
        console.log('Conexion correcta.');
     }
+    global.db = connection;
  });
 
-   //ESTO SERVIRÍA PARA LISTAR TODOS LOS PRODUCTOS, HAY QUE LLEVARLO AL CONTROLLER
- var query = connection.query(
-     'SELECT * FROM productos p LEFT JOIN clasificacion c ON p.clasificacion = c.id', [], 
-     function(error, result){
-        if(error){
-            throw error;
-        }else{
-            console.log(result);
-        }
-    }
- );
 
  connection.end();
+
+
+ // import routes
+const productRoutes = require('./routes/productos');
+const orderRoutes = require('./routes/carrito');
+
+/*
+app.get('/', function (request, response, next) {
+    db.query("SELECT * FROM category", function (error, rows) {
+        return response.json(rows);
+    });
+});*/
+
+// set routes to api
+app.use('/api/product', productRoutes);
+app.use('/api/order', orderRoutes);
