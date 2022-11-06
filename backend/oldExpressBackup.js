@@ -1,19 +1,3 @@
-//Setting up MySQL
-
-const mysql = require('mysql2/promise');
-const pool = mysql.createPool({
-    host: 'localhost',
-    user: 'root',
-    password: 'Manumanu08',
-    database: 'pentablet',
-    port: 3306
-});
-
-//pool.query SIEMPRE retorna un array
-
-
-////////
-
 const _ = require('lodash');
 const fs = require('fs');
 
@@ -62,30 +46,17 @@ app.use((req, res, next) => {
 let producto = 
 app.use(express.json());
 
-app.get('/api/prodId/:id', async (req, res) => {
+app.get('/api/prodId/:id', (req, res) => {
     console.log('Petición para retornar un producto a partir de su ID');
-    
     idParam = req.params.id;
-
-    let consulta = 
-        `select p.id,p.nombre,p.descripcion, c.nombre as clasificacion, p.precio,p.imgUrl ` +
-        `from productos p join clasificacion c on p.clasificacion = c.id `+
-        `where p.id = ${idParam}`;
-
-    const [result] = await pool.query(consulta);
-    console.log(result);
-
-    res.json(result[0]);    //es un resultado UNICO
+    let productoEncontrado = ProductosDeEjemploJson.find(producto => producto.id == idParam);
+    console.log(productoEncontrado);
+    res.json(productoEncontrado);
 });
 
-app.get('/api/getAllProducts', async (req, res) => {
+app.get('/api/getAllProducts', (req, res) => {
     console.log('Petición para retornar todos los productos');
-
-    const [result] = await pool.query('select * from productos');
-    
-    console.log(result);
-    
-    res.json(result);
+    res.json(ProductosDeEjemploJson);
 });
 
 app.post('/api/createProduct', (req, res) => {
