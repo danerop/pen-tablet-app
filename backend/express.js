@@ -1,14 +1,7 @@
 //Setting up MySQL
 
-const mysql = require('mysql2/promise');
-const pool = mysql.createPool({
-    host: 'localhost',
-    user: 'root',
-    password: 'Manumanu08',
-    database: 'pentablet',
-    port: 3306
-});
-
+const prodController = require("./controller/productosController");
+const carritoController = require("./controller/carritoController");
 //pool.query SIEMPRE retorna un array
 
 
@@ -21,21 +14,6 @@ const express = require('express');
 const app = express();
 const port = 3000;
 
-let ProductosDeEjemploJson;
-let jsonDirectory = './JsonExamples/productosExample.json' 
-
-fs.readFile(jsonDirectory, 'utf-8', (err, jsonString) =>{
-    if(err){
-        console.log(err)
-    } else{
-        try{
-            ProductosDeEjemploJson = JSON.parse(jsonString);
-        }
-        catch(err){
-            console.log("Error parsing JSON ",err);
-        }
-    }
-});
 
 let isLogin = () => true;
 
@@ -66,25 +44,19 @@ app.get('/api/prodId/:id', async (req, res) => {
     console.log('Petición para retornar un producto a partir de su ID');
     
     idParam = req.params.id;
-
-    let consulta = 
-        `select p.id,p.nombre,p.descripcion, c.nombre as clasificacion, p.precio,p.imgUrl ` +
-        `from productos p join clasificacion c on p.clasificacion = c.id `+
-        `where p.id = ${idParam}`;
-
-    const [result] = await pool.query(consulta);
+    
+    const result = await prodController.getProductById(idParam);
+    
     console.log(result);
 
-    res.json(result[0]);    //es un resultado UNICO
+    res.json(result);    //es un resultado UNICO
 });
 
 app.get('/api/getAllProducts', async (req, res) => {
     console.log('Petición para retornar todos los productos');
 
-    const [result] = await pool.query('select * from productos');
-    
-    console.log(result);
-    
+    const result = await prodController.getAllProducts();
+
     res.json(result);
 });
 
@@ -142,8 +114,3 @@ app.delete('/', (req, res) => {
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}!`)
 });
-
-
-function findById(id){
-    return ProductosDeEjemploJson.find(producto => producto.id == id);
-}
