@@ -51,9 +51,8 @@ export class RegistroComponent implements OnInit {
     }
     this.spinner.show();
    
-    this.afAuth.
-    createUserWithEmailAndPassword(email,password)
-    .then((user)=>{ //es un mentodo que pasa el email y la contraseña
+   
+    this.afAuth.createUserWithEmailAndPassword(email,password).then((user)=>{ //es un mentodo que pasa el email y la contraseña
       console.log(user);
       this.spinner.hide();
       this.toastr.success('El usuario se creo exitosamente','Exito');

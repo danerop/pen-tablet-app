@@ -42,8 +42,7 @@ export class LoginComponent implements OnInit {
       console.log(user);
       this.spinner.hide();
       this.toastr.success('Has iniciado sesion','Exito');
-      this.router.navigate(["/listaDeProductos"]);
-      
+      this.router.navigate(["/listaDeProductos"]);    
     }).catch((error)=>{
       console.error;
       this.spinner.hide();
