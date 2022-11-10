@@ -5,11 +5,17 @@
     <nav>
       <ul>
         <li>
-          <a routerLink="">Tabletas Gráficas</a>
+          <a routerLink="/listaPorClasificacion" 
+            [queryParams]="{idClasificacion:1}">
+          Tabletas Gráficas
+        </a>
         </li>
 
         <li>
-          <a routerLink="">Monitores Gráficos</a>
+          <a routerLink="/listaPorClasificacion"
+            [queryParams]="{idClasificacion:2}">
+            Monitores Gráficos
+          </a>
         </li>
 
         <li>

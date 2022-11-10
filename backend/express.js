@@ -60,6 +60,18 @@ app.get('/api/getAllProducts', async (req, res) => {
     res.json(result);
 });
 
+app.get('/api/getByClasificacion/:idClasificacion' , async (req,res) =>{
+    console.log('Peticion para obtener productos según clasificación');
+
+    idClass = req.params.idClasificacion;
+
+    const result = await prodController.getProductsByIdClasificacion(idClass);
+    
+    console.log(result);
+
+    res.json(result);
+});
+
 app.post('/api/createProduct', (req, res) => {
     let productoACrear = req.body; //Esto es un Objeto
     console.log("Petición para crear producto RECIBIDA");
@@ -112,5 +124,5 @@ app.delete('/', (req, res) => {
 
 
 app.listen(port, () => {
-    console.log(`Example app listening on port ${port}!`)
+    console.log(`App listening on port ${port}!`)
 });

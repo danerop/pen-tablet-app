@@ -18,6 +18,7 @@ import { RecuperarContaseniaComponent } from './components/recuperar-contasenia/
 import { SpinnerComponent } from './shared/spinner/spinner.component';
 import { environment } from 'src/environments/environment';
 import { AdminProductoComponent } from './components/admin-producto/admin-producto.component';
+import { ListaPorTipoComponent } from './components/lista-por-tipo/lista-por-tipo.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { AdminProductoComponent } from './components/admin-producto/admin-produc
     VerificarEmailComponent,
     RecuperarContaseniaComponent,
     SpinnerComponent,
-    AdminProductoComponent
+    AdminProductoComponent,
+    ListaPorTipoComponent
   ],
   imports: [
     BrowserModule,
