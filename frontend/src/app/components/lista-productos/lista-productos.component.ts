@@ -12,7 +12,11 @@ export class ListaProductosComponent implements OnInit {
   productos:Producto[] = [];
 
   constructor(private productoService:ProductoService) {
-    productoService.getAll2().subscribe(productosDelBack => this.productos = productosDelBack);
+    productoService.getAll2().subscribe(
+      productosDelBack => {
+        this.productos = productosDelBack
+        console.log(this.productos);
+      });
   }
 
   ngOnInit(): void {

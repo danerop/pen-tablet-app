@@ -1,3 +1,12 @@
+//Setting up MySQL
+
+const prodController = require("./controller/productosController");
+const carritoController = require("./controller/carritoController");
+//pool.query SIEMPRE retorna un array
+
+
+////////
+
 const _ = require('lodash');
 const fs = require('fs');
 
@@ -5,21 +14,6 @@ const express = require('express');
 const app = express();
 const port = 3000;
 
-let ProductosDeEjemploJson;
-let jsonDirectory = './JsonExamples/productosExample.json' 
-
-fs.readFile(jsonDirectory, 'utf-8', (err, jsonString) =>{
-    if(err){
-        console.log(err)
-    } else{
-        try{
-            ProductosDeEjemploJson = JSON.parse(jsonString);
-        }
-        catch(err){
-            console.log("Error parsing JSON ",err);
-        }
-    }
-});
 
 let isLogin = () => true;
 
@@ -46,17 +40,36 @@ app.use((req, res, next) => {
 let producto = 
 app.use(express.json());
 
-app.get('/api/prodId/:id', (req, res) => {
+app.get('/api/prodId/:id', async (req, res) => {
     console.log('Petición para retornar un producto a partir de su ID');
+    
     idParam = req.params.id;
-    let productoEncontrado = ProductosDeEjemploJson.find(producto => producto.id == idParam);
-    console.log(productoEncontrado);
-    res.json(productoEncontrado);
+    
+    const result = await prodController.getProductById(idParam);
+    
+    console.log(result);
+
+    res.json(result);    //es un resultado UNICO
 });
 
-app.get('/api/getAllProducts', (req, res) => {
+app.get('/api/getAllProducts', async (req, res) => {
     console.log('Petición para retornar todos los productos');
-    res.json(ProductosDeEjemploJson);
+
+    const result = await prodController.getAllProducts();
+
+    res.json(result);
+});
+
+app.get('/api/getByClasificacion/:idClasificacion' , async (req,res) =>{
+    console.log('Peticion para obtener productos según clasificación');
+
+    idClass = req.params.idClasificacion;
+
+    const result = await prodController.getProductsByIdClasificacion(idClass);
+    
+    console.log(result);
+
+    res.json(result);
 });
 
 app.post('/api/createProduct', (req, res) => {
@@ -111,10 +124,5 @@ app.delete('/', (req, res) => {
 
 
 app.listen(port, () => {
-    console.log(`Example app listening on port ${port}!`)
+    console.log(`App listening on port ${port}!`)
 });
-
-
-function findById(id){
-    return ProductosDeEjemploJson.find(producto => producto.id == id);
-}
