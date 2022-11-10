@@ -22,12 +22,12 @@
           <a routerLink="">Contacto</a>
         </li>
 
-        <li *ngIf="!username">
+        <li *ngIf="!email">
           <a routerLink="/login">Login</a>
         </li>
         
-        <li class="menu-container" *ngIf="username">
-          <a routerLink="">{{username}}</a>
+        <li class="menu-container" *ngIf="email">
+          <a routerLink="">{{email}}</a>
           <div class="menu">
             <a routerLink="/perfil">Perfil</a>
             <a>Cerrar Sesión</a>
