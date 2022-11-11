@@ -18,10 +18,6 @@
           </a>
         </li>
 
-        <li>
-          <a routerLink="">Contacto</a>
-        </li>
-
         <li *ngIf="!email">
           <a routerLink="/login">Login</a>
         </li>
@@ -36,6 +32,9 @@
         
         <li>
           <a routerLink="/carrito">
+            <i class="material-icons">
+              shopping_cart
+            </i>
             Carrito <span>2</span>
           </a>
         </li>
