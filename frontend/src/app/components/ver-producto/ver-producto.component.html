@@ -3,8 +3,14 @@
         <div class="bloqueImagenes col-lg-5">
             <p>
                 <a routerLink="/">Inicio</a> / 
-                    <a routerLink="/">{{producto.clasificacion}}</a> / 
-                        <a routerLink="{{'/producto?prodId='+ producto.id}}">{{producto.nombre}}</a> 
+                    <a  routerLink="/listaPorClasificacion" 
+                        [queryParams]="{idClasificacion:tipoProducto}">
+                        {{producto.clasificacion}}
+                    </a> / 
+                        <a  routerLink='/producto'
+                            [queryParams]="{prodId:producto.id}">
+                            {{producto.nombre}}
+                        </a> 
             </p>
             <img class="w-100" src="{{producto.imgUrl}}" alt="imgProducto">
         </div>
