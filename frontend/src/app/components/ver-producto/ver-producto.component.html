@@ -1,8 +1,12 @@
 <main class="mt-lg-5">
     <article class="container d-flex justify-content-around bg-light p-5">
         <div class="bloqueImagenes col-lg-5">
-            <p><a href="">Inicio</a> / <a href="">Tabletas Graficas</a> / <a href="">HUION HS64</a> </p>
-            <img class="w-100" src="https://d3ugyf2ht6aenh.cloudfront.net/stores/860/363/products/huion-hs64-pen-tablet-011-96d426e48d4605b89716008966178343-640-0.jpg" alt="imgProducto">
+            <p>
+                <a routerLink="/">Inicio</a> / 
+                    <a routerLink="/">{{producto.clasificacion}}</a> / 
+                        <a routerLink="{{'/producto?prodId='+ producto.id}}">{{producto.nombre}}</a> 
+            </p>
+            <img class="w-100" src="{{producto.imgUrl}}" alt="imgProducto">
         </div>
         <form 
             class=" bloqueInfo col-lg-5 

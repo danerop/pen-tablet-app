@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { LoginComponent } from '../login/login.component';
 
 @Component({
   selector: 'app-header',
@@ -9,13 +10,15 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-
+  
+  @Input() email!: String;
   usuario: String;
 
-  @Input() username!: String;
+  
 
   constructor() {
     this.usuario = "";
+    
   }
 
   ngOnInit(): void {

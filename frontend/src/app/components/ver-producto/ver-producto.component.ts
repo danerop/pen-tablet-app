@@ -9,25 +9,33 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
   templateUrl: './ver-producto.component.html',
   styleUrls: ['./ver-producto.component.css']
 })
+
 export class VerProductoComponent implements OnInit {
+  
   producto:Producto = new Producto;
   prodIdParam:number=0;
-  productoService:ProductoService;
+
   constructor(
-      private _productoService:ProductoService,
+      private productoService:ProductoService,
       private route: ActivatedRoute
   ) {
-    this.productoService = _productoService;
+    this.route.queryParams.subscribe(params => {
+      
+      this.prodIdParam = params['prodId'];
+      
+      productoService.getById(this.prodIdParam).subscribe(data => 
+        {
+          this.producto = data;
+          //console.log(this.producto);
+        });
+  
+    });
+
+
   }
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
-      this.prodIdParam = params['prodId'];
-      this.producto = this.productoService.getById(this.prodIdParam);
-    });
-    
-    console.log(this.producto);
-    console.log(Object.getPrototypeOf(this.producto));
+
   }
 
 }

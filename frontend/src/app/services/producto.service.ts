@@ -9,9 +9,9 @@ import { Producto } from '../models/producto';
   providedIn: 'root'
 })
 export class ProductoService {
-
+  
   constructor(private _http:HttpClient) {}
-
+  
   getAll():Producto[]{
     let lista_productos:Producto[] = [];
     
@@ -23,20 +23,35 @@ export class ProductoService {
 
     return lista_productos;
   }
-
-  getById(idParam:number):Producto{
-    let productoObtenido: Producto = new Producto;
-    const httpGet_ = this._http.get<Producto>('/api/prodId/'+ idParam);
+  getAll2():Observable<Producto[]>{
+    return this._http.get<Producto[]>('/api/getAllProducts');
+  }
+  
+  getById(idParam:number):Observable<Producto>{
+    return this._http.get<Producto>('/api/prodId/'+ idParam);
+  }
+  
+  createProducto(productoACrear:Producto):void{
+    console.log(JSON.stringify(productoACrear));
+    this._http.post<Producto>('/api/createProduct',productoACrear)
+    .subscribe(r=>{});
+  }
+  
+  editarProduct(nuevosValores:Producto):void{
+    //console.log(JSON.stringify(nuevosValores));
+    this._http.post<Producto>('/api/editProduct',nuevosValores)
+    .subscribe(r=>{});
     
-    httpGet_.subscribe( (data:Producto) => {
-      productoObtenido.id = data.id;
-      productoObtenido.nombre = data.nombre;
-      productoObtenido.clasificacion = data.clasificacion;
-      productoObtenido.descripcion = data.descripcion;
-      productoObtenido.imgUrl = data.imgUrl;
-      productoObtenido.precio = data.precio;
-    });
+  }
+  eliminarProduct(idProdAEliminar:number):void{
+    console.log(JSON.stringify(idProdAEliminar));
+    this._http.post<Producto>('/api/deleteProduct', {"id":idProdAEliminar} )
+    .subscribe(r=>{});
 
-    return productoObtenido;
+  }
+
+  getByClasificacion(clasificacionParam: number):Observable<Producto[]> {
+    console.log(JSON.stringify(clasificacionParam));
+    return this._http.get<Producto[]>('/api/getByClasificacion/'+ clasificacionParam);
   }
 }

@@ -1,4 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
+import { FirebaseCodeErrorService } from 'src/app/services/firebase-code-error.service';
 
 @Component({
   selector: 'app-recuperar-contasenia',
@@ -6,10 +12,36 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./recuperar-contasenia.component.css']
 })
 export class RecuperarContaseniaComponent implements OnInit {
+  recuperarUsuario: FormGroup;
 
-  constructor() { }
+  constructor(    
+    private fb: FormBuilder, 
+    private afAuth: AngularFireAuth, 
+    private toastr: ToastrService,
+    private spinner: NgxSpinnerService, 
+    private router: Router,
+    private firebase: FirebaseCodeErrorService) {
 
-  ngOnInit(): void {
-  }
+      this.recuperarUsuario = this.fb.group({
+        correo: ['',Validators.required]
+      })
+     }
+     recuperar(){
+        this.spinner.show();
+        const email = this.recuperarUsuario.value.correo;
+
+        this.afAuth.sendPasswordResetEmail(email).then(()=>{
+          this.spinner.hide();
+          this.toastr.info('Se envio un email con la nueva contraseña','Exito');
+          this.router.navigate(["/login"]);
+        }).catch((error)=>{
+          this.spinner.hide();
+          this.toastr.error(this.firebase.firebaseError(error.code),'Error');
+        })
+
+     }
+
+     ngOnInit(): void {
+    }
 
 }

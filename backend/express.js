@@ -1,3 +1,13 @@
+//Setting up MySQL
+
+const prodController = require("./controller/productosController");
+const carritoController = require("./controller/carritoController");
+const carritoproductoController = require("./controller/carritoproductoController");
+//pool.query SIEMPRE retorna un array
+
+
+////////
+
 const _ = require('lodash');
 const fs = require('fs');
 
@@ -5,20 +15,6 @@ const express = require('express');
 const app = express();
 const port = 3000;
 
-let ProductosDeEjemploJson;
-
-fs.readFile('./JsonExamples/productosExample.json', 'utf-8', (err, jsonString) =>{
-    if(err){
-        console.log(err)
-    } else{
-        try{
-            ProductosDeEjemploJson = JSON.parse(jsonString);
-        }
-        catch(err){
-            console.log("Error parsing JSON ",err);
-        }
-    }
-});
 
 let isLogin = () => true;
 
@@ -45,23 +41,77 @@ app.use((req, res, next) => {
 let producto = 
 app.use(express.json());
 
-app.get('/api/prod-list', (req, res) => {
-    res.status(200).json(ProductosDeEjemploJson);
-});
-
-app.get('/api/prodId/:id', (req, res) => {
-    console.log('Invocacion nueva');
+app.get('/api/prodId/:id', async (req, res) => {
+    console.log('Petición para retornar un producto a partir de su ID');
+    
     idParam = req.params.id;
-    let productoEncontrado = ProductosDeEjemploJson.find(producto => producto.id == idParam);
-    res.json(productoEncontrado);
+    
+    const result = await prodController.getProductById(idParam);
+    
+    console.log(result);
+
+    res.json(result);    //es un resultado UNICO
 });
 
-app.post('/', (req, res) => {
-    console.log("JSON:" + JSON.stringify(req.body));
-    //let body = JSON.parse(req.body);
-    //res.send(`Hello World! ${req.method} : ${req.body.usuario}`)
+app.get('/api/getAllProducts', async (req, res) => {
+    console.log('Petición para retornar todos los productos');
+
+    const result = await prodController.getAllProducts();
+
+    res.json(result);
+});
+
+app.get('/api/getByClasificacion/:idClasificacion' , async (req,res) =>{
+    console.log('Peticion para obtener productos según clasificación');
+
+    idClass = req.params.idClasificacion;
+
+    const result = await prodController.getProductsByIdClasificacion(idClass);
+    
+    console.log(result);
+
+    res.json(result);
+});
+
+app.post('/api/createProduct', (req, res) => {
+    let productoACrear = req.body; //Esto es un Objeto
+    console.log("Petición para crear producto RECIBIDA");
+    console.log("Producto Recibido --> " + JSON.stringify(productoACrear) );
+    
     res.json({
-        bienvenido: `${req.body.usuario}`
+        "Producto a Crear": productoACrear
+    })
+});
+
+app.post('/api/editProduct', (req, res) => {
+    console.log("Petición para editar producto RECIBIDA");
+    
+    let nuevosValores = req.body;
+    
+    if(req.body.id == ""){
+        res.send("no se eligió un prod a editar");
+    }
+    else{
+        res.send(JSON.stringify(nuevosValores))
+        /*let productoAEditar = ProductosDeEjemploJson.find(producto => producto.id == req.body.id);
+        if(nuevosValores.precio != ""){
+            productoAEditar.precio = nuevosValores.precio;
+        }
+        if(nuevosValores.nombre != ""){
+            productoAEditar.nombre = nuevosValores.nombre;
+        }
+        if(nuevosValores.clasificacion != ""){
+            productoAEditar.clasificacion = nuevosValores.clasificacion;
+        }*/
+    }
+});
+
+app.post('/api/deleteProduct', (req, res) => {
+    console.log("Petición para ELIMINAR producto RECIBIDA");
+    console.log("id del producto a eliminar: " + req.body.id);
+    res.json({
+        id: `${req.body}`,
+        accion: "Editar Producto"
     })
 });
 
@@ -74,6 +124,39 @@ app.delete('/', (req, res) => {
 });
 
 
-app.listen(port, () => {
-    console.log(`Example app listening on port ${port}!`)
+// carrito //
+app.get('/api/carrito/:usuario', async (req, res) => {
+    let usuario = req.params.usuario;
+    let result = await carritoController.getCarritoByUsuario(usuario);
+    res.json(result);
 });
+
+app.get('/api/carrito', async (req, res) => {
+    let id = req.query.id;
+    let result = await carritoController.getCarrito(id);
+    res.json(result);
+});
+
+app.get('/api/carrito/new', async (req, res) => {
+    console.log("asdf");
+    let usuario = req.query.usuario;
+    let result = await carritoController.postCarrito(usuario);
+    res.json(result);
+});
+
+app.get('/api/carrito/buy', async(req, res) => {
+    let idCarrito = req.query.id;
+
+    let productosDelCarrito = await carritoproductoController.getAllProductsInCarrito(idCarrito);
+    
+    console.log(productosDelCarrito);
+
+    res.json(productosDelCarrito);
+});
+
+
+
+app.listen(port, () => {
+    console.log(`App listening on port ${port}!`)
+});
+
