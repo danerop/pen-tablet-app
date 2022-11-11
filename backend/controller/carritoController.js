@@ -29,8 +29,8 @@ async function postCarrito(usuario) { //crea un carrito nuevo para el usuario
   `INSERT INTO carrito (usuario) VALUES
   ( "${usuario}" )
   ;`;
-
-  return await db.queryUniqueResult(query);
+  
+  await db.abm(query);
 };
 
 async function putCarrito(idCarrito, totalPagado) { //marca a un carrito como comprado
@@ -39,5 +39,5 @@ async function putCarrito(idCarrito, totalPagado) { //marca a un carrito como co
   totalPagado = ${totalPagado}
   WHERE id = ${idCarrito}`;
 
-  return await db.queryUniqueResult(query);
+  await db.abm(query);
 };

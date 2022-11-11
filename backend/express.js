@@ -38,7 +38,6 @@ app.use((req, res, next) => {
 }, logger, showIP);
 
 //app.use(logger);
-let producto = 
 app.use(express.json());
 
 app.get('/api/prodId/:id', async (req, res) => {
@@ -124,38 +123,64 @@ app.delete('/', (req, res) => {
 });
 
 
-// carrito //
-app.get('/api/carrito/:usuario', async (req, res) => {
-    let usuario = req.params.usuario;
-    let result = await carritoController.getCarritoByUsuario(usuario);
-    res.json(result);
-});
 
+// -CARRITO- //
+
+//ver carrito
 app.get('/api/carrito', async (req, res) => {
     let id = req.query.id;
     let result = await carritoController.getCarrito(id);
     res.json(result);
 });
 
-app.get('/api/carrito/new', async (req, res) => {
-    console.log("asdf");
-    let usuario = req.query.usuario;
-    let result = await carritoController.postCarrito(usuario);
+//ver carrito de un usuario
+app.get('/api/carrito/:usuario', async (req, res) => {
+    let usuario = req.params.usuario;
+    let result = await carritoController.getCarritoByUsuario(usuario);
     res.json(result);
 });
 
-app.get('/api/carrito/buy', async(req, res) => {
-    let idCarrito = req.query.id;
+//crear nuevo carrito para un usuario
+app.get('/api/nuevo-carrito/:u', (req, res) => {
+    let usuario = req.params.u;
 
+    carritoController.postCarrito(usuario);
+    res.send("carrito creado");
+});
+
+//comprar carrito
+app.get('/api/comprar-carrito/:id', async (req, res) => {
+    let idCarrito = req.params.id;
     let productosDelCarrito = await carritoproductoController.getAllProductsInCarrito(idCarrito);
-    
-    console.log(productosDelCarrito);
+    let totalAPagar = 0;
 
+    for(let p of productosDelCarrito){
+        carritoproductoController.putCarritoProducto(idCarrito, p.id, p.precio);
+        totalAPagar += p.precio * p.cantidad;
+    }
+
+    carritoController.putCarrito(idCarrito, totalAPagar);
+
+    res.send("carrito comprado");
+});
+
+//trae todos los productos de un carrito con sus cantidades
+app.get('/api/carrito/:id', async() => {
+    let idCarrito = req.params.id;
+    
+    let productosDelCarrito = await carritoproductoController.getAllProductsInCarrito(idCarrito);
     res.json(productosDelCarrito);
 });
 
+app.put('/api/carrito/productos/:idcp', async() => {
+    let idCarritoProducto = req.params.idcp;
+    let nuevaCantidad = req.query.cantidad;
 
+    await carritoproductoController.putCambiarCantidad(idCarritoProducto, nuevaCantidad);
+    res.send("carrito");
+});
 
+//listen//
 app.listen(port, () => {
     console.log(`App listening on port ${port}!`)
 });

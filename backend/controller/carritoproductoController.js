@@ -10,18 +10,18 @@ module.exports = {
 
 async function getAllProductsInCarrito(idCarrito) {//obtiene todos los productos de un carrito
   let query =
-  `SELECT p.* FROM productos p
+  `SELECT p.*, cp.cantidad FROM productos p
   INNER JOIN carritoproducto cp ON p.id = cp.producto
   WHERE carrito = ${idCarrito}`;
-
-  return await db.queryMultipleResults(query);
+  let results = await db.queryMultipleResults(query);
+  return results;
 };
 
 async function getAllCarritoProductoByCarrito(idCarrito) {//obtiene todos los carritoproducto de un carrito
   let query = 
   `SELECT * FROM carritoproducto
   WHERE carrito = ${idCarrito}`;
-
+  console.log(query);
   return await db.queryMultipleResults(query);
 };
 
@@ -30,25 +30,24 @@ async function postCarritoProducto(idCarrito, idProducto){//guarda el producto d
   `INSERT INTO carritoproducto (carrito, producto, cantidad) VALUES
   ( ${idCarrito}, ${idProducto}, 1)`;
 
-  return await db.queryUniqueResult(query);
+  await db.abm(query);
 };
 
-async function putCambiarCantidad(idCarrito, idProducto, cantidad){//para sumar o restar pasar como tercer parametro "cantidad + 1"
+async function putCambiarCantidad(idCarritoProducto, cantidad){//para sumar o restar pasar como tercer parametro "cantidad + 1"
   let query =
   `UPDATE carritoproducto SET
   cantidad = ${cantidad}
-  WHERE carrito = ${idCarrito}
-  AND producto = ${idProducto}`;
+  WHERE id = ${idCarritoProducto}`;
 
-  return await db.queryUniqueResult(query);
+  await db.abm(query);
 };
 
 async function putCarritoProducto(idCarrito, idProducto, precioPagado) {//guarda el precio por unidad por el que se pagó el producto al momento de realizar la compra del carrito 
   let query =
   `UPDATE carritoproducto SET
-  precioPagado = ${precioPagado}
+  precioPagadoPorUnidad = ${precioPagado}
   WHERE carrito = ${idCarrito}
   AND producto = ${idProducto}`;
 
-  return await db.queryMultipleResults(query);
+  await db.abm(query);
 };
