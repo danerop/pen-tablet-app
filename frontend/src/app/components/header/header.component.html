@@ -5,23 +5,29 @@
     <nav>
       <ul>
         <li>
-          <a routerLink="">Tabletas Gráficas</a>
+          <a routerLink="/listaPorClasificacion" 
+            [queryParams]="{idClasificacion:1}">
+          Tabletas Gráficas
+        </a>
         </li>
 
         <li>
-          <a routerLink="">Monitores Gráficos</a>
+          <a routerLink="/listaPorClasificacion"
+            [queryParams]="{idClasificacion:2}">
+            Monitores Gráficos
+          </a>
         </li>
 
         <li>
           <a routerLink="">Contacto</a>
         </li>
 
-        <li *ngIf="!username">
+        <li *ngIf="!email">
           <a routerLink="/login">Login</a>
         </li>
         
-        <li class="menu-container" *ngIf="username">
-          <a routerLink="">{{username}}</a>
+        <li class="menu-container" *ngIf="email">
+          <a routerLink="">{{email}}</a>
           <div class="menu">
             <a routerLink="/perfil">Perfil</a>
             <a>Cerrar Sesión</a>

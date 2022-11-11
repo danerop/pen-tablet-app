@@ -14,26 +14,28 @@ export class VerProductoComponent implements OnInit {
   
   producto:Producto = new Producto;
   prodIdParam:number=0;
-  productoService:ProductoService;
 
   constructor(
-      private _productoService:ProductoService,
+      private productoService:ProductoService,
       private route: ActivatedRoute
   ) {
-    this.productoService = _productoService;
-  }
-
-  ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
       
       this.prodIdParam = params['prodId'];
       
-      this.productoService.getById(this.prodIdParam).subscribe(data => 
+      productoService.getById(this.prodIdParam).subscribe(data => 
         {
-          this.producto = data
+          this.producto = data;
+          //console.log(this.producto);
         });
-
+  
     });
+
+
+  }
+
+  ngOnInit(): void {
+
   }
 
 }

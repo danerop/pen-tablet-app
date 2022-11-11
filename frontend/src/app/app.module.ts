@@ -1,9 +1,11 @@
 import { HttpClientModule } from '@angular/common/http';
-import { NgModule } from '@angular/core';
+import { NgModule,CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import{AngularFireModule}from '@angular/fire/compat';
-
+import { CommonModule } from '@angular/common';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -18,6 +20,8 @@ import { RecuperarContaseniaComponent } from './components/recuperar-contasenia/
 import { SpinnerComponent } from './shared/spinner/spinner.component';
 import { environment } from 'src/environments/environment';
 import { AdminProductoComponent } from './components/admin-producto/admin-producto.component';
+import { NgxSpinnerModule } from "ngx-spinner";
+import { ListaPorTipoComponent } from './components/lista-por-tipo/lista-por-tipo.component';
 
 @NgModule({
   declarations: [
@@ -32,16 +36,26 @@ import { AdminProductoComponent } from './components/admin-producto/admin-produc
     VerificarEmailComponent,
     RecuperarContaseniaComponent,
     SpinnerComponent,
-    AdminProductoComponent
+    AdminProductoComponent,
+    ListaPorTipoComponent
   ],
+  
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
+    HttpClientModule,
+    CommonModule,
+    BrowserAnimationsModule, // required animations module
+    NgxSpinnerModule.forRoot({ type: "square-loader" }),
+    ToastrModule.forRoot(), // ToastrModule added
     AngularFireModule.initializeApp(environment.firebaseConfig),
     HttpClientModule  ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+  
+  ],
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppModule { }
