@@ -2,6 +2,7 @@
 
 const prodController = require("./controller/productosController");
 const carritoController = require("./controller/carritoController");
+const carritoproductoController = require("./controller/carritoproductoController");
 //pool.query SIEMPRE retorna un array
 
 
@@ -123,6 +124,39 @@ app.delete('/', (req, res) => {
 });
 
 
+// carrito //
+app.get('/api/carrito/:usuario', async (req, res) => {
+    let usuario = req.params.usuario;
+    let result = await carritoController.getCarritoByUsuario(usuario);
+    res.json(result);
+});
+
+app.get('/api/carrito', async (req, res) => {
+    let id = req.query.id;
+    let result = await carritoController.getCarrito(id);
+    res.json(result);
+});
+
+app.get('/api/carrito/new', async (req, res) => {
+    console.log("asdf");
+    let usuario = req.query.usuario;
+    let result = await carritoController.postCarrito(usuario);
+    res.json(result);
+});
+
+app.get('/api/carrito/buy', async(req, res) => {
+    let idCarrito = req.query.id;
+
+    let productosDelCarrito = await carritoproductoController.getAllProductsInCarrito(idCarrito);
+    
+    console.log(productosDelCarrito);
+
+    res.json(productosDelCarrito);
+});
+
+
+
 app.listen(port, () => {
     console.log(`App listening on port ${port}!`)
 });
+
