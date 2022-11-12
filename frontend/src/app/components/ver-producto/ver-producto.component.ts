@@ -14,6 +14,7 @@ export class VerProductoComponent implements OnInit {
   
   producto:Producto = new Producto;
   prodIdParam:number=0;
+  tipoProducto:number = 1;
 
   constructor(
       private productoService:ProductoService,
@@ -26,6 +27,11 @@ export class VerProductoComponent implements OnInit {
       productoService.getById(this.prodIdParam).subscribe(data => 
         {
           this.producto = data;
+          if(this.producto.clasificacion == 'Tableta Gráfica') 
+            this.tipoProducto = 1;
+          if(this.producto.clasificacion == 'Monitor Gráfico')
+            this.tipoProducto = 2;
+
           //console.log(this.producto);
         });
   

@@ -38,16 +38,19 @@ export class LoginComponent implements OnInit {
     this.spinner.show();
 
     console.log(email,password);
-    this.afAuth.signInWithEmailAndPassword(email,password).then((user)=>{
+    this.afAuth.signInWithEmailAndPassword(email,password)
+    .then((user)=>{
       console.log(user);
       this.spinner.hide();
       this.toastr.success('Has iniciado sesion','Exito');
-      this.router.navigate(["/listaDeProductos"]);    
+      //location.reload();
+      this.router.navigate(["/listaDeProductos"]); 
     }).catch((error)=>{
       console.error;
       this.spinner.hide();
       this.toastr.error(this.firebase.firebaseError(error.code),'Error');
     })
+
   }
 
 }

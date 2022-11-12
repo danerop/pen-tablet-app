@@ -18,26 +18,28 @@
             </tr>
         </thead>
         <tbody>
-                <tr *ngFor="let tablet of compras">
+                <tr *ngFor="let producto of productosEnCarrito">
                     <td>
-                        {{tablet.nombre}}
+                        {{producto.nombre}}
                     </td>
                     <td>
-                        {{tablet.cantidad}} 
+                        {{producto.cantidad}} 
                     </td>
                     <td>
-                        {{tablet.precio | currency}} 
+                        {{producto.precio | currency}} 
                     </td>
                     <td>
-                        <button class="btn btn-primary me-2" (click)='agregar(tablet.id);'>+</button> 
-                        <button class="btn btn-primary me-2" (click)='eliminar(tablet.id);'>-</button> 
-                        <button class="btn btn-primary">x</button>
+                        <!--
+                        <button class="btn btn-primary me-2" (click)='sumar(producto.id);'>+</button> 
+                        <button class="btn btn-primary me-2" (click)='restar(producto.id);'>-</button> 
+                        <button class="btn btn-primary" (click)='eliminar(producto.id);'>x</button>
+                        -->
                     </td>
                 </tr>
         </tbody>
     </table>
-    <p class="text-end">Total {{total | currency}}</p>
+    <p class="text-end" (click)="calcularTotal();">Total {{total | currency}}</p>
     <div class="text-end"> 
-        <button>Comprar</button>
+        <button (click)="comprarProducto();" class="btn">Comprar</button>
     </div>
 </div>
