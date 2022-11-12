@@ -3,6 +3,7 @@
 const prodController = require("./controller/productosController");
 const carritoController = require("./controller/carritoController");
 const carritoproductoController = require("./controller/carritoproductoController");
+const usuarioController = require("./controller/usuarioController");
 //pool.query SIEMPRE retorna un array
 
 
@@ -185,6 +186,16 @@ app.post('/api/agregar-producto', async(req, res) => {
     carritoproductoController.postCarritoProducto(idCarrito, idProducto);
 
     res.send("producto agregado al carrito");
+});
+
+
+app.post('/api/fbRegistrarUsuario', async (req,res) =>{
+    let userMail = req.body.email;
+    let userPassword = req.body.password;
+
+    const userResponse = await usuarioController.registrarUsuario(userMail,userPassword);
+
+    res.json(userResponse);
 });
 
 /*
