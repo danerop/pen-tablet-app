@@ -152,13 +152,17 @@ app.post('/api/nuevo-carrito', (req, res) => {
 //comprar carrito
 app.put('/api/comprar-carrito', async (req, res) => {
     let carrito =  JSON.stringify(req.body);
+    let idCarrito = JSON.stringify(req.body.id);
     let totalAPagar = 0;
 
-    console.log("comprar-carrito " + carrito);
+    console.log("comprar-carrito " + carrito + idCarrito);
 
-    let carritoProductos = await carritoproductoController.getAllCarritoProductoByIdCarrito(carrito.id);
+    let carritoProductos = await carritoproductoController.getAllCarritoProductoByIdCarrito(idCarrito);
+
+    console.log("carritosProductos: " + carritoProductos);
 
     for(let cp in carritoProductos){
+        console.log("carrito producto" + cp);
         let p = prodController.getProductById(cp.producto);
         
         totalAPagar += p.precio * cp.cantidad;

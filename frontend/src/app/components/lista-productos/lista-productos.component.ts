@@ -20,7 +20,6 @@ export class ListaProductosComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.productos = this.productoService.getAll();
   }
 
 }
