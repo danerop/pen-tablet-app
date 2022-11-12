@@ -1,33 +1,44 @@
-const CreateOrder = (request, response) => {
-    try {
-        const usuario = request.body.usuario; //usuario
-        const carrito = request.body.carrito; //carrito
-        const total = request.body.total;
+const db = require("../database");
 
+module.exports = {
+  getCarrito,
+  getCarritoByUsuario,
+  postCarrito,
+  putCarrito
+}
 
-        let query = `INSERT INTO compra
-                                (producto, usuario, total)
-                            VALUES
-                            (
-                                ${carrito.id},
-                                ${usuario.id},
-                                ${total}
-                            );`;
+async function getCarrito(id){ //obtiene un carrito segun el id
+  let query = 
+  `SELECT * FROM carrito
+  WHERE id = ${id}`;
 
-                // execute query
-                db.query(query, (err, result) => {
-                    if (err != null) response.status(500).send({ error: err.message });
-                    return response.json(result);
-                });
-                return response.json(result);
+  return await db.queryUniqueResult(query);
+}
 
-    } catch (error) {
-        if (error != null) response.status(500).send({ error: error.message });
-    }
+async function getCarritoByUsuario(usuario){ //obtiene el ultimo carrito de un usuario
+  let query = 
+  `SELECT * FROM carrito
+  WHERE usuario = "${usuario}"
+  AND totalPagado IS NULL`;
+
+  return await db.queryUniqueResult(query);
+}
+
+async function postCarrito(usuario) { //crea un carrito nuevo para el usuario
+  let query =
+  `INSERT INTO carrito VALUES
+  ( "${usuario}" )
+  ;`;
+  
+  await db.abm(query);
 };
 
-const order = {
-    CreateOrder
-};
+async function putCarrito(carrito) { //marca a un carrito como comprado
+  let query = 
+  `UPDATE carrito
+  SET usuario = ${carrito.usuario}
+  , totalPagado = ${carrito.totalPagado}
+  WHERE id = ${carrito.id}`;
 
-module.exports = order;
+  await db.abm(query);
+};

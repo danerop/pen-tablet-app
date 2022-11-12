@@ -30,19 +30,3 @@ var connection = mysql.createConnection({
  );
 
  connection.end();
-
-/*
- // import routes
-const productRoutes = require('./routes/productos');
-const orderRoutes = require('./routes/carrito');
-
-/*
-app.get('/', function (request, response, next) {
-    db.query("SELECT * FROM category", function (error, rows) {
-        return response.json(rows);
-    });
-});*/
-/*
-// set routes to api
-app.use('/api/product', productRoutes);
-app.use('/api/order', orderRoutes);*/

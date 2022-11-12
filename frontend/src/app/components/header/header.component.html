@@ -1,36 +1,41 @@
 <header>
   <div class="container">
     <a routerLink="/" class="logo">Pen Tablet App</a>
-    <a routerLink="/adminProducto" class="btn btn-primary text-light">ADMIN</a>
+    <!--<a routerLink="/adminProducto" class="btn btn-primary text-light">ADMIN</a>-->
     <nav>
       <ul>
         <li>
-          <a routerLink="">Tabletas Gráficas</a>
+          <a routerLink="/listaPorClasificacion" 
+            [queryParams]="{idClasificacion:1}">
+          Tabletas Gráficas
+        </a>
         </li>
 
         <li>
-          <a routerLink="">Monitores Gráficos</a>
+          <a routerLink="/listaPorClasificacion"
+            [queryParams]="{idClasificacion:2}">
+            Monitores Gráficos
+          </a>
         </li>
 
-        <li>
-          <a routerLink="">Contacto</a>
-        </li>
-
-        <li *ngIf="!username">
+        <li *ngIf="!isLogged">
           <a routerLink="/login">Login</a>
         </li>
-        
-        <li class="menu-container" *ngIf="username">
-          <a routerLink="">{{username}}</a>
+
+        <li  class="menu-container" *ngIf="isLogged">
+          <a routerLink="">Menu</a>
           <div class="menu">
-            <a routerLink="/perfil">Perfil</a>
-            <a>Cerrar Sesión</a>
+            <a  routerLink="/perfil">Perfil</a>
+            <a (click)="cerrarSession()">Cerrar Sesión</a>
           </div>
         </li>
         
         <li>
           <a routerLink="/carrito">
-            Carrito <span>2</span>
+            <i class="material-icons">
+              shopping_cart
+            </i>
+            Carrito <span>3</span>
           </a>
         </li>
       </ul>

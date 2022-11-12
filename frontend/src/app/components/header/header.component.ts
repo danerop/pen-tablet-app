@@ -1,7 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Router } from '@angular/router';
-
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 @Component({
   selector: 'app-header',
@@ -9,17 +7,31 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+  isLogged:boolean = false;
+  @Input() email!: String;
 
-  usuario: String;
+  constructor(private afAuth: AngularFireAuth, ) {
+    console.log("----usuario AUTH::::");
 
-  @Input() username!: String;
+    this.afAuth.idToken.subscribe(data => {
+      if(data != null) this.isLogged=true;
+      console.log(data);
+    });
 
-  constructor() {
-    this.usuario = "";
   }
 
   ngOnInit(): void {
-    
+  }
+
+  cerrarSession(){
+    this.afAuth.signOut().then( () =>{
+        console.log("----Sesion cerrada::::");
+        this.afAuth.currentUser.then( data => {
+          console.log("Usuario: "+data?.email);
+        });
+        this.isLogged=false;
+      }
+    );
   }
   
 }

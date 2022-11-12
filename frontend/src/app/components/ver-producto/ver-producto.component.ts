@@ -14,26 +14,34 @@ export class VerProductoComponent implements OnInit {
   
   producto:Producto = new Producto;
   prodIdParam:number=0;
-  productoService:ProductoService;
+  tipoProducto:number = 1;
 
   constructor(
-      private _productoService:ProductoService,
+      private productoService:ProductoService,
       private route: ActivatedRoute
   ) {
-    this.productoService = _productoService;
-  }
-
-  ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
       
       this.prodIdParam = params['prodId'];
       
-      this.productoService.getById(this.prodIdParam).subscribe(data => 
+      productoService.getById(this.prodIdParam).subscribe(data => 
         {
-          this.producto = data
-        });
+          this.producto = data;
+          if(this.producto.clasificacion == 'Tableta Gráfica') 
+            this.tipoProducto = 1;
+          if(this.producto.clasificacion == 'Monitor Gráfico')
+            this.tipoProducto = 2;
 
+          //console.log(this.producto);
+        });
+  
     });
+
+
+  }
+
+  ngOnInit(): void {
+
   }
 
 }

@@ -1,14 +1,15 @@
-App WEB eCommers de venta de Tabletas Digitalizadoras
+# App WEB eCommerce para venta de tabletas digitalizadoras
 
-Al agregar nuevos componentes, recomiendo crearlos en la carpeta "components" que está dentro de frontend/src/app. Solo hay que abrir la terminal del proyecto de angular (carpeta frontend) y escribir el comando:
-ng g c components/-nombre_componente-
-*tambien se puede usar: ng generate component components/-nombre-
+---
 
-ejemplo: ng g c components/header
+## Pasos para levantar el proyecto:
 
-----
-Para levantar el proyecto hay que ingresar el comando:
-ng serve
+1. Arrancar Workbench u otro ide mysql, y cargar el archivo "database.sql" que está en la carpeta raiz del repositorio. En caso de ya tener la base de datos creada (llamada "pentablet"), eliminarla y ejecutar el database.sql igualmente por si hubo cambios.
+2. Entrar a backend/database.js y escribir su contraseña de mysql.
+3. Hacer "npm install" tanto en la carpeta "backend" como en "frontend".
+4. Arrancar el backend desde la carpeta "backend" con "node express.js".
+5. Arrancar el frontend desde la carpeta "frontend" con "ng serve" o "npm run start".
 
-url: localhost:4200/
+---
 
+## Al hacer todo correctamente se podrá acceder al proyecto angular desde "localhost:4200/" y a node desde "localhost:3000/"

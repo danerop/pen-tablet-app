@@ -1,13 +1,14 @@
 <div class="login" >
-    <form class="custom-form" method="post">
-      <h1>Log In</h1>
 
-      <input
+    <form (ngSubmit)="login()" class="custom-form" method="post" [formGroup]="loginUsuario">
+      <h1>Log In</h1>
+        <input
         type="email"
         id="email"
         placeholder="Ingrese email"
         required="required"
         formControlName="email"
+     
       />
       <input
         type="password"
@@ -20,7 +21,8 @@
       <button type="submit">Login</button>
       <div>
         <p class="mt-3">No Tienes cuenta? <a routerLink="/singUp">Registrar</a></p>
-        <a routerLink="recuperarContrasenia"> recuperar contraseña</a>
+        <a routerLink="/recuperarContrasenia"> recuperar contraseña</a>
       </div>
     </form>
+    <app-spinner></app-spinner>
   </div>
