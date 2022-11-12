@@ -30,7 +30,6 @@ VALUES
 	(1, "Tableta Gráfica", "Una tableta gráfica es un dispositivo para artistas y fotógrafos que sustituye el ratón por un lápiz óptico y un bloc de dibujo por una superficie digitalizadora."),
 	(2, "Monitor Gráfico", "En este caso la tableta gráfica posee una pantalla táctil incorporada que es compatible con el lápiz óptico, de esta manera al conectar con la computadora, podrás navegar por ella usando el lápiz directamente.");
 
---------------------------------------------------------------------------------------------------------------------------------------------
 ALTER TABLE productos ADD imgUrl VARCHAR(255) CHARACTER SET latin1 COLLATE latin1_spanish_ci NULL DEFAULT NULL AFTER precio;
 
 INSERT INTO productos 
