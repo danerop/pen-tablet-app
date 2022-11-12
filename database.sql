@@ -55,3 +55,10 @@ VALUES
 	('9', 'HUION HS80', 'Monitor Gráfico', '2', '45000', 'https://tutabletagrafica.com/wp-content/webpc-passthru.php?src=https://tutabletagrafica.com/wp-content/uploads/2019/03/huion-kamvas-pro-13-pulgadas.jpg&nocache=1'),
 	('10', 'HUION HS100', 'Monitor Gráfico', '2', '80000', 'https://tutabletagrafica.com/wp-content/webpc-passthru.php?src=https://tutabletagrafica.com/wp-content/uploads/2019/03/huion-kamvas-pro-13-pulgadas.jpg&nocache=1');
 
+
+insert into carrito(usuario) values ("bort"),("ana");
+INSERT INTO carritoproducto (carrito, producto, cantidad) VALUES
+(1 , 3, 2),
+(1 , 4, 1),
+(1 , 2, 4),
+(2, 3, 2);
