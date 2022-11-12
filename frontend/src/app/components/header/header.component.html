@@ -22,11 +22,11 @@
           <a routerLink="/login">Login</a>
         </li>
 
-        <li class="menu-container" *ngIf="isLogged">
-          <a routerLink="">Usuario</a>
+        <li  class="menu-container" *ngIf="isLogged">
+          <a routerLink="">Menu</a>
           <div class="menu">
-            <a routerLink="/perfil">Perfil</a>
-            <button (click)="cerrarSession()">Cerrar Sesión</button>
+            <a  routerLink="/perfil">Perfil</a>
+            <a (click)="cerrarSession()">Cerrar Sesión</a>
           </div>
         </li>
         
