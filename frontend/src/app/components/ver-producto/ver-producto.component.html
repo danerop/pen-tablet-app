@@ -3,8 +3,14 @@
         <div class="bloqueImagenes col-lg-5">
             <p>
                 <a routerLink="/">Inicio</a> / 
-                    <a routerLink="/">{{producto.clasificacion}}</a> / 
-                        <a routerLink="{{'/producto?prodId='+ producto.id}}">{{producto.nombre}}</a> 
+                    <a  routerLink="/listaPorClasificacion" 
+                        [queryParams]="{idClasificacion:tipoProducto}">
+                        {{producto.clasificacion}}
+                    </a> / 
+                        <a  routerLink='/producto'
+                            [queryParams]="{prodId:producto.id}">
+                            {{producto.nombre}}
+                        </a> 
             </p>
             <img class="w-100" src="{{producto.imgUrl}}" alt="imgProducto">
         </div>
@@ -14,16 +20,12 @@
             [method]="" [action]="">
 
             <div class="titular col-12">
-                <h3 class="col-12">{{producto.nombre}}</h3>
+                <h3 class="col-12 fw-light">{{producto.nombre}}</h3>
                 <h2 class="col-12">${{producto.precio}}</h2>
 
             </div>
             <div class="descripcion">
                 <p>{{producto.descripcion}}</p>
-            </div>
-            <div class="cantidad">
-                <label for="inputCantidad"><strong>Cantidad</strong></label>
-                <input type="number" name="inputCantidad" id="inputCantidad" min="1" value="1" class="inputCantidad form-control col-6 w-50">
             </div>
             <button class="btnEnviar btn btn-primary col-8">AGREGAR AL CARRITO</button>
 

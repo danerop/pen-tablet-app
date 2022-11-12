@@ -38,11 +38,12 @@ export class LoginComponent implements OnInit {
     this.spinner.show();
 
     console.log(email,password);
-    this.afAuth.signInWithEmailAndPassword(email,password).then((user)=>{
+    this.afAuth.signInWithEmailAndPassword(email,password)
+    .then((user)=>{
       console.log(user);
       this.spinner.hide();
       this.toastr.success('Has iniciado sesion','Exito');
-      this.router.navigate(["/listaDeProductos"]);    
+      this.router.navigate(["/listaDeProductos"]);   
     }).catch((error)=>{
       console.error;
       this.spinner.hide();
