@@ -10,7 +10,7 @@ async function getUserByEmail(mail){
             return user;
         })
         .catch( (error)=> console.log(error));
-}    
+} 
 
 getUserByEmail("ahre@gmail.com");
 
