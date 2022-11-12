@@ -26,18 +26,19 @@ async function getCarritoByUsuario(usuario){ //obtiene el ultimo carrito de un u
 
 async function postCarrito(usuario) { //crea un carrito nuevo para el usuario
   let query =
-  `INSERT INTO carrito (usuario) VALUES
+  `INSERT INTO carrito VALUES
   ( "${usuario}" )
   ;`;
   
   await db.abm(query);
 };
 
-async function putCarrito(idCarrito, totalPagado) { //marca a un carrito como comprado
+async function putCarrito(carrito) { //marca a un carrito como comprado
   let query = 
-  `UPDATE carrito SET
-  totalPagado = ${totalPagado}
-  WHERE id = ${idCarrito}`;
+  `UPDATE carrito
+  SET usuario = ${carrito.usuario}
+  , totalPagado = ${carrito.totalPagado}
+  WHERE id = ${carrito.id}`;
 
   await db.abm(query);
 };
