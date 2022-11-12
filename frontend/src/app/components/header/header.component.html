@@ -1,7 +1,7 @@
 <header>
   <div class="container">
     <a routerLink="/" class="logo">Pen Tablet App</a>
-    <a routerLink="/adminProducto" class="btn btn-primary text-light">ADMIN</a>
+    <!--<a routerLink="/adminProducto" class="btn btn-primary text-light">ADMIN</a>-->
     <nav>
       <ul>
         <li>
@@ -18,7 +18,7 @@
           </a>
         </li>
 
-        <li *ngIf="!email">
+        <li *ngIf="!isLogged">
           <a routerLink="/login">Login</a>
         </li>
         
