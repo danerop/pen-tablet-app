@@ -21,12 +21,12 @@
         <li *ngIf="!isLogged">
           <a routerLink="/login">Login</a>
         </li>
-        
-        <li class="menu-container" *ngIf="email">
-          <a routerLink="">{{email}}</a>
+
+        <li class="menu-container" *ngIf="isLogged">
+          <a routerLink="">Usuario</a>
           <div class="menu">
             <a routerLink="/perfil">Perfil</a>
-            <a>Cerrar Sesión</a>
+            <button (click)="cerrarSession()">Cerrar Sesión</button>
           </div>
         </li>
         

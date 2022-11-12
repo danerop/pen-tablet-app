@@ -1,4 +1,4 @@
-import { Compra } from "./models/compra";
+import { CarritoElement } from "./models/carritoElement";
 import { Producto } from "./models/producto";
 
 export const productosDeEjemplo: Producto[] = [{
@@ -42,7 +42,7 @@ export const productosDeEjemplo: Producto[] = [{
   precio: 15000
 }];
 
-export const comprasDeEjemplo: Compra[] = [{
+export const comprasDeEjemplo: CarritoElement[] = [{
     id:1,
     nombre: "INSPIROY H640P",
     imgUrl: "../assets/productos/inspiroy-h640p.jpg",

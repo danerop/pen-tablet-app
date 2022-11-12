@@ -2,6 +2,7 @@
 
 const prodController = require("./controller/productosController");
 const carritoController = require("./controller/carritoController");
+const carritoproductoController = require("./controller/carritoproductoController");
 //pool.query SIEMPRE retorna un array
 
 
@@ -37,7 +38,6 @@ app.use((req, res, next) => {
 }, logger, showIP);
 
 //app.use(logger);
-let producto = 
 app.use(express.json());
 
 app.get('/api/prodId/:id', async (req, res) => {
@@ -123,6 +123,88 @@ app.delete('/', (req, res) => {
 });
 
 
+
+// -CARRITO- //
+//ver carrito de un usuario
+app.get('/api/carrito', async (req, res) => {
+    let usuario = req.query.usuario;
+    let result = await carritoController.getCarritoByUsuario(usuario);
+    console.log(result);
+    res.json(result);
+});
+
+//ver todos los productos de un carrito con sus cantidades
+app.get('/api/carrito/:usuario', async(req, res) => {
+    let usuario = req.params.usuario;
+    let carrito = await carritoController.getCarritoByUsuario(usuario);
+    let productosDelCarrito = await carritoproductoController.getAllProductsInCarrito(carrito.id);
+    res.json(productosDelCarrito);
+});
+
+//crear un nuevo carrito para un usuario
+app.post('/api/nuevo-carrito', (req, res) => {
+    let usuario = req.params.u;
+
+    carritoController.postCarrito(usuario);
+    res.send("carrito creado");
+});
+
+//comprar carrito
+app.put('/api/comprar-carrito', async (req, res) => {
+    let carrito =  JSON.stringify(req.body);
+    let idCarrito = JSON.stringify(req.body.id);
+    let totalAPagar = 0;
+
+    console.log("comprar-carrito " + carrito + idCarrito);
+
+    let carritoProductos = await carritoproductoController.getAllCarritoProductoByIdCarrito(idCarrito);
+
+    console.log("carritosProductos: " + carritoProductos);
+
+    for(let cp in carritoProductos){
+        console.log("carrito producto" + cp);
+        let p = prodController.getProductById(cp.producto);
+        
+        totalAPagar += p.precio * cp.cantidad;
+        cp.precioPagadoPorUnidad = p.precio;
+
+        carritoproductoController.putCarritoProducto(cp);
+    }
+
+    carrito.totalPagado = totalAPagar;
+    carritoController.putCarrito(carrito);
+
+    res.send("carrito comprado");
+});
+
+app.post('/api/agregar-producto', async(req, res) => {
+    let {idCarrito, idProducto} = JSON.stringify(req.body);
+
+    console.log("agregar-producto: " + idProducto);
+
+    carritoproductoController.postCarritoProducto(idCarrito, idProducto);
+
+    res.send("producto agregado al carrito");
+});
+
+/*
+//actualiza un carritoproducto
+app.put('/api/actualizar-carrito', async(req, res) => {
+    let usuario = req.query.u;
+    let idProducto = req.query.idp;
+    let nuevaCantidad = req.query.cantidad;
+
+    let carrito = await carritoController.getCarritoByUsuario(usuario);
+    let carritoProducto = await carritoproductoController.getCarritoProductoByIdCarritoAndIdProducto(carrito.id, idProducto);
+    await carritoproductoController.putCambiarCantidad(carritoProducto.id, nuevaCantidad);
+    res.send("carrito");
+});
+*/
+
+
+
+//listen//
 app.listen(port, () => {
     console.log(`App listening on port ${port}!`)
 });
+

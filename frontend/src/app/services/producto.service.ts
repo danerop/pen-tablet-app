@@ -13,7 +13,15 @@ export class ProductoService {
   constructor(private _http:HttpClient) {}
   
   getAll():Producto[]{
-    return productosDeEjemplo;
+    let lista_productos:Producto[] = [];
+    
+    this._http.get<Producto[]>('/api/prod-list').subscribe( (data:Producto[]) => {
+      for(let i of data){
+        lista_productos.push(i);
+      }
+    });
+
+    return lista_productos;
   }
   getAll2():Observable<Producto[]>{
     return this._http.get<Producto[]>('/api/getAllProducts');
