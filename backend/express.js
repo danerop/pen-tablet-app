@@ -249,7 +249,10 @@ app.post('/api/fbLogearUsuario', async (req,res) => {
     if(userResponse != null)
         res.json(userResponse);
     else
-        res.json({"error": "Usuario y/o Password Incorrectos"})
+        res.json({
+            "email": null,
+            "uid": null
+        })
 })
 
 /*

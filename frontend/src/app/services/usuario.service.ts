@@ -6,14 +6,15 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { FirebaseCodeErrorService } from './firebase-code-error.service';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { Usuario } from '../models/usuario';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsuarioService {
-  usuario:Object = new Object;
-  public usuario2: BehaviorSubject<Object> =
-    new BehaviorSubject<Object>(new Object());
+
+  public sessionData: BehaviorSubject<Usuario> =
+    new BehaviorSubject<Usuario>(new Usuario());
 
 
   constructor(
@@ -71,11 +72,16 @@ export class UsuarioService {
       "password": password
     }
 
-    this._http.post('/api/fbLogearUsuario', body)
+    this._http.post<Usuario>('/api/fbLogearUsuario', body)
       .subscribe( (data) => {
-        this.usuario = data;
-        this.usuario2.next(data);
-        console.log(this.usuario);
+        let tempUser = new Usuario();
+        
+        tempUser.email = data.email;
+        tempUser.uid =data.uid;
+
+        this.sessionData.next(tempUser);
+
+        console.log(this.sessionData);
       } );
   }
 }
