@@ -54,9 +54,8 @@ export class RegistroComponent implements OnInit {
    
     this.afAuth.createUserWithEmailAndPassword(email,password).then((user)=>{ //es un mentodo que pasa el email y la contraseña
       console.log(user);
-      this.spinner.hide();
-      this.toastr.success('El usuario se creo exitosamente','Exito');
-      this.router.navigate(["/login"]);
+
+      this.verificarCorreo();
     
   }).catch((error)=>{
     console.log(error);
@@ -65,5 +64,13 @@ export class RegistroComponent implements OnInit {
   })
   }
 
+  verificarCorreo(){
+this.afAuth.currentUser.then(user => user?.sendEmailVerification())
+        .then(()=>{
+          this.spinner.hide();
+          this.toastr.info('Se le envio un mail para verificar email','Verificar email');
+          this.router.navigate(["/login"]);
+        })
+  }
 
 }

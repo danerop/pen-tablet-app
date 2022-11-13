@@ -26,6 +26,8 @@ export class UsuarioService {
     
     this.afAuth.signInWithEmailAndPassword(email,password)
     .then((data)=>{
+
+      if(data.user?.emailVerified){
       data.user?.getIdToken()
       .then( (idToken)=> {
 
@@ -45,7 +47,10 @@ export class UsuarioService {
       this.toastr.success('Has iniciado sesion','Exito');
       //location.reload();
       this.router.navigate(["/listaDeProductos"]); 
-    })
+    }else{
+        this.router.navigate(["/verificado"])
+        this.spinner.hide();
+    }})
     .then( () => {
       this.afAuth.signOut().then();
     })
