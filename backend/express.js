@@ -228,14 +228,29 @@ app.post('/api/checkToken', async (req,res) =>{
 
 //firebase v2
 app.post('/api/fbRegistrarUsuario', async (req,res) =>{
+    console.log('Petición para registrar usuario');
+
     let userMail = req.body.email;
     let userPassword = req.body.password;
 
-    const userResponse = await usuarioController.registrarUsuario(userMail,userPassword);
+    const userResponse = await usuarioController.registerUser(userMail,userPassword);
 
     res.json(userResponse);
 });
 
+app.post('/api/fbLogearUsuario', async (req,res) => {
+    console.log('Petición para logear usuario');
+
+    let userMail = req.body.email;
+    let userPassword = req.body.password;
+
+    const userResponse = await usuarioController.logInUser(userMail,userPassword);
+
+    if(userResponse != null)
+        res.json(userResponse);
+    else
+        res.json({"error": "Usuario y/o Password Incorrectos"})
+})
 
 /*
 //actualiza un carritoproducto

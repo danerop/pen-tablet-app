@@ -30,7 +30,7 @@ async function registerUser(email,contraseña){
         return userCredential.user;
       } )
       .catch( (error) => {
-        return error;
+        return null;
       });
   }
   
