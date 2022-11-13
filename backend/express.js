@@ -191,14 +191,14 @@ app.post('/api/agregar-producto', async(req, res) => {
 });
 
 
-app.post('/api/fbRegistrarUsuario', async (req,res) =>{
+/*app.post('/api/fbRegistrarUsuario', async (req,res) =>{
     let userMail = req.body.email;
     let userPassword = req.body.password;
 
     const userResponse = await usuarioController.registrarUsuario(userMail,userPassword);
 
     res.json(userResponse);
-});
+});*/
 app.post('/api/checkToken', async (req,res) =>{
 
     console.log("peticion para checkToken");
@@ -225,6 +225,17 @@ app.post('/api/checkToken', async (req,res) =>{
     }
 
 });
+
+//firebase v2
+app.post('/api/fbRegistrarUsuario', async (req,res) =>{
+    let userMail = req.body.email;
+    let userPassword = req.body.password;
+
+    const userResponse = await usuarioController.registrarUsuario(userMail,userPassword);
+
+    res.json(userResponse);
+});
+
 
 /*
 //actualiza un carritoproducto
