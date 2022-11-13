@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { FirebaseCodeErrorService } from 'src/app/services/firebase-code-error.service';
+import { UsuarioService } from 'src/app/services/usuario.service';
 
 
 @Component({
@@ -21,7 +22,8 @@ export class LoginComponent implements OnInit {
     private toastr: ToastrService,
     private spinner: NgxSpinnerService, 
     private router: Router,
-    private firebase: FirebaseCodeErrorService
+    private firebase: FirebaseCodeErrorService,
+    private _usuarioService:UsuarioService
     ) {
       this.loginUsuario = this.fb.group({
         email:['',Validators.required],
@@ -38,18 +40,8 @@ export class LoginComponent implements OnInit {
     this.spinner.show();
 
     console.log(email,password);
-    this.afAuth.signInWithEmailAndPassword(email,password)
-    .then((user)=>{
-      console.log(user);
-      this.spinner.hide();
-      this.toastr.success('Has iniciado sesion','Exito');
-      //location.reload();
-      this.router.navigate(["/listaDeProductos"]); 
-    }).catch((error)=>{
-      console.error;
-      this.spinner.hide();
-      this.toastr.error(this.firebase.firebaseError(error.code),'Error');
-    })
+    this._usuarioService.signIn(email,password);
+    
 
   }
 

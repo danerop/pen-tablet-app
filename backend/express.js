@@ -4,6 +4,8 @@ const prodController = require("./controller/productosController");
 const carritoController = require("./controller/carritoController");
 const carritoproductoController = require("./controller/carritoproductoController");
 const usuarioController = require("./controller/usuarioController");
+
+const cookieParser = require('cookie-parser');
 //pool.query SIEMPRE retorna un array
 
 
@@ -29,7 +31,7 @@ let showIP = (req, res, next) => {
     next();
 }; 
 
-
+app.use(cookieParser());
 app.use((req, res, next) => {
     if(isLogin()){
         next();
@@ -196,6 +198,32 @@ app.post('/api/fbRegistrarUsuario', async (req,res) =>{
     const userResponse = await usuarioController.registrarUsuario(userMail,userPassword);
 
     res.json(userResponse);
+});
+app.post('/api/checkToken', async (req,res) =>{
+
+    console.log("peticion para checkToken");
+    let idToken = req.body.idToken;
+    const expiresIn = 60 * 60 * 24 * 5 * 1000;
+
+    //let isValid = await usuarioController.validateToken(idToken);
+    //console.log("isvalid = "+isValid);
+    if(true){
+        usuarioController.createSessionCookie(idToken,expiresIn).then(cookie =>{
+            console.log(cookie);
+    
+    
+            const options = { maxAge: expiresIn, httpOnly: true };
+            res.cookie("session", cookie, options);
+    
+            res.end(JSON.stringify({ status: "success" }));
+
+        })
+    }
+    else{
+        //console.log("token inválido");
+        res.status(401).send("UNAUTHORIZED REQUEST!");
+    }
+
 });
 
 /*
