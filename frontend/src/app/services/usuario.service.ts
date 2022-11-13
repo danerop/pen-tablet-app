@@ -5,13 +5,17 @@ import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { FirebaseCodeErrorService } from './firebase-code-error.service';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsuarioService {
-  
+  usuario:Object = new Object;
+  public usuario2: BehaviorSubject<Object> =
+    new BehaviorSubject<Object>(new Object());
+
+
   constructor(
     private _http:HttpClient,
     private afAuth: AngularFireAuth, 
@@ -59,5 +63,19 @@ export class UsuarioService {
       this.spinner.hide();
       this.toastr.error(this.firebase.firebaseError(error.code),'Error');
     })
+  }
+  
+  signIn2(email:string,password:string){
+    let body = {
+      "email": email,
+      "password": password
+    }
+
+    this._http.post('/api/fbLogearUsuario', body)
+      .subscribe( (data) => {
+        this.usuario = data;
+        this.usuario2.next(data);
+        console.log(this.usuario);
+      } );
   }
 }
