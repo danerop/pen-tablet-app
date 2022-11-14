@@ -242,9 +242,14 @@ app.post('/api/fbRegistrarUsuario', async (req,res) =>{
     let userMail = req.body.email;
     let userPassword = req.body.password;
 
-    const userResponse = await usuarioController.registerUser(userMail,userPassword);
-
-    res.json(userResponse);
+    usuarioController.registerUser(userMail,userPassword)
+        .then( userCreated=> {
+            res.json( userCreated );
+        })
+        .catch( err => {
+            console.log(err);
+            res.status(400).send(err);
+        });
 });
 
 app.post('/api/fbLogearUsuario', async (req,res) => {
@@ -261,7 +266,7 @@ app.post('/api/fbLogearUsuario', async (req,res) => {
         })
         .catch(error =>{
             console.log(error);
-            res.status(404).json(error);
+            res.status(400).json(error);
         });
 
 });

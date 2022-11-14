@@ -1,5 +1,6 @@
 //const _firebase = require('../firebase');
 const _fb2 = require('../firebaseV2');
+const admin = require('../firebase');
 
 module.exports = {
     /*getUserByEmail,
@@ -13,14 +14,20 @@ module.exports = {
 };
 
 
+
 //FirebaseV2
 async function registerUser(email,contraseña){
     return await _fb2.auth.createUserWithEmailAndPassword(_fb2.authApp,email,contraseña)
-      .then( userCredential =>{
-        return "Usuario creado correctamente --> " + JSON.stringify(userCredential.user);
-      } )
-      .catch((error) => {
-        return "Hubo un problema.";
+      .then( userCredential =>{ //Si se creó correctamente
+        _fb2.auth.sendEmailVerification(userCredential.user) //Envia el mail de verificación
+        .then( () => {
+          return userCredential;
+        })
+        .catch ((err) => {throw err});
+        
+      })
+      .catch( (error) => {
+        throw error;
       });
   }
   
@@ -30,10 +37,10 @@ async function registerUser(email,contraseña){
         if(userCredential.user.emailVerified)
           return userCredential.user;
         else
-          throw 'El usuario no está registrado'
+          throw 'El usuario no está verificado'
       } )
       .catch( (error) => {
-        throw "email y/o contraseña erróneos";
+        throw error;
       });
   }
   

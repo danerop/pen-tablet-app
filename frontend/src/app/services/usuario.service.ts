@@ -101,35 +101,65 @@ export class UsuarioService {
         this.toastr.error(err.error,"Error");
       }
   });
-
-    /*this._http.post<Usuario>('/api/fbLogearUsuario', body)
-      .subscribe( (data) => {
-        if(data.uid == null){
-          validation = false;
-          this.toastr.error("Usuario y/o contraseña incorrectos.","Error");
-        }
-        else{
-          
-          let tempUser = new Usuario();
-          tempUser.email = data.email;
-          tempUser.uid =data.uid;
-          
-          this.sessionData.next(tempUser);
-          
-          this.saveSessionData(tempUser);
-          
-          //console.log(this.sessionData);
-          this.router.navigate(["/listaDeProductos"]); 
-          this.toastr.success('Has iniciado sesion','Exito');
-          validation = true;
-        }
-
-      },
-      (error) =>{
-
-      });*/
-      return validation;
+  return validation;
   }
+
+  register( email:string,
+            apellido:string,
+            nombre:string,
+            password:string,
+            repeatPassword:string,
+            direction:string) : boolean
+  {
+    let validation = false;
+    
+    if (password !== repeatPassword) {
+      this.toastr.error('Las contaseñas ingresadas deben ser las mismas', "Error");
+      validation = false;
+    }
+    else{
+      this.spinner.show();
+  
+      let body = {
+        "email": email,
+        "apellido": apellido,
+        "nombre": nombre,
+        "password": password,
+        "repeatPassword": repeatPassword,
+        "direction": direction
+      };
+  
+      this._http.post<Usuario>('/api/fbRegistrarUsuario',body)
+      .subscribe({
+        next: data =>{
+          this.spinner.hide();
+          this.router.navigate(["/listaDeProductos"]); 
+          this.toastr.success('Te has registrado correctamente','Exito');
+          this.toastr.success('Verifica el correo enviado a tu mail','Verificación');
+          validation = true;
+    
+        },
+        error: err =>{
+          this.spinner.hide();
+          console.log(err.error);
+          this.toastr.error(err.error, "Error");
+          validation = false;
+        }
+      });
+
+    }
+
+    return validation;
+  }
+/*
+  enviarCorreoDeVerificacion(){
+    this.afAuth.currentUser.then(user => user?.sendEmailVerification())
+            .then(()=>{
+              this.spinner.hide();
+              this.toastr.info('Se le envio un mail para verificar email','Verificar email');
+              this.router.navigate(["/login"]);
+            })
+      }*/
 
   singOut(){
     //Borro el sessionData y "emito un usuario vacío"
