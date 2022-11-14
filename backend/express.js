@@ -253,16 +253,24 @@ app.post('/api/fbLogearUsuario', async (req,res) => {
     let userMail = req.body.email;
     let userPassword = req.body.password;
 
-    const userResponse = await usuarioController.logInUser(userMail,userPassword);
+    usuarioController.logInUser(userMail,userPassword)
+        .then( userResponse => {
+            if(userResponse != null)
+                res.json(userResponse);
 
-    if(userResponse != null)
-        res.json(userResponse);
-    else
-        res.json({
-            "email": null,
-            "uid": null
         })
-})
+        .catch(error =>{
+            console.log(error);
+            res.status(404).json(error);
+        });
+
+});
+
+app.post('/api/isThisUserLoggedIn', async (req,res) => {
+    let userUid = req.body.uid;
+
+    res.json(usuarioController.isThisUserLoggedIn(userUid))
+});
 
 /*
 //actualiza un carritoproducto

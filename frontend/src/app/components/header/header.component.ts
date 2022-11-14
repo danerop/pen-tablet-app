@@ -24,19 +24,34 @@ export class HeaderComponent implements OnInit {
       console.log(data);
     });*/
 
-    _usuarioService.sessionData
-    .subscribe((userData)=> {
-      console.log(userData);
-      
-      this.usuario = userData;
-      
-      this.isLogged = true;
-    });
-
+    
+    
   }
-
+  
   ngOnInit(): void {
-  }
+    this.usuario= this._usuarioService.getSessionData();
+    this.isLogged = this.usuario.uid != null && 
+                    this.usuario.uid != '' && 
+                    this.usuario.uid != undefined;
+
+    this._usuarioService.sessionData
+    .subscribe((userData)=> {
+      this.usuario = userData;
+      this.isLogged = this.usuario.uid != null && 
+                      this.usuario.uid != '' && 
+                      this.usuario.uid != undefined;
+      console.log(this.usuario.uid);
+  
+  
+      next: (sessionData: Usuario) =>{
+        this.usuario = sessionData;
+        this.isLogged = this.usuario.uid != null && 
+                        this.usuario.uid != '' && 
+                        this.usuario.uid != undefined;
+        console.log(this.usuario.uid);
+      }
+    });
+   }
 
   cerrarSession(){
     /*this.afAuth.signOut().then( () =>{
@@ -49,8 +64,6 @@ export class HeaderComponent implements OnInit {
     );*/
     
     this._usuarioService.singOut();
-    this.isLogged = false;
-    this.usuario = new Usuario();
   }
   
 }

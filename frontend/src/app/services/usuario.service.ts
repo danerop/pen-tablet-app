@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { FirebaseCodeErrorService } from './firebase-code-error.service';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { Usuario } from '../models/usuario';
 
 @Injectable({
@@ -13,8 +13,7 @@ import { Usuario } from '../models/usuario';
 })
 export class UsuarioService {
 
-  public sessionData: BehaviorSubject<Usuario> =
-    new BehaviorSubject<Usuario>(new Usuario());
+  public sessionData: Subject<Usuario> = new Subject<Usuario>() ;
 
 
   constructor(
@@ -24,14 +23,19 @@ export class UsuarioService {
     private spinner: NgxSpinnerService, 
     private firebase: FirebaseCodeErrorService,
     private router: Router) {
-      
-     }
+      //Obtengo lo guardado en localStorage y lo "emito"
+      this.validateUserData(this.getSessionData());
+      this.sessionData.next(this.getSessionData());
+    }
 
+      
   signIn(email: string, password: string ) {
     
     this.afAuth.signInWithEmailAndPassword(email,password)
     .then((data)=>{
 
+
+      
       if(data.user?.emailVerified){
       data.user?.getIdToken()
       .then( (idToken)=> {
@@ -64,29 +68,111 @@ export class UsuarioService {
       this.spinner.hide();
       this.toastr.error(this.firebase.firebaseError(error.code),'Error');
     })
+
+
   }
   
-  signIn2(email:string,password:string){
+  signIn2(email:string,password:string):boolean{
     let body = {
       "email": email,
       "password": password
     }
 
+    let validation = false;
+
     this._http.post<Usuario>('/api/fbLogearUsuario', body)
-      .subscribe( (data) => {
+    .subscribe({
+      next: (data) =>{
         let tempUser = new Usuario();
-        
-        tempUser.email = data.email;
-        tempUser.uid =data.uid;
+          tempUser.email = data.email;
+          tempUser.uid =data.uid;
+          
+          this.sessionData.next(tempUser);
+          
+          this.saveSessionData(tempUser);
+          
+          //console.log(this.sessionData);
+          this.router.navigate(["/listaDeProductos"]); 
+          this.toastr.success('Has iniciado sesion','Exito');
+          validation = true;
+      },
+      error: (err) =>{
+        validation=false;
+        this.toastr.error(err.error,"Error");
+      }
+  });
 
-        this.sessionData.next(tempUser);
+    /*this._http.post<Usuario>('/api/fbLogearUsuario', body)
+      .subscribe( (data) => {
+        if(data.uid == null){
+          validation = false;
+          this.toastr.error("Usuario y/o contraseña incorrectos.","Error");
+        }
+        else{
+          
+          let tempUser = new Usuario();
+          tempUser.email = data.email;
+          tempUser.uid =data.uid;
+          
+          this.sessionData.next(tempUser);
+          
+          this.saveSessionData(tempUser);
+          
+          //console.log(this.sessionData);
+          this.router.navigate(["/listaDeProductos"]); 
+          this.toastr.success('Has iniciado sesion','Exito');
+          validation = true;
+        }
 
-        console.log(this.sessionData);
-      } );
+      },
+      (error) =>{
+
+      });*/
+      return validation;
   }
 
   singOut(){
-    this.sessionData = new BehaviorSubject<Usuario>({email: "1", uid: "0"});
-    console.log("se 'cerro sesion'");
+    //Borro el sessionData y "emito un usuario vacío"
+    this.deleteSessionData();
+    this.sessionData.next(new Usuario);
+
+    console.log("se 'cerró sesion'");
+  }
+
+  private saveSessionData(tempUser:Usuario){
+    localStorage.setItem("uid",tempUser.uid);
+    localStorage.setItem("email",tempUser.email);
+  }
+
+  getSessionData(): Usuario{
+    let tempUser = new Usuario();
+
+    let emailSaved = localStorage.getItem("email");
+    let uidSaved = localStorage.getItem("uid");
+
+    if(emailSaved != null)
+      tempUser.email = emailSaved;
+    if(uidSaved != null)
+      tempUser.uid = uidSaved;
+
+    return tempUser;
+  }
+
+  private deleteSessionData(){
+    localStorage.clear();
+  }
+
+  
+  validateUserData(tempUser: Usuario) {
+    this._http.post<boolean>('/api/isThisUserLoggedIn', tempUser)
+    .subscribe(value =>{
+      if(!value){
+        console.log("LocalStorage erróneo, borrándolo...");
+        this.deleteSessionData();
+      }else
+      console.log("LocalStorage validado.")
+    })
   }
 }
+
+

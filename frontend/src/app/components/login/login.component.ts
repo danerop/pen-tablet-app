@@ -33,6 +33,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  
   login(){
     const email = this.loginUsuario.value.email;
     const password = this.loginUsuario.value.password;
@@ -40,7 +41,7 @@ export class LoginComponent implements OnInit {
     //this.spinner.show();
 
     //console.log(email,password);
-    this._usuarioService.signIn2(email,password);
+     this._usuarioService.signIn2(email,password);
     
 
   }

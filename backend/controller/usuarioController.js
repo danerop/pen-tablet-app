@@ -27,10 +27,13 @@ async function registerUser(email,contraseña){
   async function logInUser(email,password){
     return await _fb2.auth.signInWithEmailAndPassword(_fb2.authApp,email,password)
       .then( userCredential => {
-        return userCredential.user;
+        if(userCredential.user.emailVerified)
+          return userCredential.user;
+        else
+          throw 'El usuario no está registrado'
       } )
       .catch( (error) => {
-        return null;
+        throw "email y/o contraseña erróneos";
       });
   }
   
