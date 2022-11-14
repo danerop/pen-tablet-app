@@ -1,5 +1,5 @@
 //Setting up MySQL
-
+const _fb2 = require('./firebaseV2');
 const prodController = require("./controller/productosController");
 const carritoController = require("./controller/carritoController");
 const carritoproductoController = require("./controller/carritoproductoController");
@@ -42,6 +42,15 @@ app.use((req, res, next) => {
 
 //app.use(logger);
 app.use(express.json());
+
+app.use((req, res, next) => {
+    var user = _fb2.authApp.currentUser;
+
+    console.log(user);
+    res.locals.currentUser = user;
+    next();
+})
+
 
 app.get('/api/prodId/:id', async (req, res) => {
     console.log('Petición para retornar un producto a partir de su ID');

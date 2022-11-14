@@ -26,8 +26,11 @@ export class HeaderComponent implements OnInit {
 
     _usuarioService.sessionData
     .subscribe((userData)=> {
+      console.log(userData);
+      
       this.usuario = userData;
-      this.isLogged = (userData.uid != null);
+      
+      this.isLogged = true;
     });
 
   }
@@ -44,7 +47,10 @@ export class HeaderComponent implements OnInit {
         this.isLogged=false;
       }
     );*/
-
+    
+    this._usuarioService.singOut();
+    this.isLogged = false;
+    this.usuario = new Usuario();
   }
   
 }

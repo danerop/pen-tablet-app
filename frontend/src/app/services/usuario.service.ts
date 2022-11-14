@@ -84,4 +84,9 @@ export class UsuarioService {
         console.log(this.sessionData);
       } );
   }
+
+  singOut(){
+    this.sessionData = new BehaviorSubject<Usuario>({email: "1", uid: "0"});
+    console.log("se 'cerro sesion'");
+  }
 }
