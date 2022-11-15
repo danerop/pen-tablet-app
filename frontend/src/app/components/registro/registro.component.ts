@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from "ngx-spinner";
 import{Router} from '@angular/router';
 import { FirebaseCodeErrorService } from 'src/app/services/firebase-code-error.service';
+import { UsuarioService } from 'src/app/services/usuario.service';
 
 
 
@@ -23,13 +24,15 @@ export class RegistroComponent implements OnInit {
     private toastr: ToastrService,
     private spinner: NgxSpinnerService, 
     private router: Router,
-    private firebaseError:FirebaseCodeErrorService ) {
+    private firebaseError:FirebaseCodeErrorService,
+    private _usuarioService: UsuarioService ) {
     this.regitrarUsuario=this.fb.group({
       email:['',Validators.required],
       nombre:['',Validators.required],
       apellido:['',Validators.required],
       password:['',Validators.required],
       repetirPassword:['',Validators.required],
+      direccion: ['', Validators.required]
      
     })
    }
@@ -52,17 +55,30 @@ export class RegistroComponent implements OnInit {
     this.spinner.show();
    
    
-    this.afAuth.createUserWithEmailAndPassword(email,password).then((user)=>{ //es un mentodo que pasa el email y la contraseña
+    this.afAuth.createUserWithEmailAndPassword(email,password)
+    .then((user)=>{ //es un mentodo que pasa el email y la contraseña
       console.log(user);
 
       this.verificarCorreo();
     
-  }).catch((error)=>{
-    console.log(error);
-    this.spinner.hide();
-    this.toastr.error(this.firebaseError.firebaseError(error.code),'Error');
-  })
+    }).catch((error)=>{
+      console.log(error);
+      this.spinner.hide();
+      this.toastr.error(this.firebaseError.firebaseError(error.code),'Error');
+    })
   }
+
+  registrar2(){
+    const email = this.regitrarUsuario.value.email;
+    const apellido = this.regitrarUsuario.value.apellido;
+    const nombre = this.regitrarUsuario.value.nombre;
+    const password = this.regitrarUsuario.value.password;
+    const repetPassword = this.regitrarUsuario.value.repetirPassword;
+    const dir = this.regitrarUsuario.value.direccion;
+
+    this._usuarioService.register(email,apellido,nombre,password,repetPassword,dir);
+  }
+
 
   verificarCorreo(){
 this.afAuth.currentUser.then(user => user?.sendEmailVerification())

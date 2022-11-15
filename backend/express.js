@@ -1,5 +1,5 @@
 //Setting up MySQL
-
+const _fb2 = require('./firebaseV2');
 const prodController = require("./controller/productosController");
 const carritoController = require("./controller/carritoController");
 const carritoproductoController = require("./controller/carritoproductoController");
@@ -42,6 +42,15 @@ app.use((req, res, next) => {
 
 //app.use(logger);
 app.use(express.json());
+
+app.use((req, res, next) => {
+    var user = _fb2.authApp.currentUser;
+
+    console.log(user);
+    res.locals.currentUser = user;
+    next();
+})
+
 
 app.get('/api/prodId/:id', async (req, res) => {
     console.log('Petición para retornar un producto a partir de su ID');
@@ -191,14 +200,14 @@ app.post('/api/agregar-producto', async(req, res) => {
 });
 
 
-app.post('/api/fbRegistrarUsuario', async (req,res) =>{
+/*app.post('/api/fbRegistrarUsuario', async (req,res) =>{
     let userMail = req.body.email;
     let userPassword = req.body.password;
 
     const userResponse = await usuarioController.registrarUsuario(userMail,userPassword);
 
     res.json(userResponse);
-});
+});*/
 app.post('/api/checkToken', async (req,res) =>{
 
     console.log("peticion para checkToken");
@@ -224,6 +233,48 @@ app.post('/api/checkToken', async (req,res) =>{
         res.status(401).send("UNAUTHORIZED REQUEST!");
     }
 
+});
+
+//firebase v2
+app.post('/api/fbRegistrarUsuario', async (req,res) =>{
+    console.log('Petición para registrar usuario');
+
+    let userMail = req.body.email;
+    let userPassword = req.body.password;
+
+    usuarioController.registerUser(userMail,userPassword)
+        .then( userCreated=> {
+            res.json( userCreated );
+        })
+        .catch( err => {
+            console.log(err);
+            res.status(400).send(err);
+        });
+});
+
+app.post('/api/fbLogearUsuario', async (req,res) => {
+    console.log('Petición para logear usuario');
+
+    let userMail = req.body.email;
+    let userPassword = req.body.password;
+
+    usuarioController.logInUser(userMail,userPassword)
+        .then( userResponse => {
+            if(userResponse != null)
+                res.json(userResponse);
+
+        })
+        .catch(error =>{
+            console.log(error);
+            res.status(400).json(error);
+        });
+
+});
+
+app.post('/api/isThisUserLoggedIn', async (req,res) => {
+    let userUid = req.body.uid;
+
+    res.json(usuarioController.isThisUserLoggedIn(userUid))
 });
 
 /*

@@ -1,5 +1,5 @@
 <div  class="login" >
-    <form (ngSubmit)="registrar()" [formGroup]="regitrarUsuario" class="custom-form" method="post">
+    <form (ngSubmit)="registrar2()" [formGroup]="regitrarUsuario" class="custom-form" method="post">
       <h1>Sing up</h1>
       <input
       type="text"
@@ -7,21 +7,21 @@
       placeholder="Ingrese Nombre"
       required="required"
       formControlName="nombre"
-    />
-    <input
-    type="text"
-    id="Apellido"
-    placeholder="Ingrese Apellido"
-    required="required"
-    formControlName="apellido"
-  />
-  <input
-  type="text"
-  id="dir"
-  placeholder="Ingrese Direccion"
-  required="required"
-  formControlName="direccion"
-/>
+      />
+      <input
+      type="text"
+      id="Apellido"
+      placeholder="Ingrese Apellido"
+      required="required"
+      formControlName="apellido"
+      />
+      <input
+      type="text"
+      id="dir"
+      placeholder="Ingrese Direccion"
+      required="required"
+      formControlName="direccion"
+      />
     
       <input
         type="email"
@@ -39,12 +39,14 @@
       />
       <input
       type="password"
-      id="password"
+      id="repetirPassword"
       placeholder="Repita la contraseña"
       required="required"
       formControlName="repetirPassword"
-    />
+      />
+      
       <button type="submit">Registrar</button>
+
       <div>
         <p class="mt-3">Tienes cuenta? <a routerLink="/login">Inicie sesion</a></p>
       </div>

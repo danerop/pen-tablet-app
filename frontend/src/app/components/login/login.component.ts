@@ -33,14 +33,15 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  
   login(){
     const email = this.loginUsuario.value.email;
     const password = this.loginUsuario.value.password;
 
-    this.spinner.show();
+    //this.spinner.show();
 
-    console.log(email,password);
-    this._usuarioService.signIn(email,password);
+    //console.log(email,password);
+     this._usuarioService.signIn2(email,password);
     
 
   }

@@ -2,11 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7736a896-8a96-4b4f-abf6-43ac518ecb46" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/backend/controller/usuarioController.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/controller/usuarioController.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/express.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/express.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/lista-productos/lista-productos.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/lista-productos/lista-productos.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/ver-producto/ver-producto.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/ver-producto/ver-producto.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/header/header.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/header/header.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/registro/registro.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/registro/registro.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/components/registro/registro.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/registro/registro.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/services/usuario.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/services/usuario.service.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,6 +47,7 @@
       <workItem from="1667763674093" duration="2000" />
       <workItem from="1667767398213" duration="7000" />
       <workItem from="1667770859142" duration="11000" />
+      <workItem from="1668448491253" duration="4000" />
     </task>
     <servers />
   </component>

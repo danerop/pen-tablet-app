@@ -20,6 +20,7 @@
 
         <li *ngIf="!isLogged">
           <a routerLink="/login">Login</a>
+          <a routerLink="/singUp">Registrarse</a>
         </li>
 
         <li  class="menu-container" *ngIf="isLogged">
@@ -31,7 +32,7 @@
         </li>
         
         <li>
-          <a routerLink="/carrito">
+          <a routerLink="/carrito" *ngIf="isLogged">
             <i class="material-icons">
               shopping_cart
             </i>
