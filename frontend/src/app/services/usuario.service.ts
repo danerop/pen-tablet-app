@@ -29,48 +29,7 @@ export class UsuarioService {
     }
 
       
-  signIn(email: string, password: string ) {
-    
-    this.afAuth.signInWithEmailAndPassword(email,password)
-    .then((data)=>{
-
-
-      
-      if(data.user?.emailVerified){
-      data.user?.getIdToken()
-      .then( (idToken)=> {
-
-        //console.log(idToken);
-        this._http.post('/api/checkToken',  {"idToken":idToken})
-        .subscribe( (value)=>{
-          
-        } );
-        
-      })
-      .catch(function(error) {
-        // Handle error
-      });
-
-      console.log(data);
-      this.spinner.hide();
-      this.toastr.success('Has iniciado sesion','Exito');
-      //location.reload();
-      this.router.navigate(["/listaDeProductos"]); 
-    }else{
-        this.router.navigate(["/verificado"])
-        this.spinner.hide();
-    }})
-    .then( () => {
-      this.afAuth.signOut().then();
-    })
-    .catch((error)=>{
-      console.error;
-      this.spinner.hide();
-      this.toastr.error(this.firebase.firebaseError(error.code),'Error');
-    })
-
-
-  }
+  
   
   signIn2(email:string,password:string):boolean{
     let body = {
@@ -151,15 +110,6 @@ export class UsuarioService {
 
     return validation;
   }
-/*
-  enviarCorreoDeVerificacion(){
-    this.afAuth.currentUser.then(user => user?.sendEmailVerification())
-            .then(()=>{
-              this.spinner.hide();
-              this.toastr.info('Se le envio un mail para verificar email','Verificar email');
-              this.router.navigate(["/login"]);
-            })
-      }*/
 
   singOut(){
     //Borro el sessionData y "emito un usuario vacío"
