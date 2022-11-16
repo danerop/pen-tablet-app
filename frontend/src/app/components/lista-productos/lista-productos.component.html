@@ -20,7 +20,7 @@
           </h5>
           <h6 class="card-subtitle">${{product.precio}}</h6>
 
-          <a  routerLink="/nose"
+          <button  (click)="agregarProductoAlCarrito(product.id)"
               class="btn btn-primary 
                     p-2 mt-3 
                     d-flex justify-content-center">
@@ -29,7 +29,7 @@
               add_shopping_cart
             </i>
             Añadir al carrito 
-          </a>
+          </button>
         </div>
       </a>
 

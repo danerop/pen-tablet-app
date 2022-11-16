@@ -26,7 +26,7 @@ async function getCarritoByUsuario(usuario){ //obtiene el ultimo carrito de un u
 
 async function postCarrito(usuario) { //crea un carrito nuevo para el usuario
   let query =
-  `INSERT INTO carrito VALUES
+  `INSERT INTO carrito (usuario) VALUES
   ( "${usuario}" )
   ;`;
   

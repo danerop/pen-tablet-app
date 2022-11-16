@@ -22,6 +22,7 @@ import { environment } from 'src/environments/environment';
 import { AdminProductoComponent } from './components/admin-producto/admin-producto.component';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { ListaPorTipoComponent } from './components/lista-por-tipo/lista-por-tipo.component';
+import { PerfilComponent } from './components/perfil/perfil.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { ListaPorTipoComponent } from './components/lista-por-tipo/lista-por-tip
     RecuperarContaseniaComponent,
     SpinnerComponent,
     AdminProductoComponent,
-    ListaPorTipoComponent
+    ListaPorTipoComponent,
+    PerfilComponent
   ],
   
   imports: [

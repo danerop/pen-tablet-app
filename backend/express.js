@@ -137,25 +137,28 @@ app.delete('/', (req, res) => {
 
 
 // -CARRITO- //
-//ver carrito de un usuario
+//ver carrito no comprado de un usuario
 app.get('/api/carrito', async (req, res) => {
     let usuario = req.query.usuario;
     let result = await carritoController.getCarritoByUsuario(usuario);
-    console.log(result);
     res.json(result);
 });
 
 //ver todos los productos de un carrito con sus cantidades
-app.get('/api/carrito/:usuario', async(req, res) => {
-    let usuario = req.params.usuario;
-    let carrito = await carritoController.getCarritoByUsuario(usuario);
-    let productosDelCarrito = await carritoproductoController.getAllProductsInCarrito(carrito.id);
-    res.json(productosDelCarrito);
+app.get('/api/carrito/:id', async(req, res) => {
+    let idCarrito = req.params.id;
+    let productosDelCarrito;
+    if(idCarrito != null && idCarrito != undefined && idCarrito != ""){
+        productosDelCarrito = await carritoproductoController.getAllProductsInCarrito(idCarrito);
+        res.status(200).json(productosDelCarrito);
+    }else{
+        res.status(404).send("ID de carrito no encontrado.");
+    }
 });
 
 //crear un nuevo carrito para un usuario
 app.post('/api/nuevo-carrito', (req, res) => {
-    let usuario = req.params.u;
+    let usuario = req.body.uid;
 
     carritoController.postCarrito(usuario);
     res.send("carrito creado");
@@ -166,38 +169,46 @@ app.put('/api/comprar-carrito', async (req, res) => {
     let carrito =  JSON.stringify(req.body);
     let idCarrito = JSON.stringify(req.body.id);
     let totalAPagar = 0;
+    
+    let carrProd = await carritoproductoController.getAllCarritoProductoByIdCarrito(idCarrito);
 
-    console.log("comprar-carrito " + carrito + idCarrito);
+    await carrProd.forEach(async (cp) => {
+        cp = JSON.parse(JSON.stringify(cp));
 
-    let carritoProductos = await carritoproductoController.getAllCarritoProductoByIdCarrito(idCarrito);
+        let prod = JSON.parse(JSON.stringify( await prodController.getProductById(cp.producto) ));
 
-    console.log("carritosProductos: " + carritoProductos);
-
-    for(let cp in carritoProductos){
-        console.log("carrito producto" + cp);
-        let p = prodController.getProductById(cp.producto);
-        
-        totalAPagar += p.precio * cp.cantidad;
-        cp.precioPagadoPorUnidad = p.precio;
-
-        carritoproductoController.putCarritoProducto(cp);
-    }
-
+        cp.precioPagadoPorUnidad = prod.precio;
+        totalAPagar += prod.precio * cp.cantidad;
+        console.log(totalAPagar);
+    });
+    
+    console.log(totalAPagar);
     carrito.totalPagado = totalAPagar;
-    carritoController.putCarrito(carrito);
-
+    await carritoController.putCarrito(carrito);
     res.send("carrito comprado");
 });
 
+//agregar nuevo producto al carrito
 app.post('/api/agregar-producto', async(req, res) => {
-    let {idCarrito, idProducto} = JSON.stringify(req.body);
+    let {idCarrito, idProducto} = JSON.parse(JSON.stringify(req.body));
 
-    console.log("agregar-producto: " + idProducto);
-
-    carritoproductoController.postCarritoProducto(idCarrito, idProducto);
-
-    res.send("producto agregado al carrito");
+    let carrProd = await carritoproductoController.getCarritoProductoByIdCarritoAndIdProducto(idCarrito, idProducto);
+    if(!carrProd){
+        await carritoproductoController.postCarritoProducto(idCarrito, idProducto);
+        res.json("producto agregado al carrito");
+    } else {
+        res.json("el producto ya se encuentra registrado");
+    }
 });
+
+//actualiza un carritoproducto
+app.put('/api/actualizar-carrito', async(req, res) => {
+    let carritoProducto = JSON.parse(JSON.stringify(req.body));
+
+    await carritoproductoController.putCarritoProducto(carritoProducto);
+    res.send("carrito");
+});
+
 
 
 /*app.post('/api/fbRegistrarUsuario', async (req,res) =>{
@@ -242,7 +253,9 @@ app.post('/api/fbRegistrarUsuario', async (req,res) =>{
     let userMail = req.body.email;
     let userPassword = req.body.password;
 
-    usuarioController.registerUser(userMail,userPassword)
+    let usuario = JSON.parse(JSON.stringify(req.body));
+
+    usuarioController.registerUser(userMail,userPassword, usuario)
         .then( userCreated=> {
             res.json( userCreated );
         })
@@ -260,9 +273,9 @@ app.post('/api/fbLogearUsuario', async (req,res) => {
 
     usuarioController.logInUser(userMail,userPassword)
         .then( userResponse => {
-            if(userResponse != null)
+            if(userResponse != null){
                 res.json(userResponse);
-
+            }
         })
         .catch(error =>{
             console.log(error);
@@ -277,19 +290,6 @@ app.post('/api/isThisUserLoggedIn', async (req,res) => {
     res.json(usuarioController.isThisUserLoggedIn(userUid))
 });
 
-/*
-//actualiza un carritoproducto
-app.put('/api/actualizar-carrito', async(req, res) => {
-    let usuario = req.query.u;
-    let idProducto = req.query.idp;
-    let nuevaCantidad = req.query.cantidad;
-
-    let carrito = await carritoController.getCarritoByUsuario(usuario);
-    let carritoProducto = await carritoproductoController.getCarritoProductoByIdCarritoAndIdProducto(carrito.id, idProducto);
-    await carritoproductoController.putCambiarCantidad(carritoProducto.id, nuevaCantidad);
-    res.send("carrito");
-});
-*/
 
 
 
