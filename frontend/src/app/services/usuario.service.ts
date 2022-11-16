@@ -57,7 +57,11 @@ export class UsuarioService {
       },
       error: (err) =>{
         validation=false;
-        this.toastr.error(err.error,"Error");
+        if(err.error == "El usuario no está verificado"){
+          this.toastr.info(err.error+ ", por favor confirme el email del registro","Info");
+        } else {
+          this.toastr.error(this.firebase.codeError(err.error.code),"Error")
+        }        
       }
   });
   return validation;
@@ -94,14 +98,14 @@ export class UsuarioService {
           this.spinner.hide();
           this.router.navigate(["/listaDeProductos"]); 
           this.toastr.success('Te has registrado correctamente','Exito');
-          this.toastr.success('Verifica el correo enviado a tu mail','Verificación');
+          this.toastr.info('Verifica el correo enviado a tu mail','Verificación');
           validation = true;
     
         },
         error: err =>{
           this.spinner.hide();
           console.log(err.error);
-          this.toastr.error(err.error, "Error");
+          this.toastr.error(this.firebase.codeError(err.error.code),"Error")
           validation = false;
         }
       });

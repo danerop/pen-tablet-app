@@ -23,7 +23,7 @@ export class RecuperarContaseniaComponent implements OnInit {
     private firebase: FirebaseCodeErrorService) {
 
       this.recuperarUsuario = this.fb.group({
-        correo: ['',Validators.required]
+        correo: ['',[Validators.required, Validators.email]]
       })
      }
      recuperar(){
@@ -36,7 +36,7 @@ export class RecuperarContaseniaComponent implements OnInit {
           this.router.navigate(["/login"]);
         }).catch((error)=>{
           this.spinner.hide();
-          this.toastr.error(this.firebase.firebaseError(error.code),'Error');
+          this.toastr.error(this.firebase.codeError(error.code),'Error');
         })
 
      }
