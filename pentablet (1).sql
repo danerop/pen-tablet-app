@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-11-2022 a las 00:09:26
+-- Tiempo de generación: 16-11-2022 a las 01:11:34
 -- Versión del servidor: 10.4.24-MariaDB
 -- Versión de PHP: 7.4.28
 
@@ -29,17 +29,9 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `carrito` (
   `id` int(7) NOT NULL,
-  `usuario` varchar(256) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL,
+  `usuario` varchar(255) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL,
   `totalPagado` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Volcado de datos para la tabla `carrito`
---
-
-INSERT INTO `carrito` (`id`, `usuario`, `totalPagado`) VALUES
-(1, 'bort', NULL),
-(2, 'ana', NULL);
 
 -- --------------------------------------------------------
 
@@ -54,16 +46,6 @@ CREATE TABLE `carritoproducto` (
   `cantidad` int(3) NOT NULL,
   `precioPagadoPorUnidad` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Volcado de datos para la tabla `carritoproducto`
---
-
-INSERT INTO `carritoproducto` (`id`, `carrito`, `producto`, `cantidad`, `precioPagadoPorUnidad`) VALUES
-(1, 1, 3, 2, NULL),
-(2, 1, 4, 1, NULL),
-(3, 1, 2, 4, NULL),
-(4, 2, 3, 2, NULL);
 
 -- --------------------------------------------------------
 
@@ -123,7 +105,7 @@ INSERT INTO `productos` (`id`, `nombre`, `descripcion`, `clasificacion`, `precio
 --
 
 CREATE TABLE `usuarios` (
-  `uid` varchar(255) NOT NULL,
+  `uid` varchar(255) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL,
   `nombre` varchar(255) NOT NULL,
   `apellido` varchar(255) NOT NULL,
   `direccion` varchar(255) NOT NULL,
@@ -138,7 +120,8 @@ CREATE TABLE `usuarios` (
 -- Indices de la tabla `carrito`
 --
 ALTER TABLE `carrito`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `usuario` (`usuario`);
 
 --
 -- Indices de la tabla `carritoproducto`
@@ -181,7 +164,7 @@ ALTER TABLE `carrito`
 -- AUTO_INCREMENT de la tabla `carritoproducto`
 --
 ALTER TABLE `carritoproducto`
-  MODIFY `id` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(7) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `clasificacion`
@@ -198,6 +181,12 @@ ALTER TABLE `productos`
 --
 -- Restricciones para tablas volcadas
 --
+
+--
+-- Filtros para la tabla `carrito`
+--
+ALTER TABLE `carrito`
+  ADD CONSTRAINT `carrito_ibfk_1` FOREIGN KEY (`usuario`) REFERENCES `usuarios` (`uid`);
 
 --
 -- Filtros para la tabla `carritoproducto`
