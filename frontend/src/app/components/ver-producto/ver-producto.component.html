@@ -27,7 +27,7 @@
             <div class="descripcion">
                 <p>{{producto.descripcion}}</p>
             </div>
-            <button class="btnEnviar btn btn-primary col-8">AGREGAR AL CARRITO</button>
+            <button (click)="agregarProductoAlCarrito(producto.id)" class="btnEnviar btn btn-primary col-8">AGREGAR AL CARRITO</button>
 
         </form>
     </article>

@@ -64,6 +64,7 @@ export class HeaderComponent implements OnInit {
     );*/
     
     this._usuarioService.singOut();
+    location.reload();
   }
   
 }

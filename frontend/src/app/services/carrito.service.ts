@@ -12,17 +12,24 @@ export class CarritoService {
 
   constructor(private _http:HttpClient) {
   }
-
-  getAllProductosInCarrito(usuario:string):Observable<CarritoElement[]> {
-    return this._http.get<CarritoElement[]>('/api/carrito/' + usuario);
-  }
-
+  
   getCarritoByUser(usuario:string):Observable<Carrito> {
     return this._http.get<Carrito>('/api/carrito?usuario=' + usuario);
   }
+
+  getAllProductosInCarrito(idCarrito:number):Observable<CarritoElement[]> {
+    return this._http.get<CarritoElement[]>('/api/carrito/' + idCarrito);
+  }
   
-  putComprarCarrito(carrito:Carrito):void{
-    console.log("metodo de comprar carrito" + carrito);
+  postAgregarProductoAlCarrito(idCarrito:number ,idProducto:number):void {
+    let body = {
+      "idCarrito": idCarrito,
+      "idProducto": idProducto
+    }
+    this._http.post<any>("/api/agregar-producto", body).subscribe( () => {} );
+  }
+
+  putComprarCarrito(carrito:Carrito):void {
     this._http.put<Carrito>('/api/comprar-carrito', carrito,
       {
         headers: new HttpHeaders({
