@@ -16,8 +16,8 @@ export class LoginComponent implements OnInit {
     private _usuarioService:UsuarioService
     ) {
       this.loginUsuario = this.fb.group({
-        email:['',Validators.required],
-        password:['',Validators.required],
+        email:['',[Validators.required, Validators.email]],
+        password:['',[Validators.required, Validators.minLength(6)]],
       })
    }
 
@@ -27,9 +27,7 @@ export class LoginComponent implements OnInit {
   login(){
     const email = this.loginUsuario.value.email;
     const password = this.loginUsuario.value.password;
-     this._usuarioService.signIn2(email,password);
-    
-
+    this._usuarioService.signIn2(email,password);
   }
 
 }

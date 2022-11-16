@@ -15,21 +15,19 @@ export class UsuarioService {
 
   public sessionData: Subject<Usuario> = new Subject<Usuario>() ;
 
-
   constructor(
     private _http:HttpClient,
     private afAuth: AngularFireAuth, 
     private toastr: ToastrService,
     private spinner: NgxSpinnerService, 
     private firebase: FirebaseCodeErrorService,
-    private router: Router) {
-      //Obtengo lo guardado en localStorage y lo "emito"
-      this.validateUserData(this.getSessionData());
-      this.sessionData.next(this.getSessionData());
-    }
+    private router: Router)
+  {
+    //Obtengo lo guardado en localStorage y lo "emito"
+    this.validateUserData(this.getSessionData());
+    this.sessionData.next(this.getSessionData());
+  }
 
-      
-  
   
   signIn2(email:string,password:string):boolean{
     let body = {
@@ -43,25 +41,31 @@ export class UsuarioService {
     .subscribe({
       next: (data) =>{
         let tempUser = new Usuario();
-          tempUser.email = data.email;
-          tempUser.uid =data.uid;
-          
-          this.sessionData.next(tempUser);
-          
-          this.saveSessionData(tempUser);
-          
-          //console.log(this.sessionData);
-          this.router.navigate(["/listaDeProductos"]); 
-          this.toastr.success('Has iniciado sesion','Exito');
-          validation = true;
+        tempUser.email = data.email;
+        tempUser.uid = data.uid;
+        
+        this.sessionData.next(tempUser);
+        
+        this.saveSessionData(tempUser);
+        
+        //console.log(this.sessionData);
+        this.router.navigate(["/listaDeProductos"]); 
+        this.toastr.success('Has iniciado sesion','Exito');
+        validation = true;
       },
       error: (err) =>{
-        validation=false;
-        this.toastr.error(err.error,"Error");
+        validation = false;
+        if(err.error == "El usuario no está verificado"){
+          this.toastr.info(err.error+ ", por favor confirme el email del registro","Info");
+        } else {
+          this.toastr.error(this.firebase.codeError(err.error.code),"Error")
+        }        
       }
-  });
-  return validation;
+    });
+
+    return validation;
   }
+
 
   register( email:string,
             apellido:string,
@@ -94,18 +98,17 @@ export class UsuarioService {
           this.spinner.hide();
           this.router.navigate(["/listaDeProductos"]); 
           this.toastr.success('Te has registrado correctamente','Exito');
-          this.toastr.success('Verifica el correo enviado a tu mail','Verificación');
+          this.toastr.info('Verifica el correo enviado a tu mail','Verificación');
           validation = true;
     
         },
         error: err =>{
           this.spinner.hide();
           console.log(err.error);
-          this.toastr.error(err.error, "Error");
+          this.toastr.error(this.firebase.codeError(err.error.code),"Error")
           validation = false;
         }
       });
-
     }
 
     return validation;
