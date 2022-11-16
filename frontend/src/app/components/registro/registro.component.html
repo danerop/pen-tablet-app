@@ -8,6 +8,8 @@
       required="required"
       formControlName="nombre"
       />
+      <span *ngIf="regitrarUsuario.get('nombre')?.hasError('required') && regitrarUsuario.get('nombre')?.touched"  class="text-danger errorLabel" >El nombre es requerido</span>
+
       <input
       type="text"
       id="Apellido"
@@ -15,6 +17,8 @@
       required="required"
       formControlName="apellido"
       />
+      <span *ngIf="regitrarUsuario.get('apellido')?.hasError('required') && regitrarUsuario.get('apellido')?.touched"  class="text-danger errorLabel" >El Apellido es requerido</span>
+
       <input
       type="text"
       id="dir"
@@ -22,7 +26,7 @@
       required="required"
       formControlName="direccion"
       />
-    
+      <span *ngIf="regitrarUsuario.get('direccion')?.hasError('required') && regitrarUsuario.get('direccion')?.touched"  class="text-danger errorLabel" >La direccion es requerida</span>
       <input
         type="email"
         id="email"
@@ -30,6 +34,7 @@
         required="required"
         formControlName="email"
       />
+      <span *ngIf="regitrarUsuario.get('email')?.hasError('email') && regitrarUsuario.get('email')?.touched"  class="text-danger errorLabel" >El email no tiene el formato correcto</span>
       <input
         type="password"
         id="password"
@@ -37,6 +42,7 @@
         required="required"
         formControlName="password"
       />
+      <span *ngIf="regitrarUsuario.get('password')?.hasError('minlength') && regitrarUsuario.get('password')?.touched"  class="text-danger errorLabel" >La contraseña debe tener minimo 6 caracteres</span>
       <input
       type="password"
       id="repetirPassword"

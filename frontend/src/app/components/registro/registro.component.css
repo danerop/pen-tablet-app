@@ -11,24 +11,36 @@
     padding: 0;
   }
   .custom-form {
-    text-align: center;
+    text-align: start;
     min-width: 300px;
-    max-width: 60%;
+    max-width: 30%;
     margin: 0px auto;
     background: rgba(255, 255, 255, 0.15);
-    padding: 2rem 3rem;
+    padding: 1rem 2rem;
     margin: auto;
     border-radius: 2.5rem;
     background-color: #ecf0f3;
     color: black;
     margin-top: 10rem;
   }
+
+  .custom-form h1 {
+    text-align: center;
+  }  
+
+  .custom-form P {
+    text-align: center;
+  }
+  .custom form .errorLabel{
+    margin-left: 2px;
+  }
+
   .custom-form input {
     display: block;
-    margin: 2rem 0;
+    margin: 1.5rem 0;
     width: 100%;
     border-radius: 0.5rem;
-    padding: 1rem;
+    padding: 0.8rem;
     border: none;
     border: 0 none;
     background: #ffffff;
