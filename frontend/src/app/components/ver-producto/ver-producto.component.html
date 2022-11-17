@@ -24,7 +24,7 @@
                 <h2 class="col-12">${{producto.precio}}</h2>
 
             </div>
-            <div [innerHTML]="producto.descripcion"> 
+            <div [innerHTML]="producto.descripcion" class="descripcion"> 
             </div>
             <button (click)="agregarProductoAlCarrito(producto.id)" class="btnEnviar btn btn-primary col-8">AGREGAR AL CARRITO</button>
 
