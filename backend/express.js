@@ -138,10 +138,23 @@ app.delete('/', (req, res) => {
 
 
 // -CARRITO- //
+
+//ver carrito
+app.get('/api/ver-carrito/:id', async (req, res) => {
+    let idCarrito = req.params.id;
+    let result = await carritoController.getCarrito(idCarrito);
+    res.json(result);
+});
 //ver carrito no comprado de un usuario
 app.get('/api/carrito', async (req, res) => {
     let usuario = req.query.usuario;
     let result = await carritoController.getCarritoByUsuario(usuario);
+    res.json(result);
+});
+//ver carritos comprados de un usuario
+app.get('/api/carritos-comprados', async (req, res) => {
+    let usuario = req.query.usuario;
+    let result = await carritoController.getCarritosCompradosByUsuario(usuario);
     res.json(result);
 });
 
@@ -174,7 +187,6 @@ app.put('/api/comprar-carrito', async (req, res) => {
     carritoproductoController.getAllCarritoProductoByIdCarrito(carrito.id)
     .then( async (carritoProductos) => {
 
-
         await Promise.all(
             carritoProductos.map( async (cp) => {
                 cp = JSON.parse(JSON.stringify(cp));    
@@ -186,7 +198,6 @@ app.put('/api/comprar-carrito', async (req, res) => {
             })
         )
 
-        console.log("TOTAL PAGADO AL FINAL: " + carrito.totalPagado);
         carritoController.putCarrito(carrito).then(() => {
             carritoController.postCarrito(usuario);
             res.send("carrito comprado");
@@ -207,6 +218,7 @@ app.post('/api/agregar-producto-carrito', async(req, res) => {
         res.json("el producto ya se encuentra registrado");
     }
 });
+//elimina un producto del carrito
 app.delete('/api/eliminar-producto-carrito', async(req, res) => {
     let {idCarrito, idProducto} = JSON.parse(JSON.stringify(req.body));
     console.log("eliminar producto" + idProducto);
@@ -308,7 +320,15 @@ app.post('/api/isThisUserLoggedIn', async (req,res) => {
     res.json(usuarioController.isThisUserLoggedIn(userUid))
 });
 
-
+app.get('/api/getUserData', async(req, res) => {
+    let userUid = req.query.uid;
+    usuarioController.getDataUsuario(userUid).then( (user) => {
+        res.status(200).json(user);
+    }).catch( (err) => {
+        console.log(err);
+        res.status(400).send(err);
+    });  
+})
 
 
 //listen//

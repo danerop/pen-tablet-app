@@ -12,8 +12,16 @@ export class CarritoService {
   constructor(private _http:HttpClient) {
   }
   
+  getCarrito(idCarrito:number){
+    return this._http.get<Carrito>('/api/ver-carrito/' + idCarrito);
+  }
+
   getCarritoByUser(usuario:string):Observable<Carrito> {
     return this._http.get<Carrito>('/api/carrito?usuario=' + usuario);
+  }
+
+  getCarritosCompradosByUser(usuario:string):Observable<Carrito[]>{
+    return this._http.get<Carrito[]>('/api/carritos-comprados?usuario=' + usuario);
   }
 
   getAllProductosInCarrito(idCarrito:number):Observable<CarritoElement[]> {

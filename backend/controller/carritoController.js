@@ -3,6 +3,7 @@ const db = require("../database");
 module.exports = {
   getCarrito,
   getCarritoByUsuario,
+  getCarritosCompradosByUsuario,
   postCarrito,
   putCarrito
 }
@@ -22,6 +23,15 @@ async function getCarritoByUsuario(usuario){ //obtiene el ultimo carrito de un u
   AND totalPagado IS NULL`;
 
   return await db.queryUniqueResult(query);
+}
+
+async function getCarritosCompradosByUsuario(usuario){
+  let query = 
+  `SELECT * FROM carrito
+  WHERE usuario = "${usuario}"
+  AND totalPagado IS NOT NULL`;
+
+  return await db.queryMultipleResults(query);
 }
 
 async function postCarrito(usuario) { //crea un carrito nuevo para el usuario

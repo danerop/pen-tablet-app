@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { UsuarioService } from 'src/app/services/usuario.service';
-import { BehaviorSubject, Observable } from 'rxjs';
 import { Usuario } from 'src/app/models/usuario';
 
 @Component({
