@@ -5,6 +5,7 @@ module.exports = {
   getAllCarritoProductoByIdCarrito,
   getCarritoProductoByIdCarritoAndIdProducto,
   postCarritoProducto,
+  deleteCarritoProducto,
   putCarritoProducto
 }
 
@@ -45,13 +46,23 @@ async function postCarritoProducto(idCarrito, idProducto){//guarda el producto d
   await db.abm(query);
 };
 
+async function deleteCarritoProducto(idCarrito, idProducto){
+  let query = 
+  `DELETE FROM carritoproducto
+  WHERE carrito = ${idCarrito} 
+  AND producto = ${idProducto};`;
+
+  console.log("producto a punto de ser eliminado");
+  await db.abm(query);
+}
+
 async function putCarritoProducto(carritoProducto) {//actualiza carritoproducto 
   let query =
   `UPDATE carritoproducto
   SET carrito = ${carritoProducto.carrito}
   , producto = ${carritoProducto.producto}
   , cantidad = ${carritoProducto.cantidad}
-  , precioPagadoPorUnidad = ${carritoProducto.precioPagado}
+  , precioPagadoPorUnidad = ${carritoProducto.precioPagadoPorUnidad}
   WHERE id = ${carritoProducto.id}`;
 
   await db.abm(query);

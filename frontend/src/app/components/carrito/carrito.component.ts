@@ -44,7 +44,13 @@ export class CarritoComponent implements OnInit {
     }
 
     comprarProducto(): void{
-        this.carritoService.putComprarCarrito(this.carritoDeUsuario);
+        this.carritoService.putComprarCarrito(this.carritoDeUsuario, this.usuario.uid);
+    }
+
+    eliminarProducto(idProducto:number): void{
+        this.carritoService.deleteEliminarProductoDelCarrito(this.carritoDeUsuario.id, idProducto).subscribe((res:any) => {
+            location.reload();
+        });
     }
 
     calcularTotal(): void { 

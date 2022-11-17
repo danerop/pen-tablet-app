@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 16-11-2022 a las 01:11:34
+-- Tiempo de generación: 17-11-2022 a las 00:23:19
 -- Versión del servidor: 10.4.24-MariaDB
 -- Versión de PHP: 7.4.28
 
@@ -30,7 +30,8 @@ SET time_zone = "+00:00";
 CREATE TABLE `carrito` (
   `id` int(7) NOT NULL,
   `usuario` varchar(255) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL,
-  `totalPagado` int(11) DEFAULT NULL
+  `totalPagado` int(11) DEFAULT NULL,
+  `fecha` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
