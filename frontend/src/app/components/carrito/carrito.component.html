@@ -29,11 +29,9 @@
                         {{producto.precio | currency}} 
                     </td>
                     <td>
-                        <!--
-                        <button class="btn btn-primary me-2" (click)='sumar(producto.id);'>+</button> 
-                        <button class="btn btn-primary me-2" (click)='restar(producto.id);'>-</button> 
-                        <button class="btn btn-primary" (click)='eliminar(producto.id);'>x</button>
-                        -->
+                        <button class="btn btn-primary me-2" >+</button> 
+                        <button class="btn btn-primary me-2" >-</button> 
+                        <button class="btn btn-primary" (click)='eliminarProducto(producto.id);'>x</button>
                     </td>
                 </tr>
         </tbody>
