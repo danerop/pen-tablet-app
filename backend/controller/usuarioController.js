@@ -16,8 +16,9 @@ async function registerUser(email, contraseña, usuario){
       _fb2.auth.sendEmailVerification(userCredential.user) //Envia el mail de verificación
       .then( () => {
         
-        saveNewUserInDb(userCredential.user.uid, usuario); //Se guarda el usuario dentro de la base de datos
-        carritoController.postCarrito(userCredential.user.uid); //Se le crea un carrito al usuario nuevo
+        saveNewUserInDb(userCredential.user.uid, usuario).then( () => {//Se guarda el usuario dentro de la base de datos
+          carritoController.postCarrito(userCredential.user.uid); //Se le crea un carrito al usuario nuevo
+        });
 
         return userCredential;
       })

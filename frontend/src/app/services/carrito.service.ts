@@ -1,7 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { comprasDeEjemplo } from 'src/app/data';
 import { Carrito } from '../models/carrito';
 import { CarritoElement } from '../models/carritoElement';
 
@@ -26,11 +25,22 @@ export class CarritoService {
       "idCarrito": idCarrito,
       "idProducto": idProducto
     }
-    this._http.post<any>("/api/agregar-producto", body).subscribe( () => {} );
+    this._http.post<any>("/api/agregar-producto-carrito", body).subscribe( () => {} );
+  }
+  deleteEliminarProductoDelCarrito(idCarrito:number, idProducto:number){
+    let b = {
+      "idCarrito": idCarrito,
+      "idProducto": idProducto
+    }
+    return this._http.request("delete", "/api/eliminar-producto-carrito", {body: b});
   }
 
-  putComprarCarrito(carrito:Carrito):void {
-    this._http.put<Carrito>('/api/comprar-carrito', carrito,
+  putComprarCarrito(carrito:Carrito, usuario:string):void {
+    let body = {
+      "carrito": carrito,
+      "usuario": usuario 
+    };
+    this._http.put<Carrito>('/api/comprar-carrito', body,
       {
         headers: new HttpHeaders({
         'Content-Type':  'application/json'

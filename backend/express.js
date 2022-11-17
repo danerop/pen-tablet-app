@@ -15,6 +15,7 @@ const _ = require('lodash');
 const fs = require('fs');
 
 const express = require('express');
+const { async } = require('@firebase/util');
 const app = express();
 const port = 3000;
 
@@ -166,30 +167,36 @@ app.post('/api/nuevo-carrito', (req, res) => {
 
 //comprar carrito
 app.put('/api/comprar-carrito', async (req, res) => {
-    let carrito =  JSON.stringify(req.body);
-    let idCarrito = JSON.stringify(req.body.id);
-    let totalAPagar = 0;
-    
-    let carrProd = await carritoproductoController.getAllCarritoProductoByIdCarrito(idCarrito);
+    let carrito = req.body.carrito;
+    let usuario = req.body.usuario;
+    carrito.totalPagado = 0;
 
-    await carrProd.forEach(async (cp) => {
-        cp = JSON.parse(JSON.stringify(cp));
+    carritoproductoController.getAllCarritoProductoByIdCarrito(carrito.id)
+    .then( async (carritoProductos) => {
 
-        let prod = JSON.parse(JSON.stringify( await prodController.getProductById(cp.producto) ));
 
-        cp.precioPagadoPorUnidad = prod.precio;
-        totalAPagar += prod.precio * cp.cantidad;
-        console.log(totalAPagar);
+        await Promise.all(
+            carritoProductos.map( async (cp) => {
+                cp = JSON.parse(JSON.stringify(cp));    
+                await prodController.getProductById(cp.producto).then((prod) => {
+                    cp.precioPagadoPorUnidad = prod.precio;
+                    carrito.totalPagado += prod.precio * cp.cantidad;
+                    carritoproductoController.putCarritoProducto(cp);
+                });
+            })
+        )
+
+        console.log("TOTAL PAGADO AL FINAL: " + carrito.totalPagado);
+        carritoController.putCarrito(carrito).then(() => {
+            carritoController.postCarrito(usuario);
+            res.send("carrito comprado");
+        });
     });
-    
-    console.log(totalAPagar);
-    carrito.totalPagado = totalAPagar;
-    await carritoController.putCarrito(carrito);
-    res.send("carrito comprado");
+
 });
 
 //agregar nuevo producto al carrito
-app.post('/api/agregar-producto', async(req, res) => {
+app.post('/api/agregar-producto-carrito', async(req, res) => {
     let {idCarrito, idProducto} = JSON.parse(JSON.stringify(req.body));
 
     let carrProd = await carritoproductoController.getCarritoProductoByIdCarritoAndIdProducto(idCarrito, idProducto);
@@ -198,6 +205,17 @@ app.post('/api/agregar-producto', async(req, res) => {
         res.json("producto agregado al carrito");
     } else {
         res.json("el producto ya se encuentra registrado");
+    }
+});
+app.delete('/api/eliminar-producto-carrito', async(req, res) => {
+    let {idCarrito, idProducto} = JSON.parse(JSON.stringify(req.body));
+    console.log("eliminar producto" + idProducto);
+    let carrProd = await carritoproductoController.getCarritoProductoByIdCarritoAndIdProducto(idCarrito, idProducto);
+    if(carrProd){
+        await carritoproductoController.deleteCarritoProducto(idCarrito, idProducto);
+        res.json("producto eliminado del carrito");
+    } else {
+        res.json("no se encuentra el producto que se desea eliminar");
     }
 });
 
