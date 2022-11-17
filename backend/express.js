@@ -200,7 +200,7 @@ app.put('/api/comprar-carrito', async (req, res) => {
 
         carritoController.putCarrito(carrito).then(() => {
             carritoController.postCarrito(usuario);
-            res.send("carrito comprado");
+            res.json("carrito comprado");
         });
     });
 
@@ -231,11 +231,11 @@ app.delete('/api/eliminar-producto-carrito', async(req, res) => {
     }
 });
 
-//actualiza un carritoproducto
+//actualiza un carritoproducto con la nueva cantidad
 app.put('/api/actualizar-carrito', async(req, res) => {
     let carritoProducto = JSON.parse(JSON.stringify(req.body));
 
-    await carritoproductoController.putCarritoProducto(carritoProducto);
+    await carritoproductoController.putCantidadDeCarritoProducto(carritoProducto);
     res.send("carrito");
 });
 
