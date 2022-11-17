@@ -5,7 +5,7 @@ export class CarritoElement{
     descripcion!: string;
     clasificacion!: string;
     precio!: number;
-    idCarritoProducto?: number;
+    idCarritoProducto!: number;
     cantidad!: number;
     precioPagadoPorUnidad?: number;
   }

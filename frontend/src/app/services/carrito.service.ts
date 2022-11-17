@@ -35,7 +35,7 @@ export class CarritoService {
     }
     this._http.post<any>("/api/agregar-producto-carrito", body).subscribe( () => {} );
   }
-  deleteEliminarProductoDelCarrito(idCarrito:number, idProducto:number){
+  deleteProductoDelCarrito(idCarrito:number, idProducto:number){
     let b = {
       "idCarrito": idCarrito,
       "idProducto": idProducto
@@ -43,16 +43,19 @@ export class CarritoService {
     return this._http.request("delete", "/api/eliminar-producto-carrito", {body: b});
   }
 
-  putComprarCarrito(carrito:Carrito, usuario:string):void {
+  putComprarCarrito(carrito:Carrito, usuario:string) {
     let body = {
       "carrito": carrito,
       "usuario": usuario 
     };
-    this._http.put<Carrito>('/api/comprar-carrito', body,
-      {
-        headers: new HttpHeaders({
-        'Content-Type':  'application/json'
-      })}
-    ).subscribe( () => {});
+    return this._http.put<Carrito>('/api/comprar-carrito', body);
+  }
+
+  putCarritoProducto(cp:CarritoElement): void{
+    let body = {
+      id: cp.idCarritoProducto,
+      cantidad: cp.cantidad
+    };
+    this._http.put<CarritoElement>('/api/actualizar-carrito', body).subscribe( () => {});
   }
 }
