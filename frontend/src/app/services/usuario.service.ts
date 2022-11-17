@@ -156,6 +156,11 @@ export class UsuarioService {
       console.log("LocalStorage validado.")
     })
   }
+
+  obtenerDatosDelUsuario(usuario: Usuario): Observable<Usuario>{
+    return this._http.get<Usuario>('/api/getUserData?uid=' + usuario.uid);
+  }
+
 }
 
 

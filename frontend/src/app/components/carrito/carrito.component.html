@@ -1,7 +1,12 @@
 <!--Después ver donde va esto, si va con lista de pedidos o en un modal aparte-->
 <div class="container">
     <h3 class="text-center">Carrito de compras</h3>
-    <table class="table">
+    
+    <h4  class="text-center" *ngIf="productosEnCarrito.length == 0">
+        No tienes productos en tu carrito
+    </h4>
+
+    <table *ngIf="productosEnCarrito.length != 0" class="table">
         <thead>
             <tr>
                 <th>
@@ -18,26 +23,29 @@
             </tr>
         </thead>
         <tbody>
-                <tr *ngFor="let producto of productosEnCarrito">
-                    <td>
-                        {{producto.nombre}}
-                    </td>
-                    <td>
-                        {{producto.cantidad}} 
-                    </td>
-                    <td>
-                        {{producto.precio | currency}} 
-                    </td>
-                    <td>
-                        <button class="btn btn-primary me-2" >+</button> 
-                        <button class="btn btn-primary me-2" >-</button> 
-                        <button class="btn btn-primary" (click)='eliminarProducto(producto.id);'>x</button>
-                    </td>
-                </tr>
+            <tr *ngFor="let producto of productosEnCarrito">
+                <td>
+                    <img src="{{producto.imgUrl}}" alt="{{producto.nombre}}" style="max-width:50px; max-height:50px;">
+                    {{producto.nombre}}
+                </td>
+                <td>
+                    {{producto.cantidad}} 
+                </td>
+                <td>
+                    {{producto.precio | currency}} 
+                </td>
+                <td>
+                    <button class="btn btn-primary me-2" >+</button> 
+                    <button class="btn btn-primary me-2" >-</button> 
+                    <button class="btn btn-primary" (click)='eliminarProducto(producto.id);'>x</button>
+                </td>
+            </tr>
         </tbody>
     </table>
-    <p class="text-end" (click)="calcularTotal();">Total {{total | currency}}</p>
-    <div class="text-end"> 
-        <button (click)="comprarProducto();" class="btn">Comprar</button>
+    <div *ngIf="productosEnCarrito.length != 0">
+        <p class="text-end" (click)="calcularTotal();">Total {{total | currency}}</p>
+        <div class="text-end"> 
+            <button (click)="comprarProducto();" class="btn">Comprar</button>
+        </div>
     </div>
 </div>

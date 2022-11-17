@@ -11,7 +11,7 @@ module.exports = {
 
 async function getAllProductsInCarrito(idCarrito) {//obtiene todos los productos de un carrito
   let query =
-  `SELECT p.*, cp.cantidad FROM productos p
+  `SELECT p.*, cp.id AS idCarritoProducto, cp.cantidad, cp.precioPagadoPorUnidad  FROM productos p
   INNER JOIN carritoproducto cp ON p.id = cp.producto
   WHERE carrito = ${idCarrito}`;
 
