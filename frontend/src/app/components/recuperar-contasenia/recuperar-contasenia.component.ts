@@ -25,16 +25,23 @@ export class RecuperarContaseniaComponent implements OnInit {
       this.recuperarUsuario = this.fb.group({
         correo: ['',[Validators.required, Validators.email]]
       })
+
      }
      recuperar(){
         this.spinner.show();
         const email = this.recuperarUsuario.value.correo;
         
+      var actionCodeSettings = {
+        //Despues de recuperar a contraseña, el usuario va a ser redirigido a localhost
+        url: 'http://localhost:4200/',
+        handleCodeInApp: false
+      };
+
         if(email==''){
           this.toastr.info('Recuerde completar todos los campos', "Info");
         }
 
-        this.afAuth.sendPasswordResetEmail(email).then(()=>{
+        this.afAuth.sendPasswordResetEmail(email, actionCodeSettings).then(()=>{
           this.spinner.hide();
           this.toastr.info('Si el usuario existe se le enviara un email con un link','Exito');
           this.router.navigate(["/login"]);
