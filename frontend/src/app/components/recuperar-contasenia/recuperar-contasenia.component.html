@@ -7,10 +7,10 @@
         id="email"
         placeholder="Ingrese email"
         required="required"
-        formControlName="correo"
+        formControlName="userEmail"
         class="form-control mb-3"
       />
-      <span *ngIf="recuperarUsuario.get('correo')?.hasError('email') && recuperarUsuario.get('correo')?.touched"  class="text-danger errorLabel" >El <strong>email</strong> no tiene el formato correcto</span>
+      <span *ngIf="recuperarUsuario.get('userEmail')?.hasError('email') && recuperarUsuario.get('correo')?.touched"  class="text-danger errorLabel" >El <strong>email</strong> no tiene el formato correcto</span>
 
 
       <button type="submit" class="btn btn-primary d-flex align-items-center justify-content-center fs-4">
