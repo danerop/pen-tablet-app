@@ -79,5 +79,3 @@ async function getDataUsuario(userUid){
 
   return await db.queryUniqueResult(query);
 }
-
-async

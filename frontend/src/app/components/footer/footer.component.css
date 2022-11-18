@@ -37,6 +37,9 @@
   padding-left:0;
   list-style:none
 }
+.integrantes{
+  text-align: center;
+}
 .footer-links li
 {
   display:block
@@ -140,7 +143,7 @@
 }
 .social-icons a.github:hover
 {
-  background-color:#454647
+  background-color:black
 }
 .social-icons a.facebook:hover
 {
@@ -153,10 +156,6 @@
 .social-icons a.linkedin:hover
 {
   background-color:#007bb6
-}
-.social-icons a.dribbble:hover
-{
-  background-color:#ea4c89
 }
 @media (max-width:767px)
 {
