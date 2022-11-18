@@ -138,7 +138,10 @@
   width:34px;
   font-size:14px
 }
-
+.social-icons a.github:hover
+{
+  background-color:#454647
+}
 .social-icons a.facebook:hover
 {
   background-color:#3b5998
