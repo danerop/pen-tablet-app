@@ -6,7 +6,8 @@ module.exports = {
     registerUser,
     logInUser,
     logOutUser,
-    isThisUserLoggedIn
+    isThisUserLoggedIn,
+    getDataUsuario
 };
 
 //Firebase
@@ -69,4 +70,12 @@ async function saveNewUserInDb(userUid, user){
   ("${userUid}", "${user.nombre}", "${user.apellido}", "${user.direction}", "${user.email}")`;
 
   await db.abm(query);
+}
+
+async function getDataUsuario(userUid){
+  let query = 
+  `SELECT * FROM usuarios
+  Where uid = "${userUid}"`;
+
+  return await db.queryUniqueResult(query);
 }

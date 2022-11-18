@@ -1,4 +1,15 @@
 .btnEnviar{
     height: 3em;
-    
 }
+
+.descripcion{
+    font-size: 15px;
+}
+
+a{
+    text-decoration: none;
+    color: black;
+}
+a:hover {
+    color: grey;
+  }

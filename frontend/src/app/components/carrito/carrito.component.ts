@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, createPlatform, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import { Carrito } from 'src/app/models/carrito';
 import { CarritoElement } from 'src/app/models/carritoElement';
@@ -44,11 +44,28 @@ export class CarritoComponent implements OnInit {
     }
 
     comprarProducto(): void{
-        this.carritoService.putComprarCarrito(this.carritoDeUsuario, this.usuario.uid);
+        this.carritoService.putComprarCarrito(this.carritoDeUsuario, this.usuario.uid).subscribe( (res:any) => {
+            this.router.navigate(["/perfil"]);
+        });
+    }
+
+    sumarProducto(cp: CarritoElement): void{
+        if(cp.cantidad < 5){
+            cp.cantidad++;
+            this.calcularTotal();
+            this.carritoService.putCarritoProducto(cp);
+        }
+    }
+    restarProducto(cp: CarritoElement): void{
+        if(cp.cantidad > 1) {
+            cp.cantidad--;
+            this.calcularTotal();
+            this.carritoService.putCarritoProducto(cp);
+        }
     }
 
     eliminarProducto(idProducto:number): void{
-        this.carritoService.deleteEliminarProductoDelCarrito(this.carritoDeUsuario.id, idProducto).subscribe((res:any) => {
+        this.carritoService.deleteProductoDelCarrito(this.carritoDeUsuario.id, idProducto).subscribe((res:any) => {
             location.reload();
         });
     }
@@ -57,7 +74,6 @@ export class CarritoComponent implements OnInit {
         this.total = 0;
 
         for(let p of this.productosEnCarrito){
-            console.log(p);
             this.total += p.cantidad * p.precio;
         }
     }

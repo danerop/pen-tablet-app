@@ -6,12 +6,13 @@ module.exports = {
   getCarritoProductoByIdCarritoAndIdProducto,
   postCarritoProducto,
   deleteCarritoProducto,
-  putCarritoProducto
+  putCarritoProducto,
+  putCantidadDeCarritoProducto
 }
 
 async function getAllProductsInCarrito(idCarrito) {//obtiene todos los productos de un carrito
   let query =
-  `SELECT p.*, cp.cantidad FROM productos p
+  `SELECT p.*, cp.id AS idCarritoProducto, cp.cantidad, cp.precioPagadoPorUnidad  FROM productos p
   INNER JOIN carritoproducto cp ON p.id = cp.producto
   WHERE carrito = ${idCarrito}`;
 
@@ -56,13 +57,19 @@ async function deleteCarritoProducto(idCarrito, idProducto){
   await db.abm(query);
 }
 
-async function putCarritoProducto(carritoProducto) {//actualiza carritoproducto 
+async function putCarritoProducto(carritoProducto) {//actualiza carritoproducto para marcarlo como comprado
   let query =
   `UPDATE carritoproducto
-  SET carrito = ${carritoProducto.carrito}
-  , producto = ${carritoProducto.producto}
-  , cantidad = ${carritoProducto.cantidad}
-  , precioPagadoPorUnidad = ${carritoProducto.precioPagadoPorUnidad}
+  SET precioPagadoPorUnidad = ${carritoProducto.precioPagadoPorUnidad}
+  WHERE id = ${carritoProducto.id}`;
+
+  await db.abm(query);
+};
+
+async function putCantidadDeCarritoProducto(carritoProducto) {//actualiza carritoproducto con nueva cantidad
+  let query =
+  `UPDATE carritoproducto
+  SET cantidad = ${carritoProducto.cantidad}
   WHERE id = ${carritoProducto.id}`;
 
   await db.abm(query);
