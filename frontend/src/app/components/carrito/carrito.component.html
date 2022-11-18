@@ -1,6 +1,6 @@
 <!--Después ver donde va esto, si va con lista de pedidos o en un modal aparte-->
-<div class="container">
-    <h3 class="text-center">Carrito de compras</h3>
+<div class="container bg-light p-3 mt-4 rounded shadow">
+    <h3 class="text-center h1 mb-4">Carrito de compras</h3>
     
     <h4  class="text-center" *ngIf="productosEnCarrito.length == 0">
         No tienes productos en tu carrito
@@ -9,43 +9,73 @@
     <table *ngIf="productosEnCarrito.length != 0" class="table">
         <thead>
             <tr>
-                <th>
-                    Tabletas
+                <th scope="col" class="w-25">
+                    Productos
                 </th>
-                <th>
+                <th scope="col" class="w-25">
                     Cantidad
                 </th>
-                <th>
-                    Precio unitario
+                <th scope="col" class="w-25">
+                    Precio por Unidad
                 </th>
-                <th>
+                <th scope="col" class="text-center">
+                    Acciones
                 </th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let producto of productosEnCarrito">
-                <td>
-                    <img src="{{producto.imgUrl}}" alt="{{producto.nombre}}" style="max-width:50px; max-height:50px;">
-                    {{producto.nombre}}
+                <td class="w-25">
+                    <a  routerLink="/producto" 
+                        [queryParams]="{prodId: producto.id }"
+                        class="text-decoration-none text-dark">
+                        <img src="{{producto.imgUrl}}" alt="{{producto.nombre}}" class="w-25">
+                        <span class="h5 ms-2">{{producto.nombre}}</span> 
+                    </a>
                 </td>
                 <td>
                     {{producto.cantidad}} 
                 </td>
-                <td>
+                <td class="w-25">
                     {{producto.precio | currency}} 
                 </td>
-                <td>
-                    <button class="btn btn-primary me-2" (click)="sumarProducto(producto)">+</button> 
-                    <button class="btn btn-primary me-2" (click)="restarProducto(producto)">-</button> 
-                    <button class="btn btn-primary" (click)='eliminarProducto(producto.id);'>x</button>
+                
+                <td class="d-flex align-items-center justify-content-center " > 
+                    <button 
+                            (click)="sumarProducto(producto)"
+                            class=" btn btn-primary rounded-circle p-2
+                                    me-2
+                                    d-flex align-items-center" >
+                            <span class="material-icons">
+                                add
+                            </span>
+                        </button> 
+
+                        <button 
+                            (click)="restarProducto(producto)"
+                            class="btn btn-primary rounded-circle p-2
+                        me-5
+                        d-flex align-items-center" >
+                            <span class="material-icons">
+                                remove
+                            </span>
+                        </button> 
+
+                        <button 
+                            (click)='eliminarProducto(producto.id);'
+                            class="btn btn-danger rounded-circle p-2
+                        me-2
+                        d-flex align-items-center" >
+                            <span class="material-icons">
+                                close
+                            </span>
+                        </button> 
                 </td>
             </tr>
         </tbody>
     </table>
-    <div *ngIf="productosEnCarrito.length != 0">
-        <p class="text-end" (click)="calcularTotal();">Total {{total | currency}}</p>
-        <div class="text-end"> 
-            <button (click)="comprarProducto();" class="btn">Comprar</button>
-        </div>
+    <p class="text-end fw-bold h3 mb-3" (click)="calcularTotal();">Total {{total | currency}}</p>
+    <div class="text-end"> 
+        <button (click)="comprarProducto();" class="btn btn-lg btn-primary">Comprar</button>
     </div>
 </div>

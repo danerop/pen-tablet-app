@@ -1,6 +1,6 @@
-<main class="mt-lg-5">
-    <article class="container d-flex justify-content-around bg-light p-5">
-        <div class="bloqueImagenes col-lg-5">
+<main class="mt-lg-5 mt-4">
+    <article class="container d-flex justify-content-around bg-light p-5 flex-wrap">
+        <div class="bloqueImagenes col-lg-5 col-12">
             <p>
                 <a routerLink="/">Inicio</a> / 
                     <a  routerLink="/listaPorClasificacion" 
@@ -12,21 +12,31 @@
                             {{producto.nombre}}
                         </a> 
             </p>
+            <hr>
             <img class="w-100" src="{{producto.imgUrl}}" alt="imgProducto">
         </div>
         <form 
-            class=" bloqueInfo col-lg-5 
+            class=" bloqueInfo col-lg-5 col-12
                     container row d-flex justify-content-start " 
             [method]="" [action]="">
 
-            <div class="titular col-12">
+            <div class="titular col-12 mb-2 p-0">
                 <h3 class="col-12 fw-light">{{producto.nombre}}</h3>
                 <h2 class="col-12">${{producto.precio}}</h2>
-
             </div>
-            <div [innerHTML]="producto.descripcion" class="descripcion"> 
+            <hr>
+            <div [innerHTML]="producto.descripcion" class="descripcion p-0"> 
             </div>
-            <button (click)="agregarProductoAlCarrito(producto.id)" class="btnEnviar btn btn-primary col-8">AGREGAR AL CARRITO</button>
+            
+            <button 
+                (click)="agregarProductoAlCarrito(producto.id)" 
+                class=" btnEnviar btn btn-primary w-100 
+                        d-flex justify-content-center align-items-center">
+                <i class="material-icons me-2">
+                    add_shopping_cart
+                </i>
+                AGREGAR AL CARRITO
+            </button>
 
         </form>
     </article>

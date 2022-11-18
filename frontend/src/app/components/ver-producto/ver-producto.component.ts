@@ -41,9 +41,9 @@ export class VerProductoComponent implements OnInit {
       this.prodIdParam = params['prodId'];
       this.productoService.getById(this.prodIdParam).subscribe(data => {
         this.producto = data;
-        if(this.producto.clasificacion == 'Tableta Gráfica') 
+        if(this.producto.clasificacion == 'Tabletas Gráficas') 
           this.tipoProducto = 1;
-        if(this.producto.clasificacion == 'Monitor Gráfico')
+        if(this.producto.clasificacion == 'Monitores Gráficos')
           this.tipoProducto = 2;
       });
     });
