@@ -12,7 +12,7 @@
       formControlName="nombre"
       class="form-control mb-3"
       />
-      <span *ngIf="regitrarUsuario.get('nombre')?.hasError('required') && regitrarUsuario.get('nombre')?.touched"  class="text-danger errorLabel" >El nombre es requerido</span>
+      <span *ngIf="regitrarUsuario.get('nombre')?.hasError('required') && regitrarUsuario.get('nombre')?.touched"  class="text-danger errorLabel" >El <strong>nombre</strong> es requerido</span>
 
       <input
       type="text"
@@ -22,7 +22,7 @@
       formControlName="apellido"
       class="form-control mb-3"
       />
-      <span *ngIf="regitrarUsuario.get('apellido')?.hasError('required') && regitrarUsuario.get('apellido')?.touched"  class="text-danger errorLabel" >El Apellido es requerido</span>
+      <span *ngIf="regitrarUsuario.get('apellido')?.hasError('required') && regitrarUsuario.get('apellido')?.touched"  class="text-danger errorLabel" >El <strong>apellido</strong> es requerido</span>
 
       <input
       type="text"
@@ -32,7 +32,7 @@
       formControlName="direccion"
       class="form-control mb-3"
       />
-      <span *ngIf="regitrarUsuario.get('direccion')?.hasError('required') && regitrarUsuario.get('direccion')?.touched"  class="text-danger errorLabel" >La direccion es requerida</span>
+      <span *ngIf="regitrarUsuario.get('direccion')?.hasError('required') && regitrarUsuario.get('direccion')?.touched"  class="text-danger errorLabel" >La <strong>dirección</strong> es requerida</span>
       <input
         type="email"
         id="email"
@@ -41,7 +41,7 @@
         formControlName="email"
         class="form-control mb-3"
       />
-      <span *ngIf="regitrarUsuario.get('email')?.hasError('email') && regitrarUsuario.get('email')?.touched"  class="text-danger errorLabel" >El email no tiene el formato correcto</span>
+      <span *ngIf="regitrarUsuario.get('email')?.hasError('email') && regitrarUsuario.get('email')?.touched"  class="text-danger errorLabel" >El <strong>email</strong> no tiene el formato correcto</span>
       <input
         type="password"
         id="password"
@@ -50,7 +50,7 @@
         formControlName="password"
         class="form-control mb-3"
       />
-      <span *ngIf="regitrarUsuario.get('password')?.hasError('minlength') && regitrarUsuario.get('password')?.touched"  class="text-danger errorLabel" >La contraseña debe tener minimo 6 caracteres</span>
+      <span *ngIf="regitrarUsuario.get('password')?.hasError('pattern') && regitrarUsuario.get('password')?.touched"  class="text-danger errorLabel" >La <strong>contraseña</strong> debe tener minimo 8 caracteres, una letra mayúscula, una letra minúscula,un numero y un caracter especial</span>
       <input
       type="password"
       id="repetirPassword"

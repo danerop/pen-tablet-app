@@ -15,8 +15,7 @@
       class="form-control mb-3"
       />
 
-      <span *ngIf="loginUsuario.get('email')?.hasError('email') && loginUsuario.get('email')?.touched"  
-            class="text-danger errorLabel" >El email no tiene el formato correcto</span>
+      <span *ngIf="loginUsuario.get('email')?.hasError('email') && loginUsuario.get('email')?.touched"  class="text-danger errorLabel" >El <strong>email</strong> no tiene el formato correcto</span>
 
       <input
         type="password"
@@ -26,9 +25,8 @@
         formControlName="password"
         class="form-control mb-4"
       />
-      <span   *ngIf="loginUsuario.get('password')?.hasError('required') && loginUsuario.get('password')?.hasError('minlength') && loginUsuario.get('password')?.touched"  
-              class="text-danger errorLabel" >La contraseña es invalida</span>
 
+      <span *ngIf="loginUsuario.get('password')?.hasError('required') && loginUsuario.get('password')?.touched"  class="text-danger errorLabel" >La <strong>contraseña </strong> es invalida</span>
       <button type="submit" class="btn btn-primary d-flex align-items-center justify-content-center fs-4">
         <span class="material-icons me-2">
           login

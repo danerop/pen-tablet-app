@@ -35,6 +35,10 @@ export class UsuarioService {
       "password": password
     }
 
+    if(email==''&&password==''){
+      this.toastr.info('Recuerde completar todos los campos', "Info");
+    }
+
     let validation = false;
 
     this._http.post<Usuario>('/api/fbLogearUsuario', body)
@@ -75,12 +79,13 @@ export class UsuarioService {
             direction:string) : boolean
   {
     let validation = false;
-    
-    if (password !== repeatPassword) {
+    if(email == '' && nombre == '' && apellido=='' && direction=='' && password =='' ){
+      this.toastr.info('Recuerde completar todos los campos', "Info");
+      validation =  false;
+    } if (password !== repeatPassword) {
       this.toastr.error('Las contaseñas ingresadas deben ser las mismas', "Error");
       validation = false;
-    }
-    else{
+    } else {
       this.spinner.show();
   
       let body = {
@@ -140,7 +145,7 @@ export class UsuarioService {
 
     return tempUser;
   }
-
+  
   private deleteSessionData(){
     localStorage.clear();
   }
