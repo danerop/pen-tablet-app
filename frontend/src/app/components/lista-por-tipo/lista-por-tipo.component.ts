@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Carrito } from 'src/app/models/carrito';
 import { Producto } from 'src/app/models/producto';
 import { Usuario } from 'src/app/models/usuario';
@@ -23,7 +23,8 @@ export class ListaPorTipoComponent implements OnInit {
     private productoService:ProductoService,
     private carritoService: CarritoService,
     private _usuarioService: UsuarioService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {
 
     this.route.queryParams.subscribe(params =>{
@@ -50,6 +51,10 @@ export class ListaPorTipoComponent implements OnInit {
   }
 
   agregarProductoAlCarrito(idProducto:number): void{
-    this.carritoService.postAgregarProductoAlCarrito(this.carrito.id, idProducto);
+    if(this.carrito != null){
+      this.carritoService.postAgregarProductoAlCarrito(this.carrito.id, idProducto);
+    }else{
+      this.router.navigate(["/login"]);
+    }
   }
 }

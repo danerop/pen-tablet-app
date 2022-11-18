@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Producto } from 'src/app/models/producto';
 import { ProductoService } from 'src/app/services/producto.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CarritoService } from 'src/app/services/carrito.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { Usuario } from 'src/app/models/usuario';
@@ -25,7 +25,8 @@ export class VerProductoComponent implements OnInit {
       private productoService: ProductoService,
       private carritoService: CarritoService,
       private _usuarioService: UsuarioService,
-      private route: ActivatedRoute
+      private route: ActivatedRoute,
+      private router: Router
   ) {
   }
   
@@ -50,6 +51,10 @@ export class VerProductoComponent implements OnInit {
   }
 
   agregarProductoAlCarrito(idProducto:number): void{
-    this.carritoService.postAgregarProductoAlCarrito(this.carrito.id, idProducto);
+    if(this.carrito != null){
+      this.carritoService.postAgregarProductoAlCarrito(this.carrito.id, idProducto);
+    }else{
+      this.router.navigate(["/login"]);
+    }
   }
 }

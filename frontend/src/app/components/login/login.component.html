@@ -1,9 +1,9 @@
-<div class="login container d-flex justify-content-center align-items-center " >
+<div class="login container d-flex justify-content-center align-items-center" style="width: 40%;">
 
-    <form   (ngSubmit)="login()" 
+    <form (ngSubmit)="login()" 
             method="post" 
             [formGroup]="loginUsuario"
-            class="card p-5 shadow"> 
+            class="w-100 card px-5 py-4 shadow mt-5"> 
       <h1 class="text-center fw-light mb-4">Log In</h1>
 
       <input
@@ -12,7 +12,7 @@
       placeholder="Ingrese email"
       required="required"
       formControlName="email"
-      class="form-control mb-3"
+      class="form-control mt-3"
       />
 
       <span *ngIf="loginUsuario.get('email')?.hasError('email') && loginUsuario.get('email')?.touched"  class="text-danger errorLabel" >El <strong>email</strong> no tiene el formato correcto</span>
@@ -23,11 +23,11 @@
         placeholder="Ingrese contraseña"
         required="required"
         formControlName="password"
-        class="form-control mb-4"
+        class="form-control mt-3"
       />
 
       <span *ngIf="loginUsuario.get('password')?.hasError('required') && loginUsuario.get('password')?.touched"  class="text-danger errorLabel" >La <strong>contraseña </strong> es invalida</span>
-      <button type="submit" class="btn btn-primary d-flex align-items-center justify-content-center fs-4">
+      <button type="submit" class="mt-4 btn btn-primary d-flex align-items-center justify-content-center fs-4">
         <span class="material-icons me-2">
           login
         </span>
