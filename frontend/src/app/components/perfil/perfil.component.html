@@ -8,35 +8,47 @@
         account_circle
       </span>
       <h4>{{usuario.nombre}} {{usuario.apellido}}</h4>
-      <p>mail: {{usuario.email}}</p>
-      <p>{{usuario.direccion}}</p>
+      <p class="mb-1">mail: {{usuario.email}}</p>
+      <p class="mb-4">{{usuario.direccion}}</p>
     </div>
   </div>
   
   <div class="col-lg-8 col-12 p-2">
     <h3>Carritos comprados:</h3>
     <hr>
-    <div>
-      <ul class="list-group">
-        <li *ngFor="let car of carritos" 
+
+    <h5 *ngIf="carritos.length == 0">Aun no hiciste ninguna compra</h5>
+    <div *ngIf="carritos.length != 0" class="row">
+      <ul class="list-group col">
+        <li *ngFor="let car of carritos"
             (click)="verCarrito(car.id);"
-            class="list-group-item">
-          <p>Numero de compra: <strong>{{car.id}}</strong></p>
-          <p>Total pagado: <strong>{{car.totalPagado | currency}}</strong></p>
-          <p>Fecha realización: <strong>{{car.fecha | date}}</strong></p>
+            class="list-group-item mb-1 rounded" style="cursor: pointer;">
+
+          <p class="mb-0">Id de compra: <strong>{{car.id}}</strong></p>
+          <p class="mb-0">Fecha de realización: <strong>{{car.fecha | date}}</strong></p>
+          <p class="mb-0">Total pagado: <strong>{{car.totalPagado | currency}}</strong></p>
         </li>
       </ul>
+      <ul class="list-group col">
+        <h4 *ngIf="productos.length == 0" class="h6"> Seleccione un carrito para ver los productos comprados </h4>
 
-      <div>
-        <ul class="list-group">
+        <div *ngIf="productos.length != 0" class="bg-white rounded p-2">
+          <div class="h5 w-100 d-flex">
+            <span>Id de Carrito: <strong> {{carritoEnPantalla.id}}</strong></span>
+            <strong style="margin-left: auto;">{{carritoEnPantalla.fecha | date}}</strong>
+          </div>
+  
           <li *ngFor="let prod of productos" class="list-group-item">
-            <img src="{{prod.imgUrl}}" alt="prod.nombre" style="max-width:75px;max-height: 75px;">
-            <span>{{prod.nombre}}</span>
-            <span style="margin: 0 1em;">precio pagado por unidad: {{prod.precioPagadoPorUnidad}}</span>
-            <span>cantidad comprada: {{prod.cantidad}}</span>
+            <img src="{{prod.imgUrl}}" alt="{{prod.nombre}}" style="max-width:75px; max-height: 75px;">
+            <strong>{{prod.nombre}}</strong><br>
+            <span>precio por unidad: {{prod.precioPagadoPorUnidad | currency}}</span><br>
+            <span>cantidad: {{prod.cantidad}}</span>
           </li>
-        </ul>
-      </div>
+
+          <h5 class="mt-2">Total pagado: <span class="text-primary">{{carritoEnPantalla.totalPagado | currency }}</span></h5>
+        </div>
+        
+      </ul>
     </div>
 
   </div>
