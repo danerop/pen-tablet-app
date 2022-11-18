@@ -6,76 +6,83 @@
         No tienes productos en tu carrito
     </h4>
 
-    <table *ngIf="productosEnCarrito.length != 0" class="table">
-        <thead>
-            <tr>
-                <th scope="col" class="w-25">
-                    Productos
-                </th>
-                <th scope="col" class="w-25">
-                    Cantidad
-                </th>
-                <th scope="col" class="w-25">
-                    Precio por Unidad
-                </th>
-                <th scope="col" class="text-center">
-                    Acciones
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let producto of productosEnCarrito">
-                <td class="w-25">
-                    <a  routerLink="/producto" 
-                        [queryParams]="{prodId: producto.id }"
-                        class="text-decoration-none text-dark">
-                        <img src="{{producto.imgUrl}}" alt="{{producto.nombre}}" class="w-25">
-                        <span class="h5 ms-2">{{producto.nombre}}</span> 
-                    </a>
-                </td>
-                <td>
-                    {{producto.cantidad}} 
-                </td>
-                <td class="w-25">
-                    {{producto.precio | currency}} 
-                </td>
-                
-                <td class="d-flex align-items-center justify-content-center " > 
-                    <button 
-                            (click)="sumarProducto(producto)"
-                            class=" btn btn-primary rounded-circle p-2
-                                    me-2
-                                    d-flex align-items-center" >
-                            <span class="material-icons">
-                                add
-                            </span>
-                        </button> 
-
-                        <button 
-                            (click)="restarProducto(producto)"
-                            class="btn btn-primary rounded-circle p-2
-                        me-5
-                        d-flex align-items-center" >
-                            <span class="material-icons">
-                                remove
-                            </span>
-                        </button> 
-
-                        <button 
-                            (click)='eliminarProducto(producto.id);'
-                            class="btn btn-danger rounded-circle p-2
-                        me-2
-                        d-flex align-items-center" >
-                            <span class="material-icons">
-                                close
-                            </span>
-                        </button> 
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <p class="text-end fw-bold h3 mb-3" (click)="calcularTotal();">Total {{total | currency}}</p>
-    <div class="text-end"> 
-        <button (click)="comprarProducto();" class="btn btn-lg btn-primary">Comprar</button>
+    <div *ngIf="productosEnCarrito.length != 0">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col" class="" style="width: 40%;">
+                        Productos
+                    </th>
+                    <th scope="col" class="" style="width: 20%;">
+                        Precio por Unidad
+                    </th>
+                    <th scope="col" class="" style="width: 15%;">
+                        Cantidad
+                    </th>
+                    <th scope="col" class="text-center" style="width: 25%;">
+                        Acciones
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let producto of productosEnCarrito">
+                    <td class="">
+                        <a  routerLink="/producto" 
+                            [queryParams]="{prodId: producto.id }"
+                            class="text-decoration-none text-dark align-items-center">
+                            <img src="{{producto.imgUrl}}" alt="{{producto.nombre}}" class="w-25">
+                            <span class="h5">{{producto.nombre}}</span> 
+                        </a>
+                    </td>
+                    <td class="align-middle">
+                        {{producto.precio | currency}} 
+                    </td>
+                    <td class="align-middle">
+                        {{producto.cantidad}} 
+                    </td>
+                    
+                    <td class="align-middle" > 
+                        <div class="d-flex align-items-center justify-content-center">
+                            <button 
+                                    (click)="sumarProducto(producto)"
+                                    class=" btn btn-primary rounded-circle p-2
+                                            me-2
+                                            d-flex align-items-center" >
+                                    <span class="material-icons">
+                                        add
+                                    </span>
+                                </button> 
+        
+                                <button 
+                                    (click)="restarProducto(producto)"
+                                    class="btn btn-primary rounded-circle p-2
+                                me-5
+                                d-flex align-items-center" >
+                                    <span class="material-icons">
+                                        remove
+                                    </span>
+                                </button> 
+        
+                                <button 
+                                    (click)='eliminarProducto(producto.id);'
+                                    class="btn btn-danger rounded-circle p-2
+                                me-2
+                                d-flex align-items-center" >
+                                    <span class="material-icons">
+                                        close
+                                    </span>
+                                </button> 
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div class="p-4">
+            <p class="text-end fw-bold h3 mb-3" (click)="calcularTotal();">Total {{total | currency}}</p>
+            <div class="text-end"> 
+                <button (click)="comprarProducto();" class="btn btn-lg btn-primary">Comprar</button>
+            </div>
+        </div>
     </div>
 </div>
