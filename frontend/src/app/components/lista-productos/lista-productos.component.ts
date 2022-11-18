@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Carrito } from 'src/app/models/carrito';
 import { Producto } from 'src/app/models/producto';
 import { Usuario } from 'src/app/models/usuario';
@@ -21,6 +22,7 @@ export class ListaProductosComponent implements OnInit {
     private productoService:ProductoService,
     private carritoService: CarritoService,
     private _usuarioService: UsuarioService,
+    private router: Router
   ) {
   }
 
@@ -37,6 +39,10 @@ export class ListaProductosComponent implements OnInit {
   }
 
   agregarProductoAlCarrito(idProducto:number): void{
-    this.carritoService.postAgregarProductoAlCarrito(this.carrito.id, idProducto);
+    if(this.carrito != null){
+      this.carritoService.postAgregarProductoAlCarrito(this.carrito.id, idProducto);
+    }else{
+      this.router.navigate(["/login"]);
+    }
   }
 }

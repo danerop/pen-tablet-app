@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { Carrito } from '../models/carrito';
 import { CarritoElement } from '../models/carritoElement';
@@ -9,7 +10,7 @@ import { CarritoElement } from '../models/carritoElement';
 })
 export class CarritoService {
 
-  constructor(private _http:HttpClient) {
+  constructor(private _http:HttpClient, private toastr: ToastrService) {
   }
   
   getCarrito(idCarrito:number){
@@ -33,7 +34,13 @@ export class CarritoService {
       "idCarrito": idCarrito,
       "idProducto": idProducto
     }
-    this._http.post<any>("/api/agregar-producto-carrito", body).subscribe( () => {} );
+    this._http.post<any>("/api/agregar-producto-carrito", body).subscribe( (res:any) => {
+      if(res=="Producto agregado al carrito"){
+        this.toastr.success(res);
+      }else{
+        this.toastr.info(res);
+      }
+    });
   }
   deleteProductoDelCarrito(idCarrito:number, idProducto:number){
     let b = {

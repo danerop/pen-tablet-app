@@ -209,13 +209,13 @@ app.put('/api/comprar-carrito', async (req, res) => {
 //agregar nuevo producto al carrito
 app.post('/api/agregar-producto-carrito', async(req, res) => {
     let {idCarrito, idProducto} = JSON.parse(JSON.stringify(req.body));
-
+    
     let carrProd = await carritoproductoController.getCarritoProductoByIdCarritoAndIdProducto(idCarrito, idProducto);
     if(!carrProd){
         await carritoproductoController.postCarritoProducto(idCarrito, idProducto);
-        res.json("producto agregado al carrito");
+        res.json("Producto agregado al carrito");
     } else {
-        res.json("el producto ya se encuentra registrado");
+        res.json("El producto ya se encuentra registrado");
     }
 });
 //elimina un producto del carrito
