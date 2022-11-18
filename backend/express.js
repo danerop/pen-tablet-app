@@ -1,21 +1,14 @@
 //Setting up MySQL
-const _fb2 = require('./firebaseV2');
 const prodController = require("./controller/productosController");
 const carritoController = require("./controller/carritoController");
 const carritoproductoController = require("./controller/carritoproductoController");
 const usuarioController = require("./controller/usuarioController");
 
 const cookieParser = require('cookie-parser');
-//pool.query SIEMPRE retorna un array
-
 
 ////////
 
-const _ = require('lodash');
-const fs = require('fs');
-
 const express = require('express');
-const { async } = require('@firebase/util');
 const app = express();
 const port = 3000;
 
@@ -33,6 +26,7 @@ let showIP = (req, res, next) => {
 }; 
 
 app.use(cookieParser());
+
 app.use((req, res, next) => {
     if(isLogin()){
         next();
@@ -41,17 +35,65 @@ app.use((req, res, next) => {
     }
 }, logger, showIP);
 
-//app.use(logger);
 app.use(express.json());
 
-app.use((req, res, next) => {
-    var user = _fb2.authApp.currentUser;
 
-    res.locals.currentUser = user;
-    next();
-})
+//firebase v2
+app.post('/api/fbRegistrarUsuario', async (req,res) =>{
+    console.log('Petición para registrar usuario');
+
+    let userMail = req.body.email;
+    let userPassword = req.body.password;
+
+    let usuario = JSON.parse(JSON.stringify(req.body));
+
+    usuarioController.registerUser(userMail,userPassword, usuario)
+        .then( userCreated=> {
+            res.json( userCreated );
+        })
+        .catch( err => {
+            console.log(err);
+            res.status(400).send(err);
+        });
+});
+
+app.post('/api/fbLogearUsuario', async (req,res) => {
+    console.log('Petición para logear usuario');
+
+    let userMail = req.body.email;
+    let userPassword = req.body.password;
+
+    usuarioController.logInUser(userMail,userPassword)
+        .then( userResponse => {
+            if(userResponse != null){
+                res.json(userResponse);
+            }
+        })
+        .catch(error =>{
+            console.log(error);
+            res.status(400).json(error);
+        });
+
+});
+
+app.post('/api/isThisUserLoggedIn', async (req,res) => {
+    let userUid = req.body.uid;
+
+    res.json(usuarioController.isThisUserLoggedIn(userUid))
+});
+
+app.get('/api/getUserData', async(req, res) => {
+    let userUid = req.query.uid;
+    usuarioController.getDataUsuario(userUid).then( (user) => {
+        res.status(200).json(user);
+    }).catch( (err) => {
+        console.log(err);
+        res.status(400).send(err);
+    });  
+});
 
 
+//Productos
 app.get('/api/prodId/:id', async (req, res) => {
     console.log('Petición para retornar un producto a partir de su ID');
     
@@ -100,16 +142,6 @@ app.post('/api/editProduct', (req, res) => {
     }
     else{
         res.send(JSON.stringify(nuevosValores))
-        /*let productoAEditar = ProductosDeEjemploJson.find(producto => producto.id == req.body.id);
-        if(nuevosValores.precio != ""){
-            productoAEditar.precio = nuevosValores.precio;
-        }
-        if(nuevosValores.nombre != ""){
-            productoAEditar.nombre = nuevosValores.nombre;
-        }
-        if(nuevosValores.clasificacion != ""){
-            productoAEditar.clasificacion = nuevosValores.clasificacion;
-        }*/
     }
 });
 
@@ -120,14 +152,6 @@ app.post('/api/deleteProduct', (req, res) => {
         id: `${req.body}`,
         accion: "Editar Producto"
     })
-});
-
-app.put('/', (req, res) => {
-    res.send(`Hello World! ${req.method}`)
-});
-
-app.delete('/', (req, res) => {
-    res.send(`Hello World! ${req.method}`)
 });
 
 
@@ -235,15 +259,6 @@ app.put('/api/actualizar-carrito', async(req, res) => {
 });
 
 
-
-/*app.post('/api/fbRegistrarUsuario', async (req,res) =>{
-    let userMail = req.body.email;
-    let userPassword = req.body.password;
-
-    const userResponse = await usuarioController.registrarUsuario(userMail,userPassword);
-
-    res.json(userResponse);
-});*/
 app.post('/api/checkToken', async (req,res) =>{
 
     console.log("peticion para checkToken");
@@ -271,59 +286,7 @@ app.post('/api/checkToken', async (req,res) =>{
 
 });
 
-//firebase v2
-app.post('/api/fbRegistrarUsuario', async (req,res) =>{
-    console.log('Petición para registrar usuario');
 
-    let userMail = req.body.email;
-    let userPassword = req.body.password;
-
-    let usuario = JSON.parse(JSON.stringify(req.body));
-
-    usuarioController.registerUser(userMail,userPassword, usuario)
-        .then( userCreated=> {
-            res.json( userCreated );
-        })
-        .catch( err => {
-            console.log(err);
-            res.status(400).send(err);
-        });
-});
-
-app.post('/api/fbLogearUsuario', async (req,res) => {
-    console.log('Petición para logear usuario');
-
-    let userMail = req.body.email;
-    let userPassword = req.body.password;
-
-    usuarioController.logInUser(userMail,userPassword)
-        .then( userResponse => {
-            if(userResponse != null){
-                res.json(userResponse);
-            }
-        })
-        .catch(error =>{
-            console.log(error);
-            res.status(400).json(error);
-        });
-
-});
-
-app.post('/api/isThisUserLoggedIn', async (req,res) => {
-    let userUid = req.body.uid;
-
-    res.json(usuarioController.isThisUserLoggedIn(userUid))
-});
-
-app.get('/api/getUserData', async(req, res) => {
-    let userUid = req.query.uid;
-    usuarioController.getDataUsuario(userUid).then( (user) => {
-        res.status(200).json(user);
-    }).catch( (err) => {
-        console.log(err);
-        res.status(400).send(err);
-    });  
-})
 
 
 //listen//

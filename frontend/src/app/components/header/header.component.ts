@@ -1,5 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { Usuario } from 'src/app/models/usuario';
 
@@ -13,18 +12,7 @@ export class HeaderComponent implements OnInit {
   usuario : Usuario = new Usuario();
   @Input() email!: String;
 
-  constructor(
-    private afAuth: AngularFireAuth, 
-    private  _usuarioService:UsuarioService) {
-    
-/*
-    this.afAuth.idToken.subscribe(data => {
-      if(data != null) this.isLogged=true;
-      console.log(data);
-    });*/
-
-    
-    
+  constructor(private  _usuarioService:UsuarioService) {    
   }
   
   ngOnInit(): void {
@@ -53,15 +41,6 @@ export class HeaderComponent implements OnInit {
    }
 
   cerrarSession(){
-    /*this.afAuth.signOut().then( () =>{
-        console.log("----Sesion cerrada::::");
-        this.afAuth.currentUser.then( data => {
-          console.log("Usuario: "+data?.email);
-        });
-        this.isLogged=false;
-      }
-    );*/
-    
     this._usuarioService.singOut();
     location.reload();
   }
