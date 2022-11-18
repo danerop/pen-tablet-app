@@ -9,7 +9,7 @@
         required="required"
         formControlName="correo"
       />
-      <span *ngIf="recuperarUsuario.get('correo')?.hasError('email') && recuperarUsuario.get('correo')?.touched"  class="text-danger errorLabel" >El email no tiene el formato correcto</span>
+      <span *ngIf="recuperarUsuario.get('correo')?.hasError('email') && recuperarUsuario.get('correo')?.touched"  class="text-danger errorLabel" >El <strong>email</strong> no tiene el formato correcto</span>
 
       <button type="submit">Enviar email</button>
       <div>

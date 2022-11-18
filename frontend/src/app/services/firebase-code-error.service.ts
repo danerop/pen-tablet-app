@@ -8,6 +8,7 @@ export class FirebaseCodeErrorService {
   constructor() { }
 
   codeError(code:string){
+    
   switch(code){
     case 'auth/email-already-in-use': //correo existe
       return 'El usuario ya existe';
@@ -25,10 +26,10 @@ export class FirebaseCodeErrorService {
         return 'Contraseña erronea';
    //   case 'auth/invalid-email':
    //   return 'Por favor ingrese un email valido'; //email sin formato
-      case 'auth/internal-error':
-        return 'Por favor complete todos los campos'  ; //email completo o contraseña incompleta
+   //   case 'auth/internal-error':
+   //     return 'Error deconocido, comuniquese con el equipo'  ;
     default :
-      return 'Campos incompletos';
+     return 'Campos incompletos'; //realmente puede deberse a que no tiene Email, contraseña o directamente fallo firebase
   }
 }
 }

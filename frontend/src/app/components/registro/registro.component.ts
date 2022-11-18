@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ValidationErrors } from '@angular/forms';
 import { UsuarioService } from 'src/app/services/usuario.service';
 
 
@@ -19,10 +19,14 @@ export class RegistroComponent implements OnInit {
       email:['',[Validators.required, Validators.email]],
       nombre:['',Validators.required],
       apellido:['',Validators.required],
-      password:['',[Validators.required, Validators.minLength(6)]],
+      //password:['',[Validators.required, Validators.minLength(6)]],
       repetirPassword:['',Validators.required],
-      direccion: ['', Validators.required]
-     
+      direccion: ['', Validators.required],
+      password:['',Validators.compose([
+          Validators.required,
+          Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){8,30}$/),
+        ]),
+      ],
     })
    }
 

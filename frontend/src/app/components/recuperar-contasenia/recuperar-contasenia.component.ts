@@ -32,7 +32,7 @@ export class RecuperarContaseniaComponent implements OnInit {
 
         this.afAuth.sendPasswordResetEmail(email).then(()=>{
           this.spinner.hide();
-          this.toastr.info('Se envio un email con la nueva contraseña','Exito');
+          this.toastr.info('Si el usuario existe se le enviara un email con la nueva contraseña','Exito');
           this.router.navigate(["/login"]);
         }).catch((error)=>{
           this.spinner.hide();
