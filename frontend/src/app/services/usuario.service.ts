@@ -140,7 +140,7 @@ export class UsuarioService {
 
     return tempUser;
   }
-
+  
   private deleteSessionData(){
     localStorage.clear();
   }
