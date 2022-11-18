@@ -16,6 +16,7 @@ export class PerfilComponent implements OnInit {
   usuario:Usuario= new Usuario;
   carritos:Carrito[] = [];
   productos:CarritoElement[] = [];
+  carritoEnPantalla: Carrito = new Carrito;
 
   constructor(private carritoService: CarritoService, private usuarioService:UsuarioService, private router:Router) {
   }
@@ -42,10 +43,11 @@ export class PerfilComponent implements OnInit {
     this.carritoService.getCarrito(idCarrito).subscribe( (carrito:Carrito) => {
           
       if(carrito.usuario == this.usuario.uid){ // verifica que el carrito pertenezca al usuario
-    
+      
         this.carritoService.getAllProductosInCarrito(carrito.id).subscribe( (cp:CarritoElement[]) => { //obtiene los elementos del carrito
           this.productos = [];
-          this.productos = cp; 
+          this.productos = cp;
+          this.carritoEnPantalla = carrito;
         }); 
       
       }

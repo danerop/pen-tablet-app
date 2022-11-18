@@ -29,7 +29,8 @@ async function getCarritosCompradosByUsuario(usuario){
   let query = 
   `SELECT * FROM carrito
   WHERE usuario = "${usuario}"
-  AND totalPagado IS NOT NULL`;
+  AND totalPagado IS NOT NULL
+  ORDER BY fecha DESC`;
 
   return await db.queryMultipleResults(query);
 }

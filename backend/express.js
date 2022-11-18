@@ -47,7 +47,6 @@ app.use(express.json());
 app.use((req, res, next) => {
     var user = _fb2.authApp.currentUser;
 
-    console.log(user);
     res.locals.currentUser = user;
     next();
 })
@@ -59,8 +58,6 @@ app.get('/api/prodId/:id', async (req, res) => {
     idParam = req.params.id;
     
     const result = await prodController.getProductById(idParam);
-    
-    console.log(result);
 
     res.json(result);    //es un resultado UNICO
 });
@@ -79,8 +76,6 @@ app.get('/api/getByClasificacion/:idClasificacion' , async (req,res) =>{
     idClass = req.params.idClasificacion;
 
     const result = await prodController.getProductsByIdClasificacion(idClass);
-    
-    console.log(result);
 
     res.json(result);
 });
@@ -215,19 +210,19 @@ app.post('/api/agregar-producto-carrito', async(req, res) => {
         await carritoproductoController.postCarritoProducto(idCarrito, idProducto);
         res.json("Producto agregado al carrito");
     } else {
-        res.json("El producto ya se encuentra registrado");
+        res.json("El producto ya se encuentra en el carrito");
     }
 });
 //elimina un producto del carrito
 app.delete('/api/eliminar-producto-carrito', async(req, res) => {
     let {idCarrito, idProducto} = JSON.parse(JSON.stringify(req.body));
-    console.log("eliminar producto" + idProducto);
+    
     let carrProd = await carritoproductoController.getCarritoProductoByIdCarritoAndIdProducto(idCarrito, idProducto);
     if(carrProd){
         await carritoproductoController.deleteCarritoProducto(idCarrito, idProducto);
-        res.json("producto eliminado del carrito");
+        res.json("Producto eliminado del carrito");
     } else {
-        res.json("no se encuentra el producto que se desea eliminar");
+        res.json("No se encuentra el producto que se desea eliminar");
     }
 });
 
