@@ -51,7 +51,7 @@
         formControlName="password"
         class="form-control mt-3"
       />
-      <span *ngIf="regitrarUsuario.get('password')?.hasError('pattern') && regitrarUsuario.get('password')?.touched"  class="text-danger errorLabel" >La <strong>contraseña</strong> debe tener minimo 6 caracteres</span>
+      <span *ngIf="regitrarUsuario.get('password')?.hasError('pattern') && regitrarUsuario.get('password')?.touched"  class="text-danger errorLabel" >La <strong>contraseña</strong> debe tener minimo 8 caracteres, una letra minuscula, una mayuscula, un numero y un simbolo.</span>
       <input
       type="password"
       id="repetirPassword"

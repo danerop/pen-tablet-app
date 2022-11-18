@@ -5,6 +5,10 @@
   font-size:15px;
   line-height:24px;
   color:#737373;
+  margin-top: 2em;
+  position: absolute;
+  bottom: 0px;
+  height: 300px;
 }
 .site-footer hr
 {

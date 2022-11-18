@@ -15,7 +15,6 @@ import { VerProductoComponent } from './components/ver-producto/ver-producto.com
 import { ListaProductosComponent } from './components/lista-productos/lista-productos.component';
 import { CarritoComponent } from './components/carrito/carrito.component';
 import { RegistroComponent } from './components/registro/registro.component';
-import { VerificarEmailComponent } from './components/verificar-email/verificar-email.component';
 import { RecuperarContaseniaComponent } from './components/recuperar-contasenia/recuperar-contasenia.component';
 import { SpinnerComponent } from './shared/spinner/spinner.component';
 import { environment } from 'src/environments/environment';
@@ -34,7 +33,6 @@ import { PerfilComponent } from './components/perfil/perfil.component';
     ListaProductosComponent,
     CarritoComponent,
     RegistroComponent,
-    VerificarEmailComponent,
     RecuperarContaseniaComponent,
     SpinnerComponent,
     AdminProductoComponent,

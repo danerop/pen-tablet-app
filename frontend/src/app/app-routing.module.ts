@@ -9,7 +9,6 @@ import { PerfilComponent } from './components/perfil/perfil.component';
 import { RecuperarContaseniaComponent } from './components/recuperar-contasenia/recuperar-contasenia.component';
 import { RegistroComponent } from './components/registro/registro.component';
 import { VerProductoComponent } from './components/ver-producto/ver-producto.component';
-import { VerificarEmailComponent } from './components/verificar-email/verificar-email.component';
 
 const routes: Routes = [
   {path: "", redirectTo:"listaDeProductos", pathMatch:"full"},//si no coloca nada va a productos
@@ -20,7 +19,6 @@ const routes: Routes = [
   {path: "login", component: LoginComponent} ,//login
   {path: "singUp", component: RegistroComponent},//pagina de registro
   {path: "recuperarContrasenia", component:RecuperarContaseniaComponent},//pagina de recupero de contraseña
-  {path: "verificado", component: VerificarEmailComponent},//pagina de verificaciond e email
   {path: "adminProducto", component:AdminProductoComponent},
   {path: "listaPorClasificacion", component:ListaPorTipoComponent},
   {path: "**", redirectTo:"listaDeProductos", pathMatch:"full"}   //si modifica la url y no ingresa nada va a productos
