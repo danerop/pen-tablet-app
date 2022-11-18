@@ -1,8 +1,9 @@
-<div  class="login container d-flex justify-content-center align-items-center" >
+<div class="login container d-flex justify-content-center align-items-center" style="width: 40%;">
+
     <form (ngSubmit)="registrar2()" 
           [formGroup]="regitrarUsuario" 
           method="post"
-          class="card px-5 py-4 shadow mt-5" >
+          class="w-100 card px-5 py-4 shadow mt-5" >
       <h1 class="text-center fw-light mb-4">Sing up</h1>
       <input
       type="text"
@@ -10,7 +11,7 @@
       placeholder="Ingrese Nombre"
       required="required"
       formControlName="nombre"
-      class="form-control mb-3"
+      class="form-control mt-3"
       />
       <span *ngIf="regitrarUsuario.get('nombre')?.hasError('required') && regitrarUsuario.get('nombre')?.touched"  class="text-danger errorLabel" >El <strong>nombre</strong> es requerido</span>
 
@@ -20,7 +21,7 @@
       placeholder="Ingrese Apellido"
       required="required"
       formControlName="apellido"
-      class="form-control mb-3"
+      class="form-control mt-3"
       />
       <span *ngIf="regitrarUsuario.get('apellido')?.hasError('required') && regitrarUsuario.get('apellido')?.touched"  class="text-danger errorLabel" >El <strong>apellido</strong> es requerido</span>
 
@@ -30,7 +31,7 @@
       placeholder="Ingrese Direccion"
       required="required"
       formControlName="direccion"
-      class="form-control mb-3"
+      class="form-control mt-3"
       />
       <span *ngIf="regitrarUsuario.get('direccion')?.hasError('required') && regitrarUsuario.get('direccion')?.touched"  class="text-danger errorLabel" >La <strong>dirección</strong> es requerida</span>
       <input
@@ -39,7 +40,7 @@
         placeholder="Ingrese email"
         required="required"
         formControlName="email"
-        class="form-control mb-3"
+        class="form-control mt-3"
       />
       <span *ngIf="regitrarUsuario.get('email')?.hasError('email') && regitrarUsuario.get('email')?.touched"  class="text-danger errorLabel" >El <strong>email</strong> no tiene el formato correcto</span>
       <input
@@ -48,20 +49,20 @@
         placeholder="Ingrese contraseña"
         required="required"
         formControlName="password"
-        class="form-control mb-3"
+        class="form-control mt-3"
       />
-      <span *ngIf="regitrarUsuario.get('password')?.hasError('pattern') && regitrarUsuario.get('password')?.touched"  class="text-danger errorLabel" >La <strong>contraseña</strong> debe tener minimo 8 caracteres, una letra mayúscula, una letra minúscula,un numero y un caracter especial</span>
+      <span *ngIf="regitrarUsuario.get('password')?.hasError('pattern') && regitrarUsuario.get('password')?.touched"  class="text-danger errorLabel" >La <strong>contraseña</strong> debe tener minimo 6 caracteres</span>
       <input
       type="password"
       id="repetirPassword"
       placeholder="Repita la contraseña"
       required="required"
       formControlName="repetirPassword"
-      class="form-control mb-3"
+      class="form-control mt-3"
       />
       
       <button type="submit"
-              class="btn btn-primary d-flex align-items-center justify-content-center fs-4">
+              class="btn btn-primary d-flex align-items-center justify-content-center fs-4 mt-4">
         <span class="material-icons me-2">
           person_add
         </span>
@@ -82,6 +83,5 @@
       </div>
     </form>
     <app-spinner></app-spinner>
-    
   </div>
   
