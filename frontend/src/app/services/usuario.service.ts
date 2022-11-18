@@ -28,7 +28,32 @@ export class UsuarioService {
     this.sessionData.next(this.getSessionData());
   }
 
-  
+  async sendpasword(email:string):Promise<void>{
+    
+    if(email==''){
+      this.toastr.info('Recuerde completar todos los campos', "Info");
+    }
+
+    try{
+      var actionCodeSettings = {
+        // After password reset, the user will be give the ability to go back
+        // to this page.
+        url: 'http://localhost:4200/',
+        handleCodeInApp: false
+      };
+      return this.afAuth.sendPasswordResetEmail(email, actionCodeSettings).then(()=>{
+        this.toastr.info('Si el usuario existe se le enviara un email con un link','Exito');
+        this.router.navigate(["/login"]);
+      }).catch((error)=>{
+        this.spinner.hide();
+        this.toastr.error(this.firebase.codeError(error.code),'Error');
+      })
+    }
+    catch(err){
+      console.log(err);
+    }
+  }
+
   signIn2(email:string,password:string):boolean{
     let body = {
       "email": email,
@@ -165,6 +190,8 @@ export class UsuarioService {
   obtenerDatosDelUsuario(usuario: Usuario): Observable<Usuario>{
     return this._http.get<Usuario>('/api/getUserData?uid=' + usuario.uid);
   }
+
+
 
 }
 
