@@ -1,3 +1,10 @@
+DROP DATABASE IF EXISTS `pentablet`;
+
+CREATE DATABASE pentablet;
+
+USE pentablet;
+
+
 -- phpMyAdmin SQL Dump
 -- version 5.1.3
 -- https://www.phpmyadmin.net/
