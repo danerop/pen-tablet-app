@@ -1,3 +1,4 @@
+<h1 class="text-center my-3 fw-light">Pen Tablet</h1>
 <div class="container my-4 mx-auto ">
   <div class="row ">
     <div *ngFor="let product of productos" 
@@ -11,7 +12,7 @@
               routerLink="/producto" 
               [queryParams]="{prodId: product.id }"/>
 
-        <div class="card-body position-relative">
+        <div class="card-body">
 
           <h5 class="card-title" style="cursor:pointer"
               routerLink="/producto" 
@@ -20,10 +21,10 @@
           </h5>
           <h6 class="card-subtitle">${{product.precio}}</h6>
 
-          <button  (click)="agregarProductoAlCarrito(product.id)"
+          <button  (click)=agregarProductoAlCarrito(product.id)
               class="btn btn-primary 
-                    p-2 mt-3 
-                    d-flex justify-content-center">
+                    mt-3 w-100
+                    d-flex justify-content-center align-items-center">
 
             <i class="material-icons me-2">
               add_shopping_cart

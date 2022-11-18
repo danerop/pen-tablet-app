@@ -1,4 +1,4 @@
-header{
+/*header{
   position: relative;
   background: white;
   padding: 0;
@@ -53,4 +53,8 @@ ul a:hover{
 .menu a{
   width: 100%;
   min-width:8rem;
+}*/
+
+.navbar-nav > li {
+  padding-left: 1em;
 }

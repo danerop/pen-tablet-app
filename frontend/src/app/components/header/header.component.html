@@ -1,38 +1,82 @@
 <header>
-  <div class="container">
-    <a routerLink="/" class="logo">Pen Tablet App</a>
+  <nav class="navbar navbar-expand-xl navbar-light bg-light">
+  <div class="container-fluid">
+    <a routerLink="/" class="navbar-brand fw-bold">Pen Tablet</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarBasic" aria-controls="navbarBasic" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
     <!--<a routerLink="/adminProducto" class="btn btn-primary text-light">ADMIN</a>-->
-    <nav>
-      <ul>
-        <li>
+    <div class="collapse navbar-collapse hide " id="navbarBasic">
+      <ul class="navbar-nav ms-auto mb-2 mb-xl-0">
+        <li class="nav-item">
           <a routerLink="/listaPorClasificacion" 
-            [queryParams]="{idClasificacion:1}">
-          Tabletas Gráficas
+            [queryParams]="{idClasificacion:1}"
+            class="nav-link d-flex align-items-center">
+            <span class="material-icons me-2">
+              tablet
+            </span>
+          Tabletas
         </a>
         </li>
 
-        <li>
+        <li class="nav-item">
           <a routerLink="/listaPorClasificacion"
-            [queryParams]="{idClasificacion:2}">
-            Monitores Gráficos
+            [queryParams]="{idClasificacion:2}"
+            class="nav-link d-flex align-items-center">
+            <span class="material-icons me-2">
+              tv
+            </span>
+            Monitores
           </a>
         </li>
 
-        <li *ngIf="!isLogged">
-          <a routerLink="/login">Login</a>
-          <a routerLink="/singUp">Registrarse</a>
+        <li  class="nav-item d-flex align-items-center"
+        *ngIf="!isLogged">
+          <a routerLink="/login" class="nav-link d-flex align-items-center ">
+            <span class="material-icons me-2">
+              login
+            </span>
+            Login</a>
         </li>
-
-        <li  class="menu-container" *ngIf="isLogged">
-          <a routerLink="">Menu</a>
-          <div class="menu">
-            <a  routerLink="/perfil">Perfil</a>
-            <a (click)="cerrarSession()">Cerrar Sesión</a>
-          </div>
+        <li  class="nav-item"
+        *ngIf="!isLogged" class="d-flex align-items-center">
+            <a routerLink="/singUp" class="nav-link d-flex align-items-center">
+              <span class="material-icons me-2">
+                person_add
+              </span>
+              Registrarse</a>
+          
         </li>
         
-        <li>
-          <a routerLink="/carrito" *ngIf="isLogged">
+
+        <li class="nav-item dropdown" *ngIf="isLogged">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Menú
+          </a>
+          <ul class=" dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink" data-offset="10,20">
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="#" routerLink="/perfil">
+                <span class="material-icons me-2">
+                  person
+                </span>
+                Perfil
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="#" (click)="cerrarSession()">
+                <span class="material-icons me-2">
+                  logout
+                </span>
+                Cerrar Sesión
+              </a>
+            </li>
+          </ul>
+        </li>
+        
+        <li class="nav-item">
+          <a  routerLink="/carrito" 
+              *ngIf="isLogged"
+              class="nav-link d-flex align-items-center">
             <i class="material-icons">
               shopping_cart
             </i>
@@ -40,6 +84,7 @@
           </a>
         </li>
       </ul>
-    </nav>
-  </div>
+    </div>
+    </div>
+  </nav>
 </header>

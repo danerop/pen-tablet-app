@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-11-2022 a las 04:32:48
+-- Tiempo de generación: 18-11-2022 a las 02:52:09
 -- Versión del servidor: 10.4.24-MariaDB
 -- Versión de PHP: 7.4.28
 
@@ -33,6 +33,13 @@ CREATE TABLE `carrito` (
   `totalPagado` int(11) DEFAULT NULL,
   `fecha` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `carrito`
+--
+
+INSERT INTO `carrito` (`id`, `usuario`, `totalPagado`, `fecha`) VALUES
+(3, 'guuDtABQ59dFdj7IBHHWhdBZ7Sj2', NULL, '2022-11-17 00:40:25');
 
 -- --------------------------------------------------------
 
@@ -96,8 +103,14 @@ INSERT INTO `productos` (`id`, `nombre`, `descripcion`, `clasificacion`, `precio
 (6, 'KAMVAS PRO 20', '<h5>Experiencia de dibujo inmersivo traída por colores preciosos</h5><p>Intente sumergirse en el dibujo o el diseño con Kamvas Pro 20 (2019) que cuenta con 120% sRGB en gama de colores y 16,7 millones de colores, lo que llevará la calidad de sus obras a una nueva altura.</p><h5>Cada detalle se muestra animado</h5><p>Haga que su dibujo o diseño se muestre completamente en la pantalla IPS de 19.5 pulgadas que cuenta con resoluciones de 1920 x 1080, con cada detalle para ser renderizado en vivo. Además, el ángulo de visión de 178° de la pantalla puede garantizar aún más la calidad de la imágen.</p>', 2, 210000, 'https://d3ugyf2ht6aenh.cloudfront.net/stores/860/363/products/kamvas-pro-20-2019-pen-display-011-7fd1aae5c210e07fe616321790281305-640-0.jpg'),
 (7, 'INSPIROY DIAL Q620', '<h5>Posibilidades ilimitadas</h5><p>Realice un trabajo mas fácil con Dial Controller. Diseño creativo que despertará tu próxima gran idea.</p><h5>Cada detalle importa mucho</h5><p>Hecho de plásticos y metal ABS superiores, Inspiroy Dial se distingue por su diseño estético exclusivo y mano de obra exquisita. Además, el área activa de 10.5 x 6.5 pulgadas le garantiza un gran lienzo para expresar la creatividad.</p><h5>Indicadores LED multi propósito</h5><p>Hay una luz LED integrada en las ocho teclas de presión que puede indicar la energía en tiempo real. Cuando enciende la tableta digitalizadora. se encenderán 8 luces LED, una tras otra, mientras que las luces se apagarán posteriormente si apaga la tableta digitalizadora</p>', 1, 29000, 'https://d3ugyf2ht6aenh.cloudfront.net/stores/860/363/products/inspiroy-dial-q620m-pen-tablet-011-625ddee44c7394fbb015949228919358-640-0.jpg'),
 (8, 'INSPIROY KEYDIAL KD200', '<h5>La clave es la productividad</h5><p>Inspiroy Keydial KD200 es la primera tableta gráfica en la industria que combina una tableta gráfica y un teclado, además del controlador de marcación y 5 teclas programables, que pueden mejorar efectivamente su productividad. También es compatible con la conexión inalámbrica Bluetooth 5.0 y la carga rápida, para que su trabajo sea más conveniente.</p><h5>La combinación mágica de teclado y Pen Tablet</h5><p>Siguiendo las preferencias de los artistas, agregamos 23 teclas estándar en la tableta gráfica, para mejorar la productividad y ahorrar su espacio de trabajo, que tiene como objetivo romper los estereotipos del dibujo digital. Además, el reposa muñeca ergonómico puede minimizar eficazmente la fatiga después de un uso prolongado.</p>', 1, 29000, 'https://d3ugyf2ht6aenh.cloudfront.net/stores/860/363/products/inspiroy-keydial-kd200-main-21-4d6d17894aa3f406f216276726497878-640-0.jpg'),
-(9, 'KAMVAS PRO 13 (2.5K)', '<h5>Nueva apariencia con mayor calidad</h5><p>El nuevo Kamvas Pro 13 (2.5K) posee la misma parte posterior de aluminio texturizado, vidrio grabajo antideslumbrante y laminación completa que su predecesor: Kamvas Pro 13. Además, la resolución más alta de 2.5K y la tecnología QLED le dan una nueva definición. Kamvas pro 13 te permite sumergirte profundamente en diferentes áreas del arte, como diseño, photoshop, modelado 3D, etc.</p>', 2, 150000, 'https://d3ugyf2ht6aenh.cloudfront.net/stores/860/363/products/huion-kamvas-pro-13-2-5k-011-0e96801fef028e8f4e16490829939018-640-0.jpg'),
-(10, 'KAMVAS PRO 24 (4K)', '<h5>Simplemente poderosa</h5><p>Kamvas Pro 24 (4K) es un monitor interactivo insignia de acercamiento / alejamiento del lienzo y cambiar entre diferentes ventanas para mejorar en gran medida su productividad. Además, se presenta con 4K de resolución, pantalla QLED, función HDR y muchas otras características para garantizar que los artistas profesionales puedan sumergirse fácilmente en la creación.</p>', 2, 500000, 'https://d3ugyf2ht6aenh.cloudfront.net/stores/860/363/products/kamvas-pro-24-4k-pen-display-011-ecef5464a3c3ec61e116390700523651-640-0.jpg');
+(9, 'KAMVAS PRO 13 (2.5K)', '<h5>Nueva apariencia con mayor calidad</h5><p>El nuevo Kamvas Pro 13 (2.5K) posee la misma parte posterior de aluminio texturizado, vidrio grabajo antideslumbrante y laminación completa que su predecesor: Kamvas Pro 13. Además, la resolución más alta de 2.5K y la tecnología QLED le dan una nueva definición. Kamvas pro 13 te permite sumergirte profundamente en diferentes áreas del arte, como diseño, photoshop, modelado 3D, etc.</p><h5>Aclarar la pantalla en un monitor interactivo</h5><p>Puede usar Kamvas Pro 13 (2.5K) como monitor interactivo para modelar, pintar o editar directamente en la pantalla</p>', 2, 150000, 'https://d3ugyf2ht6aenh.cloudfront.net/stores/860/363/products/huion-kamvas-pro-13-2-5k-011-0e96801fef028e8f4e16490829939018-640-0.jpg'),
+(10, 'KAMVAS PRO 24 (4K)', '<h5>Simplemente poderosa</h5><p>Kamvas Pro 24 (4K) es un monitor interactivo insignia de acercamiento / alejamiento del lienzo y cambiar entre diferentes ventanas para mejorar en gran medida su productividad. Además, se presenta con 4K de resolución, pantalla QLED, función HDR y muchas otras características para garantizar que los artistas profesionales puedan sumergirse fácilmente en la creación.</p><h5>Enfóquese en una calidad de imagen brillante con HDR</h5><p>Es el primer monitor interactivo que adopta la tecnología HDR en la industria. Puede abrir la función HDR para disfrutar de un color más rico, un contraste más profundo y un brillo más alto, a fin de ofrecer una obra de arte dinámica y realista que resalte</p>', 2, 500000, 'https://d3ugyf2ht6aenh.cloudfront.net/stores/860/363/products/kamvas-pro-24-4k-pen-display-011-ecef5464a3c3ec61e116390700523651-640-0.jpg'),
+(11, 'INSPIROY H420X', '<h5>No solo con experiencia en dibujo</h5><p>Suave, rápido y portátil. Inspiroy H420X tiene una alta tasa de informes y un nivel de sensibilidad a la presión que le permite no solo disfrutar dibujando sino también sumergirse en el juego OSU. Además, es compatible con varios sistemas operativos para satisfacer diversas demandas, como aprendisaje en línea, toma de notas y dibujo al aire libre</p><h5>Fácil de cargar, conveniente de usar</h5><p>Con solo 105g de peso y 7 mm de grosor, la Inspiroy H420X ofrece una gran portabilidad. Puede llevarlo a cualquier parte.</p>', 1, 9000, 'https://d3ugyf2ht6aenh.cloudfront.net/stores/860/363/products/huion-inspiroy-h420x-11-2e7731a26f68719e9216420862010521-640-0.jpg'),
+(12, 'HUION G920S WIRELESS', '<h5>Huion G920S Touch Inalambrica</h5><p>Bisel ultra estrecho. La primera tableta digital de la industria con un diseño de bisel ultra estrecho puede ahorrar espacio adicional.</p><h5>Especificaciones Técnicas</h5><p>Color: Negro\nDimensión: 374 x 177 x 9mm<br>\nPeso Neto: 650g<br>\nTeclas Presionables: 16 Teclas Programables<br>\nEspacio de trabajo: 99.3 x 158.8mm<br>\nLápiz digital: PW500<br>\nTecnología de lápiz: Lápiz sin Batería (EMR)<br>\nResolución del lápiz: 5080 LPI<br>\nSensibilidad a la presión: 8192 Niveles<br>\nExactitud: ±0.3 mm<br>\nAltura de detección: 10 mm<br>\nTasa de informe: 266 PPS<br>\nInterface: Micro USB</p>', 1, 22000, 'https://d3ugyf2ht6aenh.cloudfront.net/stores/860/363/products/huion-inspiroy-h610x-11-aa21cad270a7f2c26216474483740024-640-0.jpg'),
+(13, 'INSPIROY RTM-500', '<h5>Estéticamente agradable pero más práctica</h5><p>La hoja de textura no solo hace que los productos se vean más a la moda, sino que también tiene una función antihuellas, que permite la experiencia de dibujo con lápiz sobre papel. También puede ayudar a controlar los movimientos precios del puntero con mayor facilidad</p><h5>Da rienda suelta a tu creatividad en Android</h5><p>Puedes conectar fácilmente la tableta RTM-500 a sus dispositivos Android, a través de adaptador OTG, que te permite disfrutar del dibujo al aire libre.</p>', 1, 18000, 'https://d3ugyf2ht6aenh.cloudfront.net/stores/860/363/products/inspiroy-rtm-500-pen-tablet-11-143ba8fa46ea25e92516317334426276-640-0.jpg'),
+(14, 'KAMVAS 24 PLUS', '<h5>Simple, pero poderosa</h5><p>Mayor tamaño, mayor resolución y productividad sin cambios</p><h5>Capture todos los detalles en la pantalla QHD</h5><p>Con la resolución QHD (2560x1440) y la pantalla de 23,8 pulgadas, Kamvas 24 Plus presentan imágenes más claras y detalladas frente a sus ojos. También le proporciona un espacio de trabajo más grande para ayudar a sumergirse en su creación.</p><h5>No olvide el puerto USB súper práctico</h5><p>Kamvas 24 y Kamvas 24 Plus están equipados con un puerto USB que le permite conectar fácilmente todos sus periféricos sin tener que pasar mucho por debajo de su escritorio o detrás de su computadora.</p>', 2, 520000, 'https://d3ugyf2ht6aenh.cloudfront.net/stores/860/363/products/k24-plus1-92b9f6200f998c5f1416420870114657-640-0.jpg'),
+(15, 'KAMVAS 24 SERIES', '<h5>Apota más colores a tus obras de arte</h5><p>Al igual que otros motitores interactivos Kamvas, Kamvas 24 tiene una gama de colores sRGB del 120%, lo que aporta más color a su trabajo y hace que la imagen sea más vibrante. Además, la versión Plus adopta la tecnología Quantum Dots líder en la industria para lograr una gama de colores ultra amplia de 140% sRGB. Combinando la resolución QHD y el acabado de superficie perfecto, puede obtener una excelente experiencia visual.</p><h5>Disfrute de la estabilidad con PenTech 3.0</h5><p>Con la última tecnología de bolígrafo PenTech 3.0, el bolígrafo sin batería PW517 proporciona una mejor estabilidad con una punta de lápiz en una posición más baja para brindarle una experiencia de dibujo realista. También admite la función de inclinación de 60° y 8192 niveles de sensibilidad a la presión.</p>', 2, 320000, 'https://d3ugyf2ht6aenh.cloudfront.net/stores/860/363/products/k241-8ba919e8bdde133e9d16390702814491-640-0.jpg'),
+(16, 'KAMVAS PRO 16 2.5K', '<h5>Nueva apariencia con mayor calidad</h5><p>El nuevo Kamvas Pro 16 (2.5K) posee la misma parte posterior de aluminio texturizado, vidrio grabado antideslumbrante y laminación completa que su predecesor: Kamvas Pro 16. Además, la resolución más alta de 2.5K y la tecnología QLED le dieron una nueva definición. Kamvas Pro 16 te permite sumergirte profundamente en diferentes áreas del arte, como diseño, photoshop, modelado 3D, etc.</p><h5>Visión más clara, crea más ideas</h5><p>La resolución mejorada de 2.5K QHD (2560x1440) le permite ver más detalles en su impresionante pantalla de 15,8\", puede alcanzar los 186 PPI (pixeles por pulgada), lo que duplica los detalles para mejorar su visión y su experiencia personal</p>', 2, 230000, 'https://d3ugyf2ht6aenh.cloudfront.net/stores/860/363/products/huion-kamvas-pro-16-2-5k-011-3f973c6b73e190416f16587646821073-640-0.jpg');
 
 -- --------------------------------------------------------
 
@@ -112,6 +125,13 @@ CREATE TABLE `usuarios` (
   `direccion` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `usuarios`
+--
+
+INSERT INTO `usuarios` (`uid`, `nombre`, `apellido`, `direccion`, `email`) VALUES
+('guuDtABQ59dFdj7IBHHWhdBZ7Sj2', 'Arami', 'Aquino', 'DIRECCION 1', 'jannett.aquino2106@gmail.com');
 
 --
 -- Índices para tablas volcadas
@@ -159,7 +179,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `carrito`
 --
 ALTER TABLE `carrito`
-  MODIFY `id` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `carritoproducto`
@@ -177,7 +197,7 @@ ALTER TABLE `clasificacion`
 -- AUTO_INCREMENT de la tabla `productos`
 --
 ALTER TABLE `productos`
-  MODIFY `id` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- Restricciones para tablas volcadas
