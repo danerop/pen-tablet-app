@@ -1,6 +1,6 @@
-DROP DATABASE IF EXISTS `pentablet`;
+DROP schema IF EXISTS `pentablet`;
 
-CREATE DATABASE pentablet;
+CREATE schema pentablet;
 
 USE pentablet;
 
@@ -46,7 +46,7 @@ CREATE TABLE `carrito` (
 --
 
 INSERT INTO `carrito` (`id`, `usuario`, `totalPagado`, `fecha`) VALUES
-(3, 'guuDtABQ59dFdj7IBHHWhdBZ7Sj2', NULL, '2022-11-17 00:40:25');
+(3, 'mlvxCj6gN8aiEaazawBsuOsNcjF3', NULL, '2022-11-17 00:40:25');
 
 -- --------------------------------------------------------
 
@@ -138,7 +138,7 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`uid`, `nombre`, `apellido`, `direccion`, `email`) VALUES
-('guuDtABQ59dFdj7IBHHWhdBZ7Sj2', 'Arami', 'Aquino', 'DIRECCION 1', 'jannett.aquino2106@gmail.com');
+('mlvxCj6gN8aiEaazawBsuOsNcjF3', 'Arami', 'Aquino', 'DIRECCION 1', 'jannett.aquino2106@gmail.com');
 
 --
 -- Índices para tablas volcadas

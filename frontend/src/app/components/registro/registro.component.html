@@ -51,7 +51,9 @@
         formControlName="password"
         class="form-control mt-3"
       />
-      <span *ngIf="regitrarUsuario.get('password')?.hasError('pattern') && regitrarUsuario.get('password')?.touched"  class="text-danger errorLabel" >La <strong>contraseña</strong> debe tener minimo 8 caracteres, una letra minuscula, una mayuscula, un numero y un simbolo.</span>
+      <span *ngIf="regitrarUsuario.get('password')?.hasError('pattern') && regitrarUsuario.get('password')?.touched"  class="text-danger errorLabel" >
+        La <strong>contraseña</strong> debe tener mínimo 8 caracteres, una letra minúscula, una mayúscula, un número y un símbolo.
+      </span>
       <input
       type="password"
       id="repetirPassword"
@@ -77,7 +79,7 @@
             <span class="material-icons me-2">
               login
             </span>
-            Inicie sesion
+            Inicie sesión
           </a>
         </p>
       </div>
